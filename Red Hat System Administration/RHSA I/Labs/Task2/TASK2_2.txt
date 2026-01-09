@@ -1,0 +1,52 @@
+1. ps aux
+---------------------------------------------------------
+Description: 
+Displays a detailed snapshot of all running processes on the system, 
+regardless of the user or terminal association.
+
+Breakdown:
+  a : Show processes for all users.
+  u : Display the process's user/owner (provides detailed info like CPU/MEM).
+  x : Show processes not attached to a terminal (e.g., background daemons).
+
+Common Options:
+  --sort=-%cpu : Sort results by CPU usage.
+  --sort=-%mem : Sort results by Memory usage.
+
+Examples:
+
+  # Show all processes being run by the "root" user
+  ps aux | grep root
+
+
+2. less
+---------------------------------------------------------
+Description:
+A command-line utility that displays the contents of a file (or command output) 
+one page at a time. It allows backward and forward scrolling.
+
+Common Options:
+  -N : Display line numbers.
+  -S : Chop long lines (don't wrap text to the next line).
+  +F : Follow mode (updates as the file grows, similar to 'tail -f').
+
+Example:
+  # Open a large log file with line numbers enabled
+  less -N /var/log/syslog
+
+
+3. pgrep
+---------------------------------------------------------
+Description:
+Stands for "process grep". It searches for processes specifically by name 
+and outputs their Process IDs (PIDs).
+
+Common Options:
+  -l      : List the process name alongside the PID.
+  -a      : List the full command line used to start the process.
+  -u <user>: Only find processes owned by a specific user.
+  -c      : Count the number of matching processes.
+
+Example:
+  # Find the PIDs and full command lines of all 'ssh' processes
+  pgrep -a ssh
