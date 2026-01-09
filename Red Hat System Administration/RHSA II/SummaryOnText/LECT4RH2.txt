@@ -1,0 +1,481 @@
+===============STORAGE=========================
+SATA/SAS/Usb Storage    NAMED => /dev/sda, /dev/sdb
+VM Machine/Virtual Disk   NAMED=> /deev/vda, /deev/vdb
+NVMe (ssd)     NAMED=>  /dev/nvme0,/dev/nvme1
+SD /MME/emmc  NAMED=>   /dev/mmblk0   /dev/mmblk1
+CD/DVD    NAMED =>  /dev/sr0     /dev/sr1
+
+TYPE	|	FIRST STORAGE		|	1st Partition	| 2nd Partition 
+SATA    |   /dev/sda                    |   /deev/sda1          | /dev/sda2
+nvme    |   /dev/nvme0                  |   /dev/nvmep1         | /dev/nvmep2	
+
+
+
+
+
+EXPLANATION:Fel laptop byet7t feh multiple hards f msln nvme0  da kda m7tot f slot 0 fel board 
+tyb leh b2a mwgod nvme0n1  de ka2enaha moshtarak fate7 mn nafs el disk ely hwa 3ndy ely m7tot f slot 0 bs b3ml mno kaza part mno 
+Lma age azwd el partition lazm a2fl el machine 34an tezhar 3nde nvme laken lw m2fltsh htetl3 sda  l2een el disk el hdd 
+da beykon 7ga esmha hotswap y3ne mmken wel machine mfto7a tshel w t7ot br7tk 3ks el ssd 
+
+TYPES of HArddisk on VMWARE lma akon 3wz azwd storage :
+SCSI, SATA => HOTSwap msh lazm a2fl el ghaz 
+IDE, NVMe => Lazm a2fl el ghaz 34an a2dr azwd fehom 
+
+Haft7 setting bta3et el machine b3d m2flha w Akhtar harddisk w a3ml add w ados next w b3d kda Akhtar nvme(recommended)
+
+feh 3 ekhtyarat b2a 
+Create New Disk: w eny azwd gdid w arakamhom b2a zy m ana 3wz n1, n2 w hakaza w lazm lma akhalas wa7ed a3ml okay w aft7 tany azwd wa7ed tany 34an lw 7atethom mra w7da mmken rakam 7 ygey abl rakam 5 msln 34an atala3hom b tarteb manteky 
+
+Use an Existing virtual disk: De b2a lw 3nde w7da msln w 3wz astakhdmha tany lw msln msh mstakhdmha w lw 3wz a2smha w kda 
+
+Use a physical disk : de b2a eny ageb disk bgd w a3mlo bs advanced :( (SEARCH FOR IT )
+
+
+Next w a7ot 10GB
+
+Allocate=> de eno ye7gez el 10GB mra w7da w yakhdo mn el storage el 7a2e2ya 3nde 
+f ana msh ha3mlha 34an ana hakhaleh yfdl yws3 m3aya l7d m ywsl l 10G a7sn ma a7gzhom mra w7da f msh ha3alem 3leha kda 
+
+
+Split virual machine disk as a single file : byakhod file w7da 7gmo masaln 10 Giga f lw ana 3wz an2lha msh ha3rf lazm tkon ntfs w lw 3ozt ann2lha mmken lma aro7 hnak msh hala2y hnak ntfs brdo 
+Split Virtual disk into multiple files : de a7sn l2eny a2dr a3ml backup aw akhod nosaha w a7otha f makan gdid f el mwdo3 absat hna lel na2l w mawdo3 el backhup bs el 3eb el w7ed ely feha enha multiple file f buyedtar y3mlha indexing f buet2khar milli seconds msh htefr2 m3ana bs hyefr2 m3 el servers ely btekhdm
+
+NEXT
+
+H3ml folder gdid a7ot feh el disks bt3ty gwa el machine 34an mye7slsh overwrite
+
+Finish , Lw dost finish w m3mltsh Ok fel akher hwa kda et3mlo creation bs mat7atesh fel machine f hage k2eny b3ml disk gdid bs hakhtar use an existing disk 
+w Akhtar awl wa7ed mnhom w hyesht8l \
+
+
+Nft7 b2a el machine w net2kd b lsblk 
+
+fdisk-l
+
+Device           Start      End  Sectors  Size Type
+/dev/nvme0n1p1    2048  1230847  1228800  600M EFI System  (EFI System da firmware el motherboard) w mmken tb2a BIOS
+/dev/nvme0n1p2 1230848  3327999  2097152    1G Linux filesystem
+/dev/nvme0n1p3 3328000 41940991 38612992 18.4G Linux LVM
+
+Da el assay bta3y 
+
+Disk /dev/nvme0n2: 10 GiB, 10737418240 bytes, 20971520 sectors
+Disk model: VMware Virtual NVMe Disk
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+Da ely zawedto b2a 
+
+/ => Root direectoyr lel system kolo 
+/Swap => Virtual memory badeel lel ram bakhod goz2 mn el hard w yestakhdmo k ram w mmken brdo a2dr a3ml file fel /root w astakhdmo ka eno ram brdo 
+
+Negy b2a neebos 3la shaklohom (Swap wel root directory)
+
+Disk /dev/mapper/rhel-root: 16.41 GiB, 17620271104 bytes, 34414592 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+Disk /dev/mapper/rhel-swap: 2 GiB, 2147483648 bytes, 4194304 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+Lw 3mlt df brdo hala2y el 7agat byna w b a7gamha bs msh hanla2y el swap l2eny myenf34 a3mlha mount 34an msh hakhazen 3leha hya byet3ml 3leha buffer bs 
+
+
+W da b2a hwa el LVM system 
+
+=============================Shar7 el Ta2sem ezay bye7sl w ezay ========================
+
+BIOS / UEFI  Firmware for Motherboard el UEFI graphical w da el a7das bs w feh mouse w bye2dr yeft7 m3aya 3la el usb arkam aktr mn el BIOS w byedeny secure boot
+BIOS =>MBR (MAster Boot Record)(h y create MBR file)=>DOS (da no3 el ta2sem)
+UEFI => EFI(h y create EFI file) => GPT(da no3 el ta2sem f el  hard)
+
+Explanation: 
+MBR => malosh partition bs byakhod sector bye7gzo l nafso w beyshawr b2a 3la el 7gat bta3eet el configuration 
+EFI => hna b2a ana b3ml partition w beykon el awalany w barme 3leh file feh configuration el gehaz 34an a2dr a boot
+
+
+
+MBR: Ma2asha 512Byte metkawena mn 3 7agat  
+64B => Partitioning table byebtde mn fen w byenthy fen w m2aso ad eh   
+446B  => de feha el bootloader (da el software ely bey2om w bey2ol lel operation system y2om)
+2B  => Magic Number 
+Mashakel el MBR:
+Total el disks ely a2dr astakhdmha m3 ele MBR maximum 2 TB y3nee lw 3nde akbr mye2drsh yshofhom 
+total el partition bta3to le primary 4 bas m2drsh a2asm aktr mn kda f lw 3wz aktar mn 4 ha2asem 3 primary w 1 bs extended bs lma bage a3ml extended bethadar mesa7a
+mn el hards w lw el primary bta3ty etmlt mkontsh a2dr akhod mn el extended msa7a w azwd el primary l2eny kda h corrupt el extended disk klo 
+
+
+GPT: 
+Hna byedeny up to 128 partition a2dr a3mlhom fel hard bta3y w kolohom primary msh zay ely fat w more security brdo 
+
+How to make partitioning 
+1) fdisk /dev/nvme0n2
+
+2)partprobe /dev/nvme0n2   (bstakhdmo bdl ma a3ml restart lel machine 34an ye2ra el disk ely 3mlto)
+3)mkfs     h3ml make file systeme 
+4)mkdir  folder 34an a7ot feha el hard bta3y 
+5)ha3ml mount 3la el folder da b2a 
+
+Awamer ely gwa el fdisk mmken lma tft7ha tktb m 34an teezher el help w ekhtar shof kol el options b2a wely ta7t de shwyet options:
+p for print partition ely mwgoda 3nde 
+l da 34an a3ml list w a2dr Akhtar mn el list de el 7ga ely ana 3wz a3dlha
+o create partition table
+d delete partition 
+w save and quit 
+q quit without saving 
+
+
+Fel fdisk ana m2drsh a3ml mwdo3 eel resizing aw shrinking 
+
+
+El system el 7a2e2y bta3y UEFI bs ehna hn3ml da DOS b2a f hastakhdm fdisk lw 3wzo GPT hastkhdem gdisk
+
+
+[root@jimmy ~]# fdisk /dev/nvme0n2
+   n   add a new partition
+Command (m for help): n
+Partition type
+   p   primary (0 primary, 0 extended, 4 free)
+   e   extended (container for logical partitions)
+Select (default p): enter
+Partition number (1-4, default 1): enter  (de shabah ely fel pc  C:, D:,F: w kda 
+First sector (2048-20971519, default 2048):enter    Hna bey2oly en awl w7da 3nde awlha 2048 f lw edeeto rakam tany y3nee haseb fara8 w habtde mn 3ndha f kda hahadar mesa7a  (Mn el akher mal3absh fe de )
+
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-20971519, default 20971519): +1G     De kda en ana azwd 7agm el partition bta3y mn 2048+1G f balash a7ot el default 34an mastahdersh el msa7a kolha fel partition da 
+
+Created a new partition 1 of type 'Linux' and of size 1 GiB.
+
+Command (m for help): p
+Disk /dev/nvme0n2: 10 GiB, 10737418240 bytes, 20971520 sectors
+Disk model: VMware Virtual NVMe Disk
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x37c55a72
+
+Device         Boot Start     End Sectors Size Id Type
+/dev/nvme0n2p1       2048 2099199 2097152   1G 83 Linux
+
+=============================
+Hane3ml another one b2a 
+===========================
+Command (m for help): n
+Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): p
+Partition number (2-4, default 2): 
+First sector (2099200-20971519, default 2099200): 
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2099200-20971519, default 20971519): 
+
+Created a new partition 2 of type 'Linux' and of size 9 GiB.
+
+==================================
+Ha3mlo Delete b2a 
+=================================
+Command (m for help): d
+Partition number (1,2, default 2): 2
+===================================
+TASK 
+Make partition with partition number  4 w yebla3 el mesa7a kolha 
+=========================================
+Command (m for help): n
+Partition type
+   p   primary (1 primary, 0 extended, 3 free)
+   e   extended (container for logical partitions)
+Select (default p): e
+Partition number (2-4, default 2): 4
+Enter
+Enter
+
+Command (m for help): p
+Disk /dev/nvme0n2: 10 GiB, 10737418240 bytes, 20971520 sectors
+Disk model: VMware Virtual NVMe Disk
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0ce6c0cd
+
+Device         Boot   Start      End  Sectors Size Id Type
+/dev/nvme0n2p1         2048  2099199  2097152   1G 83 Linux
+/dev/nvme0n2p4      2099200 20971519 18872320   9G  5 Extended
+/dev/nvme0n2p5      2101248  4198399  2097152   1G 83 Linux
+/dev/nvme0n2p6      4200448  6297599  2097152   1G 83 Linux
+/dev/nvme0n2p7      6299648  8396799  2097152   1G 83 Linux
+
+Neshof b2a 7eetet el tahder ely bt7sl fel extended lw basena ben kol end le start ben kol partition hanla2y el tahder beeyzed 
+Ana haro7 amsa7 b2a 6
+Device         Boot   Start      End  Sectors Size Id Type
+/dev/nvme0n2p1         2048  2099199  2097152   1G 83 Linux
+/dev/nvme0n2p4      2099200 20971519 18872320   9G  5 Extended
+/dev/nvme0n2p5      2101248  4198399  2097152   1G 83 Linux
+/dev/nvme0n2p6      6299648  8396799  2097152   1G 83 Linux
+
+kda feh msa7a ktir fel nos msh mostakhdama lw ro7t a3ml another disk fl nos lazem ykon nafs 7agm ely ablo 
+f lazem adelo
+enter 
+enter
+
+Device         Boot   Start      End  Sectors Size Id Type
+/dev/nvme0n2p1         2048  2099199  2097152   1G 83 Linux
+/dev/nvme0n2p4      2099200 20971519 18872320   9G  5 Extended
+/dev/nvme0n2p5      2101248  4198399  2097152   1G 83 Linux
+/dev/nvme0n2p6      6299648  8396799  2097152   1G 83 Linux
+/dev/nvme0n2p7      4200448  6297599  2097152   1G 83 Linux
+
+Hanla7ez hna en rakam 7 ely kan fel awl b2a esmo 6 w rakam 7 et3mlo create gidid bel msa7a bta3et 6 el adem w hyezharle en el tarteb metla8bat 
+
+Partition table entries are not in disk order.
+
+
+Lw basena hna el rakam bta3 el extended byebd2 mn 5 l2eno da logical l2en awl 4 ma7gozen lel primary 7ata lw ekhtart el partition number 2 aw ay rakam tany 
+tyb lw 3mlt extended tany hyakhod rakam 6 w b3d kda lw 3mlt delete l rakam 5 f rakam 6 hyerg3 l rakam 5 w hye7sl mshakel fel msa7a ONE WAY IN PARTITIONING
+Tyb lw 3mlt delete l rakam 4 kda da hy3l delete l kol el logical ley wraha l2en da container 
+=========================================================================================================================
+
+Hamsa7 rakam 6 w 7
+w hakhod screen shot lel zaher w de el task 
+===========================================
+
+Second Step 
+2)[root@jimmy ~]# partprobe /dev/nvme0n2
+
+===========================================
+
+Third Step:Formatting (Ahaya2 el taree2 eny a2dr a7ot data 3lehi 
+[root@jimmy ~]# mkfs.
+mkfs.cramfs  mkfs.ext3    mkfs.fat     mkfs.msdos   mkfs.xfs     
+mkfs.ext2    mkfs.ext4    mkfs.minix   mkfs.vfat  
+	
+De el filesystem formatting ely 3la el redhat bs 3mt Linux byefham aktar mn kda w el kernel bt3to bt2dr t compatible m3 kol el file systems 
+
+ext2, 3, 4 =>
+Our System sh8al =>xfs 
+ely sh8al fel windows w el shrkat sa3at btstakhdmo fel backup  => fat, vfat w maximum size bta3o 4G
+Ayam el unix => minix 
+Windows=> bye2dr y2ra el FAT32 bs w sha8al NTFS
+
+More Explanation 
+Removable device hard aw flash => ext2 mafhosh security bs bey3esh aktar 
+ext3 da b2a lw 7sl file corrupted y2dr yerg3 lel hash el adema w y3mlo recover b eno y3ml labeling lel 7ga 
+ext4 shabah 3 w zawed feh 7ta security (USED IN MOST OF LINUX EXCEPT REDHAT USES XFS)
+ext4 feh 7ga 7lwa a2dr a3mlo extend w hwa sh8al 3ady laken lw h3mlo shrink lazm a3mlo umount el awl w b3d kda a3mlo shrink 
+xfs a2dr a3mlo extend bs ma2drsh a3mlo shrink 
+
+
+
+H3ml first one ext4
+[root@jimmy ~]# mkfs.ext4 /dev/nvme0n2p1
+mke2fs 1.46.5 (30-Dec-2021)
+Creating filesystem with 262144 4k blocks and 65536 inodes
+Filesystem UUID: 0eb07ad0-7287-44f8-82f4-a58a4e1484c2
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done
+
+Hna 3mal superblocks w m2smhom kza w7da 34an lw feh block baz ma ybawazsh el data kolha
+el journal de 34an y3rf y3ml index l kol 7ga 3ndo 
+
+Ha3ml tany el extended xfs 
+[root@jimmy ~]# mkfs.xfs /dev/nvme0n2p5
+meta-data=/dev/nvme0n2p5         isize=512    agcount=4, agsize=65536 blks
+         =                       sectsz=512   attr=2, projid32bit=1
+         =                       crc=1        finobt=1, sparse=1, rmapbt=0
+         =                       reflink=1    bigtime=1 inobtcount=1 nrext64=0
+data     =                       bsize=4096   blocks=262144, imaxpct=25
+         =                       sunit=0      swidth=0 blks
+naming   =version 2              bsize=4096   ascii-ci=0, ftype=1
+log      =internal log           bsize=4096   blocks=16384, version=2
+         =                       sectsz=512   sunit=0 blks, lazy-count=1
+realtime =none                   extsz=4096   blocks=0, rtextents=0
+
+==========================================
+
+4) Mounting 
+HNA ana bwd7 en el ext3 aw 4 y2dr y3mlo backup bs w brdo b y supporting el encryption 
+El extended ely hwa p4 myenf34 yet3mlo mount l2neo container enma ely gwah ha2dr a3ml l kol w7da mount 
+[root@jimmy ~]# mkdir media1 media2
+[root@jimmy ~]# mount /dev/nvme0n2p1 media1
+[root@jimmy ~]# mount /dev/nvme0n2p5 media2
+[root@jimmy ~]# ls media1       
+lost+found
+[root@jimmy ~]# ls media2
+[root@jimmy ~]# touch media2/1
+[root@jimmy ~]# ls media2
+1
+[root@jimmy ~]# umount media1 media2
+[root@jimmy ~]# ls media1
+[root@jimmy ~]# ls media2
+
+
+FSTAB:
+34an akhale el mount sabet m3aya kol ma bye7sl restart lel system el system awl m byeft7 beyshof el fstab f beyro7 y3ml mount automatically 3latol 
+Lazem ageb awl 7ga el id 
+[root@jimmy ~]# blkid
+/dev/mapper/rhel-swap: UUID="1fb00b8e-4f17-43b7-82ef-28b556e7d449" TYPE="swap"
+/dev/nvme0n1p3: UUID="BGinKh-Bm1V-2Kt9-Ttyd-umM3-GI3C-bFumKN" TYPE="LVM2_member" PARTUUID="df140634-618c-4264-a102-1dae9f8efe41"
+/dev/nvme0n1p1: UUID="B794-6057" TYPE="vfat" PARTLABEL="EFI System Partition" PARTUUID="858a9566-6698-4571-8b45-71b78ec31555"
+/dev/nvme0n1p2: UUID="ff272c5a-57c7-4fcf-a13a-74433cb3136c" TYPE="xfs" PARTUUID="20054937-8d00-4892-889e-f5def5c111a4"
+/dev/sr0: UUID="2024-04-12-03-32-56-00" LABEL="RHEL-9-4-0-BaseOS-x86_64" TYPE="iso9660" PTUUID="8b7567d5" PTTYPE="dos"       El DVD hna el type iso9660
+/dev/nvme0n2p1: UUID="0eb07ad0-7287-44f8-82f4-a58a4e1484c2" TYPE="ext4" PARTUUID="0ce6c0cd-01"
+/dev/nvme0n2p5: UUID="94fc8dd3-db6c-49a1-af94-dd25044decdc" TYPE="xfs" PARTUUID="0ce6c0cd-05"
+/dev/mapper/rhel-root: UUID="1049f4c5-b63c-4b80-8dd8-a44e6f6a191f" TYPE="xfs"
+
+Lma age a7oto fel fstab a2dr a7oto b esmo ya ema bel UUID (Universal Unique ID) bs el ahsan astkhdm el UUID 34an mmken y7sl conflict lw 3mltha bel asma2 
+NFT7 el fstab b2a w neshof el m3lomat ely kanet f blkid w nemle el fstab 
+==============
+vim /etc/fstab         
+UUID=0eb07ad0-7287-44f8-82f4-a58a4e1484c2       /root/media1    ext4    defaults        0 0
+
+(m3na kelmet defaults =>eny a2ol lel system ya system da asasy w enta bteft7 lazm tla2iha wnta dakhel 34an t3mlha mount w lw ml2thash ro7 l emergency mode,  Network file system zy ftp server msln maba7otolosh defaults b7otlo 7aga tanya w de bet2olo khosh el system b3d kda dawar b2a 3leha)
+
+Shar7 el 0 0
+el 2ola:de 34an a2olo ya ema t3ml backup ya ema la w de fel systems el adema w fokk mnha dayman zero 
+el tanya: Must or not eno ye check 3la el file system hwa ext4 f lw oltlelo 0 y3ne mt3mlsh check lw 3mlto 1 hyro7 y3ml check w lw mla2ahash ext haykhosh emergency 
+
+[root@jimmy ~]# mount -a         DE 34an takhod ely fel fstab w t3mle ely feha mount ya basha 
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+[root@jimmy ~]# systemctl daemon-reload 
+[root@jimmy ~]# df
+/dev/nvme0n2p1           996780       24    927944   1% /root/media1
+
+Hankhosh lele emergency mode b2a ha8ayar fel UUID ay 7ga w ha3ml reboot 
+1)ha7ot password el root (W TAKE CARE LAZEM ADELO EL PASSWORD MN EL ARKAM ELY FO2 MSH el Num pad ely 3al ymen take care mn el 7ta de brdo fel password recovery)
+2)haktb blkid  w haktb el UUID el mzbot b edaya 
+3)w haft7 el /etc/fstab w hazabat el dnya 
+4)reboot 
+
+Tyb lw msln katabt media 8ere media1 ely ana 7attha feha hwa hye3lo create lw7do mn 3ndo 
+
+===============================================================================================================
+NOTE FOR REPO: mmken a3ml mount fel fstab lel DVD w a3mlha fel media 34an a2dr akhale kol user y2dr y3ml download mn el repo ely ana 3lha 
+===============================================================================================================
+
+
+=================SWAPPING===========================================
+Eny akhod goz2 mn le hard w a3mlo ka eno ram w astakhdmo 
+1)create partition 1G fel extended 34an n3mlo swap 
+Device         Boot   Start      End  Sectors Size Id Type
+/dev/nvme0n2p1         2048  2099199  2097152   1G 83 Linux
+/dev/nvme0n2p4      2099200 20971519 18872320   9G  5 Extended
+/dev/nvme0n2p5      2101248  4198399  2097152   1G 83 Linux
+/dev/nvme0n2p6      4200448  6297599  2097152   1G 83 Linux   Da ely ana zwedto w 7agmo 1G
+
+2)Command (m for help): l
+Aliases:
+   linux          - 83
+   swap           - 82
+   extended       - 05
+   uefi           - EF
+   raid           - FD
+   lvm            - 8E
+   linuxex        - 85
+
+
+3)Lets Make it swap
+Command (m for help): t
+Partition number (1,4-6, default 6): 6
+Hex code or alias (type L to list all): 82
+
+Changed type of partition 'Linux' to 'Linux swap / Solaris'.
+
+Command (m for help): p
+Disk /dev/nvme0n2: 10 GiB, 10737418240 bytes, 20971520 sectors
+Disk model: VMware Virtual NVMe Disk
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: 0x0ce6c0cd
+
+Device         Boot   Start      End  Sectors Size Id Type
+/dev/nvme0n2p1         2048  2099199  2097152   1G 83 Linux
+/dev/nvme0n2p4      2099200 20971519 18872320   9G  5 Extended
+/dev/nvme0n2p5      2101248  4198399  2097152   1G 83 Linux
+/dev/nvme0n2p6      4200448  6297599  2097152   1G 82 Linux swap / Solaris
+
+w kda Hwa et3ml 
+
+==============================================
+hane3ml b2a bel tare2a el tnya (LINUX)
+1)Hams7 el adeem w a7ot wa7ed tany bs msh ha3mlo swap w haykon 1G brdo ely hwa /dev/nvme0n2p6
+2)partprobe /dev/nvme0n2
+3)mkswap /dev/nvme0n2p6
+4)swapon /dev           De betezher ely mmken bye3mlo swap f lma aktbha hyezharle en /dev/nvme0n2p6 mmken yet3mlha swap
+5)swapon /dev/nvme0n2p6
+6)free -m   Htezher en el swap 7agmha zad fe free wel total 
+================================
+MAKING A SWAP FILE INSTEAD OF Partition 
+
+[root@jimmy ~]# dd if=/dev/random of=/swap_file bs=1M count=1024
+1024+0 records in
+1024+0 records out
+1073741824 bytes (1.1 GB, 1.0 GiB) copied, #### s, #### MB/s De asrar yaba  
+
+bs: block size
+count: 1024 de ya3ne hatle mn el 1M 1024 mara 
+
+root@jimmy ~]# mkswap /swap_file   => De bte3ml el filesystem swap
+
+mkswap: /swap_file: insecure permissions 0644, fix with: chmod 0600 /swap_file
+Setting up swapspace version 1, size = 1024 MiB (1073737728 bytes)
+no label, UUID=8813aeca-52b5-47bd-8fd2-a28457b51c2b
+
+[root@jimmy ~]# swapon /swap_file     de bt2ol lel file et3ml b2a swap 
+
+swapon: /swap_file: insecure permissions 0644, 0600 suggested.
+
+[root@jimmy ~]# free -m
+               total        used        free      shared  buff/cache   available
+Mem:            1934        1236          77          16         792         698
+Swap:           3071           5        3066
+
+HNA lw baset el swap zaded 
+---------------------------------------------------------------
+Tab3an lw 3mlt df aked msh hala2ih l2en da swap mbyezharsh fel df 
+---------------------------------------------------------------
+================================================================================
+LVM: 3bara 3n tagme3a mn shwyet memories w hards mn systems mokhtlfa w types mokhtlfa b7otohom kolohom ta7t mazala esmha LVM
+w de btb2a logical volume ta7t mazala bta3et el LVM w b3d kda b3mlohom kolohom format w b3d kda mount w a2dr a2smhom br7tee b2a zay m ana 3wz 
+======================================================================================================
+
+
+=============================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

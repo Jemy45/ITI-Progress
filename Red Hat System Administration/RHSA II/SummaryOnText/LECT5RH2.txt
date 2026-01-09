@@ -1,0 +1,350 @@
+LVM 
+1-Partition physical storage
+2-Creaete physical volume(PV)                  1 extent =4MB
+3-Create volue group(VG)
+4-create logical volume(LV)
+
+
+
+How to extend the evolume size?
+pvcreaete/dev/
+
+1)Hanzwd 2 hards awl wa7ed 7G w tany wa7ed 5G 
+2) Hnshta8al 3la le hard el 10 giga hn3ml wa7ed extended yakol el msa7a el mtb2ya mno 
+w b3d kda n3mlo LVM
+
+Command (m for help): t
+Partition number (1,4-7, default 7): 7
+Hex code or alias (type L to list all): 8E
+
+Device         Boot   Start      End  Sectors Size Id Type
+/dev/nvme0n2p1         2048  2099199  2097152   1G 83 Linux
+/dev/nvme0n2p4      2099200 20971519 18872320   9G  5 Extended
+/dev/nvme0n2p5      2101248  4198399  2097152   1G 83 Linux
+/dev/nvme0n2p6      4200448  6297599  2097152   1G 82 Linux swap / Solaris
+/dev/nvme0n2p7      6299648 20971519 14671872   7G 8e Linux LVM
+
+
+3)Awl 7ga hnesht8l 3la 7G  bel gdisk
+[root@jimmy ~]# gdisk /dev/nvme0n3
+Command (? for help): n
+Partition number (1-128, default 1): 
+First sector (34-14680030, default = 2048) or {+-}size{KMGTP}: 
+Last sector (2048-14680030, default = 14680030) or {+-}size{KMGTP}: +5G
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300): L
+Hex code or GUID (L to show codes, Enter = 8300): 8e00
+
+
+Command (? for help): w
+Do you want to proceed? (Y/N): y
+[root@jimmy ~]# partprobe /dev/nvme0n3
+[root@jimmy ~]# lsblk 
+nvme0n3       259:9    0    7G  0 disk 
+└─nvme0n3p1   259:13   0    5G  0 part 
+
+
+4)Hneshta8la 3la el Hard el 5G b tool ##PARTED###
+
+Hna mmken a3mlo b tare2ten 
+a) Inside Wizard => Parted 
+=================================================
+b) Using 1 Command Line =>
+parted -s /dev/nvme0n4 mklabel gpt mkpart primary ext4 0% 3G && mkfs.ext4/dev/nvme0n4  (7tet && 34an lma el awl yt72a2 y3mle ely b3do)
+Lazm a3mlo mkfs.ext4 34an a3mlo format 34an yb2a gaehz yakhod data , el ext4 el 2ola de ma ela eny bagahezo b2ol eno hyeb2a kda 
+el range bta3o flexible mmkn a7oto b kaza tare2a : 1M 5G OR 0% 5G, 0% 100%
+
+
+DA el command ely hastakhdmo b2a 
+[root@jimmy ~]# parted -s /dev/nvme0n4 mklabel gpt mkpart primary ext4 0% 3G (lw shelt el -s hyezhrle eny m7tag a3ml update lel fstab bs 3ady mmken ashelha 3ady)
+[root@jimmy ~]# lsblk 
+nvme0n4       259:10   0    5G  0 disk 
+└─nvme0n4p1   259:13   0  2.8G  0 part 
+
+[root@jimmy ~]# parted -s /dev/nvme0n4 set 1 lvm on   (Da b2a hay7awlee el disk kolo le lvm mra w7da)
+
+======================KDA ehna KHALASNA AWL KHATWA (Partition Physical storage============================
+
+
+=========================2-  CREATION ==========================================
+2) PHYSICAL VOLUME
+[root@jimmy ~]# pvcreate /dev/nvme0n2p7 /dev/nvme0n3p1 /dev/nvme0n4p1  (mmken dol a7otohom 3la kaza command wra b3d 3ady w da ely bye3ml physical volume)
+[root@jimmy ~]# pvs
+  PV             VG   Fmt  Attr PSize  PFree 
+  /dev/nvme0n1p3 rhel lvm2 a--  18.41g     0 
+  /dev/nvme0n2p7      lvm2 ---  <7.00g <7.00g
+  /dev/nvme0n3p1      lvm2 ---   5.00g  5.00g
+  /dev/nvme0n4p1      lvm2 ---   2.79g  2.79g
+
+
+3)  VG create lazm a7ot kol le hards 
+[root@jimmy ~]# vgcreate VG1 /dev/nvme0n2p7 /dev/nvme0n3p1 /dev/nvme0n4p1 
+  Volume group "VG1" successfully created
+[root@jimmy ~]# pvs
+  PV             VG   Fmt  Attr PSize  PFree 
+  /dev/nvme0n1p3 rhel lvm2 a--  18.41g     0 
+  /dev/nvme0n2p7 VG1  lvm2 a--   6.99g  6.99g
+  /dev/nvme0n3p1 VG1  lvm2 a--  <5.00g <5.00g
+  /dev/nvme0n4p1 VG1  lvm2 a--  <2.79g <2.79g
+
+[root@jimmy ~]# pvdisplay   (De htezheerle brdo el 7gat ely 3nde w haybayenle n el extent 4M feha brdo  enohom VG1 brdo
+[root@jimmy ~]# vgs
+  VG   #PV #LV #SN Attr   VSize   VFree  
+  VG1    3   0   0 wz--n- <14.78g <14.78g
+  rhel   1   2   0 wz--n-  18.41g      0 
+
+Hna zahr 3adad el PV eno 3 34an lw 3wz a3rf ay w2t eh el msa7at el fadya ha3rfha mn hna w de el msa7at ely mat2asemetsh msh el msa7at eely mfhash data 
+
+[root@jimmy ~]# vgdisplay 
+  --- Volume group ---
+  VG Name               VG1
+  System ID             
+  Format                lvm2
+  Metadata Areas        3
+  Metadata Sequence No  1
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                0
+  Open LV               0
+  Max PV                0
+  Cur PV                3   El current PV da bey2oly ely enta 3mlto ad eh el Actual da b2a ely sh8al mnhom f da mmken y3rfne eh ely darab mnhom mn el arkam de
+  Act PV                3 
+  VG Size               <14.78 GiB
+  PE Size               4.00 MiB
+  Total PE              3783
+  Alloc PE / Size       0 / 0   
+  Free  PE / Size       3783 / <14.78 GiB
+  VG UUID               FsbvJq-QYpw-jbep-cese-kdVH-BxQ7-YMcNaR
+
+
+4) LV   (Fel emt7an el dwle bbyetlob mne a3mlha bel extents -l ely hya 3adad el w7dat , fel 3ady mken a3mlha -L w de badelo el size w kol da hashofo mn lvcreate --help
+
+[root@jimmy ~]# lvcreate --size 1G --name LV1 VG1    (kda ana 3mlt el logical volume b esm LV1 w hakhdo mn VG1 w 7agmo b2a 1G)
+****************************************
+[root@jimmy ~]# lvcreate -L 1G -n LV1 VG1 (MMken aktbha bel ekhtsarat ashal)
+*****************************************
+[root@jimmy ~]# lvcreate --size 200M --name LV2 VG1 
+[root@jimmy ~]# pvs
+  PV             VG   Fmt  Attr PSize  PFree 
+  /dev/nvme0n1p3 rhel lvm2 a--  18.41g     0 
+  /dev/nvme0n2p7 VG1  lvm2 a--   6.99g <5.80g
+  /dev/nvme0n3p1 VG1  lvm2 a--  <5.00g <5.00g
+  /dev/nvme0n4p1 VG1  lvm2 a--  <2.79g <2.79g
+
+Fel PVS bayen b2a ehy khadt mn hard rakam p7 1.2G ely ana khadtohom fel logical volume 
+
+[root@jimmy ~]# lvs
+  LV   VG   Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+  LV1  VG1  -wi-a-----   1.00g                                                    
+  LV2  VG1  -wi-a----- 200.00m            
+
+============================================================
+ANA KDA KHALAST GAHEZ ENY A3ML MOUNT bs LAZM A3ml el AWL filesystem 
+
+[root@jimmy ~]# mkfs.ext4 /dev/VG1/LV1
+[root@jimmy ~]# mkfs.xfs /dev/VG1/LV2
+
+Haro7 a3ml mount b2a 3la media1 w media2 ely kona 3amlehom w lw kan 3leh ay 7ga abl kda hye3ml replace mkan ely ablo bs lw 3mlt restart hyerg3 lely kan fle fstab 
+
+[root@jimmy ~]# mount /dev/VG1/LV1 media1
+[root@jimmy ~]# mount /dev/VG1/LV2 media2
+[root@jimmy ~]# df
+/dev/mapper/VG1-LV2      199328    11900    187428   6% /root/media2    (el path ely mktob hna mmken astkhdmo fle xfs w el mount 3ady ya ema a3mlha bele taree2a ely ana 3amelha )
+
+
+Mmken a3ml mount fel fstab brdo 3ady bel esm aw bel UUID w hatgebha kda be blkid aw lsblk -fb 
+======================================================================================================
+How to extend the volume size ?      (EXT4 a2dr azwdlo w as7ab mno enma el XFS la2a a2dar azwdo bs laken m2drsh as7ab mno)
+pvcreate /dev/sdc2
+vgextend VG1 /dev/sdc2
+lvextend -L +3G/dev/VG1/LV1
+
+xfs_growfs /dev/VG1/LV1   (El command da 34an yezawedo  w hwa sh8al 3ady w da khas bel xfs bas hna bey2ol eno el amaken ely msh mwgoda de haya2haly 34an ana hakabar ya basha)
+
+resize2fs /dev/VG1/LV1  (da b2a m3 ay file system tany 7ta el xfs)
+
+OR (El command ely ta7t da b2a ha3mlo kolo f taka wa7da el extend wel resize )
+[ -r|--resizefs ]
+lvextend -L|--size [+]Size[m|UNIT] LV
+
+lvextend -r -L +3G /dev/VG1/LV1   (DA el COMMAND El Akher )
+
+
+==============================================================================================
+LETS Try EXTEND AND RESIZING
+hakhod el 2G ely mtba2yen mn el 7G 
+[root@jimmy ~]# gdisk /dev/nvme0n3
+Command (? for help): n
+Partition number (2-128, default 2): 
+First sector (34-14680030, default = 10487808) or {+-}size{KMGTP}: 
+Last sector (10487808-14680030, default = 14680030) or {+-}size{KMGTP}: 
+Current type is 8300 (Linux filesystem)
+Hex code or GUID (L to show codes, Enter = 8300): 8e00
+Changed type of partition to 'Linux LVM'
+
+[root@jimmy ~]# vgextend VG1 /dev/nvme0n3p2          (HNA M3mltsh pvcreate 3ady w esht8lt 34an el systems hna gdida)
+  Physical volume "/dev/nvme0n3p2" successfully created.
+  Volume group "VG1" successfully extended
+
+[root@jimmy ~]# umount /root/media1     Ana hna 3mlt mount w umount 34an tala3le error bsbb el moshkla bta3et el fstab w el mount ely mwgod 8lat
+[root@jimmy ~]#  mount /dev/VG1/LV1 /root/media1
+[root@jimmy ~]# lvextend -r -L +3G /dev/VG1/LV1
+
+
+===========================================
+HOW TO REDUCE THE VOLUME SIZE ?
+umount my_Data1
+lvreduce -r -L -3G /dev/VG1/LV1
+vgreduce VG1 /dev/nvme0n3p2
+pvremove /dev/nvme0n3p2
+
+How to remove the volume ?
+umount my_Data1 my_Date2
+lvreemove /dev/VG1/LV1
+lvreemove /dev/VG1/LV2
+vgremove VG1
+pvremove /dev/sdc sdc3 .......
+
+============================================
+Yalla n remove w n reduce wa7ed tany 
+
+hn3ml reduce ely ehna 3amleno el 2G 7alan 
+[root@jimmy ~]#umount media1
+[root@jimmy ~]# lvreduce -r -L -3G /dev/VG1/LV1       (Ana lw estkhdmt l command da 3latol mn 8er ma a3ml umount hyes2lne hal 7abeb t3ml mount f mmken a2olo yes awl adeh el command -y w msh ha7tag a3ml umount b3d kda)
+[root@jimmy ~]# vgreduce VG1 /dev/nvme0n3p2
+  Removed "/dev/nvme0n3p2" from volume group "VG1"
+
+Hn3ml remove dlw2t 
+[root@jimmy ~]# lvremove /dev/VG1/LV1 /dev/VG1/LV2 
+[root@jimmy ~]# vgremove VG1 
+[root@jimmy ~]# pvremove /dev/nvme0n2p7 /dev/nvme0n3p1 /dev/nvme0n3p2 /dev/nvme0n4p1  
+-----------------------------------------------------
+Mmken bdl m adwr 3la asamehom fel pvs w ams7hom kolohom aktbhom kda 
+pvremove /dev/nvme0n{2..4}* w haysheel kol ely mwgoden fel pvs
+-----------------------------------------------------
+[root@jimmy ~]# pvs
+  PV             VG   Fmt  Attr PSize  PFree
+  /dev/nvme0n1p3 rhel lvm2 a--  18.41g    0 
+
+================================================================
+So2al el Emt7an byekhaleny 3mlo bs b extent 7agm mokhtalef search how to make it 
+[root@jimmy ~]# vgcreate --help 
+	[ -s|--physicalextentsize Size[m|UNIT] ]
+
+w brdo el fkra ley fo2 ely ba7ot beha el size b 3adad el extent b -l
+=================================================================
+TASK:
+1)Add 1 Hard 15 GB Then add this 15GB AS LVM to the main rhel  (Msh lazm a3ml parted hna w adakhalha pv 3la ba3dha mra w7da ya ema a3mlha partition kamla w a3ml nafs el khatawat b2a)
+================================================================
+
+
+===================Network file system NFS=======================
+server v4 >>>> v3    Lw el server bta3y sh8al v4 w el client v3 f kda el server hyesht8l backward 
+NFS da e3tmady y3ne m3ndhash rakam port bema3na enha lma btsht8l b t listen 3la el port el protocol ely sh8al 
+rpcbind is required for NFS services to map RPC programs to network ports.
+ sun system rpcbind tcp and udp 111
+ standard rpcbind 2049
+
+Kda ana 3al firewall lazm aft7 rpcbind, nfs, mountd 34an el NFS yesht8l 
+NFS mmkne ay 7d y3mlo access m3ndesh ay authentication 
+
+El 7ga el w7eda ely ynf3 teemn3 hya el file permission 
+------------------------Server------------------------
+YLA n7mlo w nft7o 
+[root@jimmy ~]#  yum install -y nfs-utils
+[root@jimmy ~]# systemctl enable --now nfs-server.service 
+
+Dlw2t h3ml directory 34an el client y2dr yshofha mn el server w el directory da yo3tabar hwa el shared directory ben el nas 
+[root@jimmy ~]# mkdir nfs-share
+[root@jimmy nfs-share]# touch file{1..3}
+[root@jimmy ~]# vim /etc/exports      Da el configuration file ely h2dr azbt feh el 7ga en a2ol lel server en el clients de htshof mno w da sh8al bel tabs brdo 
+
+/root/nfs-share	IP/HOST/NID(ro/rw,sync,root_squash/no_root_squash)           
+/root/nfs-share 192.168.65.0/24(ro,sync,root_squash)    => de el NID ely ana gbtha mn ip addr
+Far2 ben el cp wl rsync en el cp lw 7sl moshkla fel connection byebd2 mn elawl enma el rsync beyshof hwa w2f fen w beykml 3leh msh bey3ed mn el awl 
+
+ro=> reead only rw=> read write w bakhtar w7da mnhom brdo 
+Root_Squash=> Y3ne ana el root bta3 el server afalt 3leh w m7dsh y2dr yokhoshelo l2en a el root bta3 eel sserver w ay root client mye2drsh y3mel 7ga mn el akher ba3amlo ka2eno other 3ady w hyet3aml ka2eno user 3ady 
+No_root_squash => hna kda el root bta3 l client hageebo 3nde fel server w hyet3aml ka2eno root 3ndy zay ma hwa root 3ndo 
+
+
+====================
+Troubleshoot : lw 3nde moshkla ha2fl el firewall w agrb a3ml access 3la el server lw lsa el moshkla mwgoda yb2a el moshkla mn el service ely mktoba
+==========================
+
+
+Ha3ml save lel file w b3d kda lazm aft7 el firewall lel talat 7agat ely olt 3lehom fo2 
+[root@jimmy ~]# firewall-cmd --add-service=nfs --add-service=mountd --add-service=rpc-bind 
+
+------------------------------------------
+Feh 5 toro2 n2fl el service w neft7ha b2a:
+
+exportfs -r (re-read) PLEASE DON'T USE  bs msh faker leh 
+exportfs -f (force-reread) Da ely mmken nstakhdmo b2a 
+systemctl stop/start nfs-server ya ema astkhdem da 
+systemctl restart nfs-server ya ema astkhdm da  
+systeemctl reload nfs-server 
+------------------------------------------------------
+[root@jimmy ~]# systemctl restart nfs-server.service   Da ely ana estakhdmto 
+[root@jimmy ~]# showmount -e 192.168.65.128
+Export list for 192.168.65.128:
+/root/nfs-share 192.168.65.0/24
+
+-------------CLIENT---------(TAKE CAREE LAZEM AFT7 EL HTTP fel firewall 34an el repo tesht8l w brdo eny a3ml mount /dev/sr0 /var/www/html)
+
+Nero7 lel client b2a 
+han7amel el nfs-utils 
+
+lw 3mlt showmount -e 192.168.65.128 yezhar 3nde b2a en da el server ely a2dar akhod mno 
+Ne3ml mount b2a 
+[root@jimmy ~]# mount 192.168.65.128:/root/nfs-share /mnt/   (el line da y3ne hakhod mn el mkan da 3nd server w arme 3nde)
+Tare2et el mount fel fstab haft7o w ha7ot de 
+192.168.65.128:/root/nfs-share  /mnt    nfs     rw,soft 0 0      Take care en feh tabs ben el 7gat 
+
+soft: y3ne symbolic link y3ne lw m3rftsh awslo msh lazm khosh emergency 
+tyb el so2al hna ana leh 7atet rw m3 en el server ro  eh ely yesht8l b2a ??
+Ely restricted aktr hwa ely hyemshy mn el akher el ro hya ely htmshy msh shart b2a 3la el server walla el client 
+
+=================================================================================
+AUTOFS => de shabah el nfs el 3ady bs de auto w msln beykon feh connection ben el server wel client lw mstkhdmtosh t2fl el connection de w b3d kda lw 3ozt akhosh 3leh tany el connection trg3 teft7 tany 
+------------------------------------------------------------------------
+3nde file esmo master file feh el server wel locations bta3et el network 
+y3ne msln lw de 3 servers 3nde feh filat hakhodhom mno f l kol server hykon leh file 
+el file da bey2ol el point bt3ty beyshawr 3la server fen m3 el permissions bta3ha hakhod b2a el directories de
+w a7otha fel master file f lw 3wz a3ml connection haro7 lel master file el master file hyshawer 3la el file da w y2olna ro7 khod mn el file da 
+
+Habd2 asht8l b2a 
+el Server zay ely fat bel zabt nfs server 3ady 
+
+el Client b2a :
+yum install nfs-utils autofs -y
+[root@Server ~]# systemctl enable --now autofs.service 
+systemctl start nfs-server
+systemctl start autofs
+
+[root@Server ~]# vim /etc/auto.master
+/root/media1    /etc/data.auto     Ha7ot le line da ta7t khales da bey2ol en khazen 3nde fel media1 w khod mn data.auto
+[root@Server ~]# vim /etc/data.auto  h3ml el file da b2a w hwa da ely bey2ol khod mn el server s
+/root/media1    -rw     192.168.65.128:/root/nfs-share
+
+
+Thin Device: gehaz el resources bta3o da3ef gdn w kol el service beteet3mlha run 3la el server w kol 7ga 3la el server 7ta el home directory w kol 7ga 
+Thick Device: Gehaz gamed b2a 
+
+======================
+So2al fel EXAM (TRY TO MAKE IT)
+ana 3wz a3ml user 3la gehaz w b home directory mo3yan w yakhod mn  el server 
+ha3ml useradd b directory w b3d kda el autofs bel user 
+======================
+
+------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

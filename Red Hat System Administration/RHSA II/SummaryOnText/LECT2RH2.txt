@@ -1,0 +1,472 @@
+1) GREP
+ls /usr/share/dict
+grep ^cat /usr/share/dict/words  Start with cat 
+grep cat /usr/share/dict/words   Get for you all words have cat 
+grep cat$ /usr/share/dict/words   Ends with cat 
+grep ^cat$ /usr/share/dict/words Search for cat word only 
+Lw msh 3aref character mo3yan a7ot dot 
+msln 
+grep ^c.t$ /usr/share/dict/words 
+cat cit cot de el output words
+
+ grep ^c[aou]t$ /usr/share/dict/words 
+cat
+cot
+cut
+
+ grep ^[cC][aou][tT]$ /usr/share/dict/words 
+Cat
+cat
+Cot
+cot
+Cut
+cut
+
+ grep -i ^c[aou]t$ /usr/share/dict/words   Da b y ignore el el case y3ne hygeb kol el 7alat bta3ot kol el words capital w small 
+CAT
+Cat
+cat
+
+------------Search for 2 Words m3 b3d ---------(Using regular expression -e w mmken brdo astakhdmo m3 l commands el tanya ely b nafs el mabda2)
+ grep -e ^cat$ -e ^mark$ /usr/share/dict/words 
+cat
+mark
+
+-----Lw 3wz arakam el file hstkhdem cat -----------
+cat -n /usr/share/dict/words 
+
+
+--------------Lw 3wz b2a astkhdm el -n de m3 grep 34an adwr 3la kelma w tartebha kda -----------
+[jimmy@jimmy ~]$ grep -n -e ^cat$ -e ^mark$ /usr/share/dict/words 
+63804:cat
+234349:mark
+
+
+--------------- Kol 7ga b2a 7ta b option el -i --------
+[jimmy@jimmy ~]$ grep -n -i -e ^cat$ -e ^mark$ /usr/share/dict/words 
+63802:CAT
+63803:Cat
+63804:cat
+234348:Mark
+234349:mark
+
+----------------------Lw bdwr b2a 3la kelmet cat w 3wz el 3 sotor ely b3dha aw ely ablha hastkhdem -A w -B de hatgeb el sotor ely b3d aw abl el klma mlesh da3wa fehom eh b2a  -----------
+[jimmy@jimmy ~]$ grep -A 3 ^cat$ /usr/share/dict/words 
+cat
+cat.
+cata-
+catabaptist
+
+[jimmy@jimmy ~]$ grep -B 3 ^cat$ /usr/share/dict/words 
+Casziel
+CAT
+Cat
+cat
+
+w tab3n mmken astkhdm el 2 m3 b3d 
+
+[jimmy@jimmy ~]$ grep -A 3 -B 3 ^cat$ /usr/share/dict/words 
+Casziel
+CAT
+Cat
+cat
+cat.
+cata-
+catabaptist
+-----------------------------------------------
+GREP=> Btft7 el file w tdwr gwah 3la kelmet mark laken mlesh d3wa esm el file ely feh klmet mark esmo eh 
+grep -r mark /
+de beydwr 3la kol 7ga files feha mark  fel root 
+grep -r mark /home/
+de bdwr fel home 
+[jimmy@jimmy ~]$ grep -rl mark /
+de b2a msh btft8 el file w t2ol el satr ely mwgod fel kelma de 
+la de btgeb el paths bta3et el file ely gwah kelmet mark 
+
+
+option -r myenf3sh a7ot m3aha ^ w $ 
+
+---------------------------------------------------------
+Da shakl el output beltafseel 34an lma bdwr fel root bla2y 7gat ktir 
+jimmy@jimmy ~]$ grep -r jimmy /home/jimmy/test/
+grep: /home/jimmy/test/.file.swp: binary file matches
+grep: /home/jimmy/test/.jimmy.swp: binary file matches
+/home/jimmy/test/file2:jimmy.com
+/home/jimmy/test/file2:jimmy:x:1000:1000:jimmy:/home/jimmy:/bin/bash
+/home/jimmy/test/tessst.txt:jimmy asdfffgg
+/home/jimmy/test/tessst.txt:jimmy
+/home/jimmy/test/tessst.txt:asdf jimmy
+Beybayen el files w bey2ol el kelma mazkora fen fel line eh w byektb el line kolo 
+--------------------------------------------------------
+Hna b2a tare2et el -rl bayen asamy el files ely feha el klma kolha 
+[jimmy@jimmy ~]$ grep -rl jimmy /home/jimmy/test/
+/home/jimmy/test/.file.swp
+/home/jimmy/test/.jimmy.swp
+/home/jimmy/test/file2
+/home/jimmy/test/tessst.txt
+[jimmy@jimmy ~]$ 
+----------------------------------------------------------
+-------------Scheduling in the future-----------
+1) Atd   at daemon 
+da lw 3wz a3ml aktar mn task  f m3ad mo3yan belzbt yetnfzo f nafs el wa2t 
+w btetnfz mra wa7da bs w lazm el gehaz ykon sh8al 34an tesht8l w lw 3mlt restart lel ghaz w fata7to 3ady htetnfz f m3adha brdo 
+lma ba7ot el tarekh mmken aa7ot / . - 
+w feh option cc any a7ot el sana 
+
+
+El command esmo "at" 
+make man for it  (man at)
+
+atrm    deletes jobs, identified by their job number.
+or at -r
+
+ atq     lists  the  user's pending jobs, unless the user is the supe‐
+               ruser; in that case, everybody's jobs are listed.  The format
+               of  the output lines (one for each job) is: Job number, date,
+               hour, queue, and username.
+
+Kol el options bt3to lazm ykon b3dha rakam el job ela commands bta3et el list shbah atq aw -l or -q 
+
+De 7tet shar7 el CC 
+You can also say what day the job will be
+       run, by giving a date in the form month-name  day  with  an  optional
+       year,  or  giving  a  date  of  the  form  MMDD[CC]YY,  MM/DD/[CC]YY,
+       DD.MM.[CC]YY or [CC]YY-MM-DD.  The specification of a date must  fol‐
+       low  the  specification  of the time of day.  You can also give times
+       like now + count time-units, where the  time-units  can  be  minutes,
+       hours,  days,  or  weeks 
+
+Rakez f tarteb el Month w el day w el year 34an kol w7da leha tarteb mokhtlf 
+w brdo mmken to7ot el shahr bel Esm DEC or SAT
+
+
+-------------------------Lets make some examples------------------
+TAKE CARE Eb3t 3n commands cat w echo 34an lazm a7ot el terminal b tare2a mo3yana
+w brdo take care estkhdmo bel root 34an lw 7ga m7taga sudo msh hyenf3 tet3ml   
+-------------------------------------
+[jimmy@jimmy ~]$ at 11:19
+warning: commands will be executed using /bin/sh
+at> touch at_test 
+at> <EOT>
+job 1 at Tue Dec  9 11:19:00 2025
+[jimmy@jimmy ~]$ 
+ba3d ma bakhalas el command 34an akhrog use ctrl + D
+-------------------------------
+at teatime dec 12
+at>logger "Hello Admins"
+ctrl+D
+lw 3mlt b2a 
+at -c 2 => hyezherlk script bta3 el job el tanya ely hya ana 3mltha f w2t el teatime 
+lw msh 3aref rakam el job 34an ageb el script da  mmken astakhdm  
+[root@jimmy jimmy]# atq
+2	Fri Dec 12 16:00:00 2025 a root
+
+"atrm 2" => Hyemsa7ha w lw 3mlt atq msh hyezhar 7ga 
+-----------------------------------------------
+Mashakel el "at" b2a ely han3oz n7elha
+1)En el task yesht8l once 
+2)en el ghaz ykon sh8al 
+3)Moshklet el root fel commands w2t m bakteb el commands ely htetkrr
+-----------------------------------------------
+==================================
+EL NO3 El Tany hy7lely moshklet el root w moshklet en el task myesht8lsh mara wa7da la yesht8l kaza mra 3ady bs El moshkla el w7eda ely msh hy7elha el no3 da en el gehaz lazm brdo ykon sha8al 
+
+2)cron   The most powerfull scheduling technique using by system 
+Dont forget to see   "man cron"
+For scheduling a task Every a specific time use *
+Note: W2t ma akhod el backup akhdo f awl yom fel shahr a7sn 34an akher yom mot8yer
+Note: El user ye2dr y3ml 7ga l nafso enma el root bye3ml el 7gat lel system 
+el Root b2a mmken y3mlha ay 7ga  ka root aw ka user aw y3mlha mn wra user w mn 8er mye3rfsh y shofha 
+tab3n 34an aktshf el mawdo3 da lazm ashof men ely 3ml login 3al root fel fatra de 
+==================================
+In cron (Use TAB) 
+crontab	-e
+-----------------------------------------------------------------------------
+mmken na k root afta7 el tab w asht8l 3leh w7ot el user gwa kda htetnfz 3nde lel user da w el previlage hykon bta3 el root w el user mye3rfsh 7ga 3nha  
+min	hour	dayofthemonth	month	dayoftheweek	User	Command 
+----------------------------------------------------------------------------
+ana brdo ka root bs 3awzha teet3ml 3nd user tany w previlage el user w tban 3ndo 
+crontab	-e -u username 
+--------------------------------------------------------------------------
+ 
+min	hour	dayofthemonth	month	dayoftheweek	Command
+mben kol 7ga TAB take care el mkan el w7ed ely a2dr a7ot feh space 3adya f mkan el command 
+
+el dayof week and dayofmonth w el month fehom flexible f eny a7otohom w brdo a7otohom b asamehom mmken a7otohm ka range ya ema qomma 
+msln mn el sabt lel khames SAT-THU  Or SAT,SUN,MON and so on 
+dayofweek => byebd2 mn Monday w da rakamo 1 w yom el 7ad rakamo 0 or 7
+dayofmonth => msln mn 1-31 y3ne kda mn yom 1 to yom 31
+month=>*   kda kol el months y ema a7otha b2a bel asamy w el range 
+For even day of the week => */2 
+min     hr   dayofweek month dayoftheweek 
+0	13	*	*
+--------------------------------
+Lw 3wz tbos 3la el Guide shof ely ta7t
+cat /etc/crontab
+crontab --help 
+--------------------------------
+Lets make an example 
+-------------------------------
+[root@jimmy jimmy]# crontab -e 
+no crontab for root - using an empty one
+crontab: installing new crontab
+[root@jimmy jimmy]# crontab -l   => De bt3ml list lel file b kol ely gwa 
+35		13	9	12	2	logger "hello"
+[root@jimmy jimmy]# 
+
+Open another terminal and see where is the messages appear
+[jimmy@jimmy ~]$ sudo tail -f /var/log/messages
+Dec  9 13:40:01 jimmy systemd[1]: Started User Manager for UID 0.
+Dec  9 13:40:01 jimmy systemd[1]: Started Session 7 of User root.
+Dec  9 13:40:01 jimmy root[9713]: hello
+Dec  9 13:40:01 jimmy systemd[1]: session-7.scope: Deactivated successfully.
+Dec  9 13:40:11 jimmy systemd[1]: Stopping User Manager for UID 0...
+
+Hna bayen en el UID =0  y3ne el root hwa ely 3amlo 
+
+
+Lw 3wz ams7 7ga aw a3dlha akhosh 3al file w azbto mastakhdmsh 
+crontab -r 34an da byems7 el file kolo 
+
+-----------------------------------------------
+===============================================
+Lazm n7el b2a moshklet en lw el gehaz et2fl w asht8l b tare2a mostamera
+mn 8er maktb sotor ktir w 7ga feha flexibility b ay tare2a w b ay lo8a 
+yefhamha (zay shell)
+3)anacrontab
+beyedeny khamas da2ay2 lw ft7t b3d el m3ad tyb lw ft7t b3doh feh 7ga esmha 
+random delay da byeb2a 45 d2e2a  w da el maximum by default w mmken a8yro mn el configuration w da kman random y3ne 7sb ma el system hytl3o f msh shart ygely el 45 mmken yekhtar 20 msln 
+--------------------------------------
+Da b2a byzhrle el edit w mmken a configure feh 
+[root@jimmy jimmy]# cat /etc/anacrontab  Eft7o feh m3lomat aktr 
+# the maximal random delay added to the base delay of the jobs
+RANDOM_DELAY=45
+# the jobs will be started during the following hours only
+START_HOURS_RANGE=3-22  
+**Da el wa2t ely hyrun feh kol el scripts w el system hyray7 f 4 sa3at ely mtb2yen fel yom** 
+
+#period in days   delay in minutes   job-identifier   command
+1	5	cron.daily		nice run-parts /etc/cron.daily
+7	25	cron.weekly		nice run-parts /etc/cron.weekly
+@monthly 45	cron.monthly		nice run-parts /etc/cron.monthly
+
+Kda el range beta3 el wa2t rakam el delay in minutes + random delay w da bs ely mmken a3mlo configuration mn el file ely fo2 brdo  
+Tyb lw el w2t da 3ada ana haro7 a3ml run el script bs ely hwa byet3mlo save 
+f el amaken ely fo2 zay /etc/cron.daily
+f ana kda mmken aktb script y run el files ely f cron.daily masaln w lw el m3ad fatne a run el script bta3y 34an y run el scripts ely 3mlholy anacron
+====================================================
+[root@jimmy jimmy]# ls /etc/cron.*
+/etc/cron.deny
+
+/etc/cron.d:
+0hourly
+
+/etc/cron.daily:
+
+/etc/cron.hourly:
+0anacron
+
+/etc/cron.monthly:
+
+/etc/cron.weekly:
+=========================================================
+[root@jimmy jimmy]# cat /var/log/cron
+Dec  8 11:09:47 jimmy crond[1171]: (CRON) STARTUP (1.5.7)
+Dec  8 11:09:47 jimmy crond[1171]: (CRON) INFO (Syslog will be used instead of sendmail.)
+Dec  8 11:09:47 jimmy crond[1171]: (CRON) INFO (RANDOM_DELAY will be scaled with factor 66% if used.)
+Dec  8 11:09:47 jimmy crond[1171]: (CRON) INFO (running with inotify support)
+Dec  8 12:01:01 jimmy CROND[4411]: (root) CMD (run-parts /etc/cron.hourly)
+Dec  8 12:01:01 jimmy run-parts[4414]: (/etc/cron.hourly) starting 0anacron
+Dec  8 12:01:01 jimmy anacron[4424]: Anacron started on 2025-12-08
+Dec  8 12:01:01 jimmy run-parts[4426]: (/etc/cron.hourly) finished 0anacron
+Dec  8 12:01:01 jimmy CROND[4410]: (root) CMDEND (run-parts /etc/cron.hourly)
+Dec  8 12:01:01 jimmy anacron[4424]: Will run job `cron.daily' in 25 min.
+Dec  8 12:01:01 jimmy anacron[4424]: Will run job `cron.weekly' in 45 min.
+Dec  8 12:01:01 jimmy anacron[4424]: Jobs will be executed sequentially
+Dec  9 13:35:02 jimmy CROND[9097]: (root) CMD (logger "hello")
+Dec  9 13:35:02 jimmy CROND[9060]: (root) CMDEND (logger "hello")
+Dec  9 13:38:35 jimmy crontab[9587]: (root) BEGIN EDIT (root)
+Dec  9 13:38:46 jimmy crontab[9587]: (root) REPLACE (root)
+Dec  9 13:38:46 jimmy crontab[9587]: (root) END EDIT (root)
+Dec  9 13:38:57 jimmy crontab[9602]: (root) LIST (root)
+
+
+
+Hna b2a wade7 en el system fata7 el sa3a 11:09 w b3d ma zabat nfso b3d sa3a 3la el sa3a 12:01 bd2 yshof el cron.daily 34an y3mlha run w ektar random delay b mazago 
+w brdo mwd7 en el root fata7 el crontab w 3ml edit w 3ml logger hello 
+Bekhtsar shar7 el wa2t:
+Eft7 wa2t m teft7 w ysha8al el system fel w2t ely y7ebo 7sb el ghaz bs el run 
+beykon sa3a w d2e2a w sanya f da kda msh zay crontab hwa fixed 
+y3ne lma y run msln el daily hykon kda 12:01:01
+==========================================================
+-----------------------
+OlderNote:
+locate updated   da bye3ml update fel database ely esmha mlocate
+Search for Locate again
+w brdo 
+/var/tmp   => every 30 days de byetkhazn feha kol el services w el logs w ay 7ga bt7sl f el system 
+/tmp/  => every 10 days byetms7 el logs
+ls /usr/lib/tmpfiles.d/
+da feh tmp.conf 
+da el configuration file bta3 el tmp 
+feh el aw2at ely mmmken a3dlha b2a bs khatar 
+q /tmp 1777 root root 10d
+q /var/tmp 1777 root root 30d
+
+q de y3ne quit msh m7tag permission aw ay 7ga f mmken ynzl feh ay 7ga w y7sl attacks 3leh w m2drsh a7meha 
+------------------------
+
+====ACL=====================================
+ACL sh8ala f kol el layers ela layer 6 bs 
+f el physical lw feh id aw biometric 
+f datalink 3la el macaddress fel switches 
+f el network 3la el router w el ML switch 
+f el transport layer el ghaz ely sh8al 3leh firewall 
+(transparent firewall: f nafs el shabaka bey3t2kd mn el list ely m7tag a3deha walla la 
+routed firewall: da been el shabakat 
+kda el acl firewall sha8al f layer 2, 3, 4
+f layer5 session bye2fl b esm el session 
+f layer 7 application  b2a feha hostbase firewall, black listing and white listing lel applications 
+
+Mmken lw 7d 3nde fel others eny w 3wz a3deh w aksr el permission ely m7tot lel other masalan eny a3deh bel ACL 
+tb3n lw khadt el user da msln ely fel other w 7atet fel group 34an y access file 
+f kda kol el files ely fel group da htkon mota7a leh f da 8lt ana haft7lo file wa7ed bs bel ACL
+
+Inheritance b2a: (Keset el ragel w el Set w weladhom)
+Lw 3nde directory w shwyet files feh w 3mlt ACL 34an a3de 7d yekhosh feh 3la el directory el files ely gwah mywrsosh mn el directory f kda mlosh el 7a2 eno y3ml 7ga fel file 
+(Feh 7ala le de eny a2olo lel files ely mwgoda t inherit mn el ab)
+
+El 3ks b2a lw 3mlt ACL l directory w mfhosh files w b3d kda 3mlt files el files el gdid de b2a hywrs mn el directory w hykon lya ta7akom 3la el files ely gwa
+ 
+Lw b2a fakart fel 7ala el ola a7ot special permissions brdo msh htnf3 l2een el acl beyshofha el awl w hya ely btesht8l mn el Akher esht8l ACL l2enha ely sh8ala fe3le 3la ard el wake3  
+DAC => Access control list btetsma kda 
+MAC=> mandatory de bta3et el selinux 
+=========================================
+ COMANDS
+
+[root@jimmy ~]# getfacl at_teest 
+# file: at_teest
+# owner: root
+# group: root
+user::rw-
+group::r--
+other::r--
+
+Haksar el ka3da b2a bs  hastakhdm set also search for setfacl --help
+-m, --modify=acl        modify the current ACL(s) of file(s)
+-x, --remove=acl        remove entries from the ACL(s) of file(s) da beyshel entry bs y3ne lw 3ndy ACL feha 7gat ktir msln a2dr ams7 line wa7ed mnha l2enha btkon multipe rules w de tnf3 fel number of el named ACL   
+-b, --remove-all        remove all extended ACL entries  Da beyshel kol 7ga btrg3 el file fady 3leh el filepermission bs 
+-d, --default           operations apply to the default ACL (De 34an a2ol lel 7ga ely yt3mlha create gdida yares mn aboh) 
+-R, --recursive         recurse into subdirectories  (De 34an lw el files ely 3nde msh warsa mn aboh 34an kanet el filees de m3mola abl m3mml access list 3la el directory f adehom -R f yakhdo acl mnhom)
+
+---------------------------------------------
+El default fel ACL shabah packet tracer brdo deny all lw 7ga msh mwgoda fel ACL bta3ty
+--------------------------------------------- 
+
+Lets change the permissions on files
+
+[root@jimmy ~]# setfacl -m u:jimmy:rw at_teest 
+[root@jimmy ~]# ll at_teest 
+-rw-rw-r--+ 1 root root 0 Dec  9 15:41 at_teest    HNA lw wakhed balk en el group da mwgod feh en w zadet bs group brdo myedrsh y3ml write w ashofha bel command ely ta7t
+[root@jimmy ~]# getfacl at_teest 
+# file: at_teest
+# owner: root
+# group: root
+user::rw-
+user:jimmy:rw-
+group::r--
+mask::rw-
+other::r--
+
+Hna el user ely ana zwedto y read w write da b2a 7sb el mask ely m3mol bta3o 
+hzwd b2a user tany y2dr y3ml execute 
+
+[root@jimmy ~]# setfacl -m u:dev1:rwx at_teest 
+[root@jimmy ~]# ll at_teest 
+-rw-rwxr--+ 1 root root 0 Dec  9 15:41 at_teest   f brdo hna el x zadet fel group bs lazem a3ml getfacl 34an ashof el group 7a2o eh 
+[root@jimmy ~]# getfacl at_teest 
+# file: at_teest
+# owner: root
+# group: root
+user::rw-
+user:jimmy:rw-
+user:dev1:rwx
+group::r--
+mask::rwx
+other::r--
+
+-------------------------------------------------------
+Lets change the permissions on directories 
+
+[root@jimmy ~]# mkdir dir1
+[root@jimmy ~]# cd dir1
+[root@jimmy dir1]# touch 1 2 3
+[root@jimmy ~]# getfacl dir1/
+# file: dir1/
+# owner: root
+# group: root
+user::rwx
+group::r-x
+other::r-x
+
+[root@jimmy ~]# setfacl -R -m u:jimmy:rw dir1/    
+-m hatkhale jimmy yakhod el access rw w by default el other read w execute 
+-R haykhale el files ely gwa b2a yewrso mn el directory 
+
+
+Netfrg 3la sala7yat el directory  
+[root@jimmy ~]# getfacl  dir1/
+# file: dir1/
+# owner: root
+# group: root
+user::rwx
+user:jimmy:rw-
+group::r-x
+mask::rwx
+other::r-x
+
+Netfrg 3la sala7yat ay file gwah b2a 
+[root@jimmy ~]# getfacl  dir1/1
+# file: dir1/1
+# owner: root
+# group: root
+user::rw-
+user:jimmy:rw-
+group::r--
+mask::rw-
+other::r--
+
+
+MASK de ma ela eshara eh hwa el 7ad el aksa ely mfto7 laken lazm at2kd mn kol yser 3ndo eh fel line bta3o 
+
+hn3ml touch l files gdida b2a
+[root@jimmy dir1]# touch 4  Da b2a msh hyewrs l2eeny ana mf3ltsh el default
+leh tare2ten ya ema -d ya ema d:u: w akml 
+ 
+root@jimmy ~]# setfacl -m d:u:jimmy:rw dir1/
+[root@jimmy dir1]# touch5
+[root@jimmy dir1]# ll
+total 0
+-rw-rw-r--+ 1 root root 0 Dec  9 16:11 1
+-rw-rw-r--+ 1 root root 0 Dec  9 16:11 2
+-rw-rw-r--+ 1 root root 0 Dec  9 16:11 3
+-rw-r--r--. 1 root root 0 Dec  9 16:22 4
+-rw-rw-r--+ 1 root root 0 Dec  9 16:23 5
+
+ lw 3wz aktb el group mmken tkon kda g: w a7ot esm el group ely ana 3wz adehom el sala7yat 
+
+lw 3wz akhale file rakam 4 yewrs haktb el command b -R bs 34an lw 7tetha m3 -d msh btesht8l 
+[root@jimmy ~]# setfacl -R -m u:jimmy:rw dir1/
+
+
+ACL marbot b location el file wel directory lw 8yart mkano el ACL yedrab 
+
+
+=========================================
+
+TASK 
+Schedule for backup ye7sl kol yom el sa3a 1 blel l le home directory bta3 el user l ay directory tany 
+
+
+
+

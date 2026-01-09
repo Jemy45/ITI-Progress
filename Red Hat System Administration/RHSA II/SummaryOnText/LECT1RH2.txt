@@ -1,0 +1,174 @@
+Forking:
+The parent make child have same resources in it and have same parent's name but with different Process ID
+
+34an akhafef 3la el process w el child hya ely t2o bel sho8l da 
+---------------------
+pkill  'klma w7da'
+kill all vim masalan
+---------------------
+
+Priority:
+From 0 to 20 w mmken tenzl l -20
+
+lw 3wz azwd el priority a7otlha rakam a3la 
+faydeto en lma msln el ghaz y2om ely 3ndo priority a3la da hyakhod process ID asr3 w yt3mlo processing fel awl 
+
+
+
+---------------------
+For know users 
+w 
+tty 
+(tty 2 da bta3 el 
+--------------------
+[jimmy@jimmy ~]$ ps aux | grep -i .ssh/
+jimmy       9373  0.0  0.1 221796  2304 pts/1    S+   13:27   0:00 grep --color=auto -i .ssh/
+----------------------
+
+chvt 3 ywdeny l tty3 w mmken a2alb b alt w F1 or 2 or 3 or 4 or .....
+
+------------------------
+Fot using a clean virtual machine 
+close tehe machine and take a snap shot from it 34an lw 3ozt arg3lha tany b3d kda 
+w a3ml leha clone  brdo 
+--------------------------
+HOW VMWARE connect into internet ?
+VMWARE: has vmnet leh 20 wa7ed ka2eny 3ndy 20 switch feh mnhom 2 bs mmken el machine bt3ty el 7a2e2ya tetwasl m3aha 
+vmnet1: Create virtual network card beykhale el host y2dr yklm el guest 
+vmnet8: De b2a tetala3 el virtual machine bel internet b2a 
+
+---------------------------------
+ASK FOR NETWORK TAP AND NETWORK SPAN (HE WILL EXPLAIN IT)
+---------------------------------
+pstree or pstree -p Da hybayen el tree bs bel Process ID
+ps fax 
+Appear process 
+------------------------------------
+3 Types of logs :
+direct write 
+eg.. /var/log/httpd  have 2 logs types (access and errors)
+Da el service manager ely hwa daemon bye3ml el manage lw feh client msln kalemne w da f el application layer w da example leh el apachi lw 7amelto hyetkhazen f el directory ely fo2 w da el system my3rfsh 3no 7ga 
+
+
+systemd using journald  /etc/systemd/journald
+
+Kernel bet2om betsa7y el systemd f hya bets7y el journald f bets7y kernel tanya ely ms2ola 3n el services ely mwgoda 
+el seystem byet3mlo mount fe /sysroot
+command:
+journalctl -p err ygble msln el log ely feha error 
+journalct; -p 3   (mmken tktb journalctl -p w tab hyezhar kol 7ga )
+sudo journalctl _SYSTEMD_UNIT=sshd.service OR NetworkManager.service OR httpd.service   dE HATBYEN KOL sessions ely etft7t 
+sudo journalctl _UID=1000
+
+
+rsyslog
+da beyrag3 m3 el journald 34an y2sm kol log b takhasoso f mkan mo3yan 
+da ely byektb el 7ga b2a 7sab el configuration 
+7lw w b3rf mno el logs w el mshakel ely bt7sl bsbb el DoS laken bt3ml 3 way handshake
+cat /etc/rsyslog.conf
+lw 3mlt esc w b3d kda .
+hyktble akher parameter vim esc . = vim /etc/rsyslog.conf
+eeft7 da hatla2y b2a kol 7ga betetkhazen fen belzbt 
+w rakez 3la kol 7ga fehom w el local7 feha el logs bt3te w bye7sl retemtion ely hwa beel cycle b m3na kol esbo3 de kol cycle akhazen ely 3ndee w lw 7ga khamsa gat msln ashel le awl w akhazen el khamsa 
+
+*.*    @192.168.19.136:10000(UDP)
+*.*    @@192.168.19.136:10000(TCP) 
+el default portnumber 514 lw m7ttsh port yesht8l b da
+De el tare2a el adema bta3et eny a3ml rsyslog mn el client lel server bta3y feh tare2a gdida mwgoda f vim ely fo2 mktoba el tare2a 
+lw 3wz a3ml aghza ktir b2a msh haktb kda f kol el aghza tab3an ana mmkne a3ml redirection w awdeha 3la el 1000 gehaz masalan
+*.* de el priority.facility f ely ana 3wzo a2dr ashel el astrisk w a7ot 7gat tnya br7ty b2a 
+ 
+---------------------------------
+REPOS
+Server msln 3leh kol el apps bel prerequisite 34an lw 3wz a7ml mno 
+Lazm a3ml AppStream w BaseOS Repos 34an yesht8lo 
+hakhtar el ISO dvd mn el setting w mmken a3ml mount using VM fel vmware eel tab ely fo2 
+[Title]
+name=
+enable=
+gpgcheck=
+baseurl=
+
+[AppStream_Local]
+name=Local_AppStream de el esm ely has7b mno el 7ga
+enable=1   de 34an aft7o      (use =>da akher wsela lel defa3 f control panel search for it )
+gpgcheck=0        de betbos 3la el fingerprints w el sha bel certificates f h3mlo 0 ha2flo w msh hybos 3leha 
+baseurl=/run/media/jimmy/RHEL-9-4-0-BaseOS-x86_64/AppStream da kda 8lat 
+mfrod b2a nzwd de 
+baseurl=file:///run/media/jimmy/RHEL-9-4-0-BaseOS-x86_64/AppStream
+file=> 34an ana locally  
+:// => de bta3eet el protocol shabah el http:// w b3d kda le directory 
+f nafs el file mmken a3ml kda brdo akhod ely fo2 copy w akhaleh BaseOS
+-----------------COPY FROM INSTRUCTOR SCREEN---------------------
+[Local_AppStream]
+name=AppStream_Local
+enabled=1
+gpgcheck=0
+baseurl=file:///run/media/root/RHEL-9-1-0-BaseOS-x86_64/AppStream
+
+[Local_BaseOS]
+name=BaseOS_Local
+enabled=1
+gpgcheck=0
+baseurl=file:///run/media/root/RHEL-9-1-0-BaseOS-x86_64/BaseOS
+----------------------------------------------------------------
+
+
+df 
+hybyn el mkan ely ana 3melo mount bta3 el cd bta3 el redhat mn el akher ana 3wz el esm bta3o 
+ls /run/media/jimmy/RHEL-9-4-0-BaseOS-x86_64
+gwa b2a hla2y el AppStream wel BaseOS 34an a2dr ageeb el url 
+f el url hykon kda  /run/media/jimmy/RHEL-9-4-0-BaseOS-x86_64/AppStream
+
+-------------------------
+3dd el packages 
+[jimmy@jimmy test]$ ls /run/media/jimmy/RHEL-9-4-0-BaseOS-x86_64/AppStream/Packages/ | wc -l
+
+du -h /run/media/jimmy/RHEL-9-4-0-BaseOS-x86_64/AppStream/Packages/ 
+de tgeb el size bta3ha 
+
+------------------------
+Kol 7ga mwgoda fel AppStream kol el packages 
+el core softwares 34an el ghaz y2om mwgoda fel BaseOS
+el ba2y b2a bta3 el games wel 7gat de mwgoda fel extras
+------------------------
+
+
+TASK:
+2 Machines 
+awl machine Server 
+ya ema akhod copy lel files w a7otha hna 
+/var/www/html
+ya ema a3ml mount 
+fel mkan da 
+w lazm aw2f el firewall lel bta3a de 
+systemclt stop dawar 3la el command 
+tany machine client 
+fel files bt3to h3mel local.repo 3ady w ha7ot el appstrea wel basos 
+lda http:///192.168.65.1298/AppStream w nafs el 7kaya fel BasOS
+hagebha 3n tare2 el browser ip address/AppStream 34an ageb el directories 
+f KDA LAZM A3ml El server el Awl 
+
+3wz b2a el client takhodh 
+
+
+
+
+
+
+
+
+[AppStream]
+name = "RHEL9 Local AppStream Repo"
+baseurl = file:///run/media/jimmy/RHEL-9-4-0-BaseOS-x86_64/AppStream
+enable = 1
+gpgcheck = 0
+
+
+
+[BaseOS]
+name = "RHEL9 Local BaseOS Repo"
+baseurl = file:///run/media/jimmy/RHEL-9-4-0-BaseOS-x86_64/BaseOS
+enable = 1
+gpgcheck = 0
+

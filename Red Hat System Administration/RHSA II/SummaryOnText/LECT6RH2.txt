@@ -1,0 +1,300 @@
+LEGACY BIOS BOOT PROCESS
+
+[Hardware]
+↓
+Power on the hardware
+
+[POST]
+↓
+Start initializing hardware
+
+[Hardware Initialized]
+↓
+Searches for available boot devices
+
+[BIOS Firmware]
+↓
+Loads the bootloader stored in the MBR
+
+[MBR (Master Boot Record)]
+↓
+Bootloader
+
+[Bootloader]
+↓
+Looks for the bootloader directory
+(/boot/grub2)
+
+[GRUB2 Menu]
+↓
+Loads GRUB2 from
+/boot/grub2/grub.cfg
+
+[Kernel]
+↓
+Loads the selected kernel
+
+[initramfs]
+↓
+Switches from initramfs to /sysroot
+
+[systemd]
+↓
+Starts the initrd.target
+
+[Login Prompt]
+
+UEFI BOOT PROCESS
+
+[Hardware]
+↓
+Power on the hardware
+
+[POST]
+↓
+Start initializing hardware
+
+[Hardware Initialized]
+↓
+Searches for available boot devices
+
+Init: Da b2a bey2wm el service w7da wraha w7da ya3ne msln byede el resources l7ad y2olo 2om ya basha w ba3d kda terg3lo 
+b3d kda yro7 ydeha l7d tany w tb3t lw feh service ma2ametsh shokrn el system msh haykhosh khales w hykhosh emergency 
+
+Systeemd:Hna ba2a bey2ml kolo m3 b3d w kol el resources 3nd el systemd lw feh service bet2om byedeha ely 3wzah w trg3lo tany l7d ma masaln el service de tkon 3wza teft7 child ydeha tany w trg3 tany 
+Hna shara7 goz2 el booting hna w wasal l 7etet el systemd de b2a bt3ml eh lma bady astkhdmha bt3ml symblink zay le shortcut f 7tat mo3yana w lma baft7 7ga beyshof eh hya ely m7taga fel shortcuts de w afa3alha 34an aft7 el service 
+w tab3an el systemd a7sn mn el init l2en lw 7sl mshakel fel networkmanageer msln el system byeft7 msh byo2a3 w ydkhlne emergency w el init msh bye3ml mwdo3 el shortcuts ely el systemd bye3mlo da brdo 
+
+========================================================================================
+
+[UEFI Firmware]
+↓
+Looks for the bootloader in the EFI partition
+
+[GPT (GUID Partition Table)]
+↓
+
+[EFI System Partition]
+↓
+Mounts the UEFI partition from
+/boot/efi
+
+[GRUB2 Menu]
+↓
+Loads GRUB2 menu from
+/boot/efi/EFI/redhat/grubx64.efi
+
+[Kernel]
+↓
+Loads the selected kernel
+
+[initramfs]
+↓
+Switches from initramfs to /sysroot
+
+[systemd]
+↓
+Starts the initrd.target
+
+[Login Prompt]
+
+
+Hna b2a el ekhtelaf beno w ben ely ablo en da bye3ml partition w lw dakhalt 3la el diskmanageement hala2y 
+partition esmo health (eft partition system)
+
+
+
+==========================MAKAN EL KERNELS W ELFILES BTA3et el BOOT Ely etshr7t foo2=================================================
+[root@jimmy ~]# ls -lh /boot/
+total 223M
+-rw-r--r--. 1 root root 218K Apr 10  2024 config-5.14.0-427.13.1.el9_4.x86_64
+drwx------. 3 root root 4.0K Jan  1  1970 efi
+drwx------. 3 root root   50 Dec 13 16:46 grub2
+-rw-------. 1 root root 132M Nov 23 12:12 initramfs-0-rescue-6bb488829fa84d4ba0ef8fc4f6ce2d1b.img
+-rw-------. 1 root root  56M Nov 23 12:17 initramfs-5.14.0-427.13.1.el9_4.x86_64.img
+                                          initframs-------kdump   hya msh Zahra 3nde 
+drwxr-xr-x. 3 root root   21 Nov 23 12:08 loader
+lrwxrwxrwx. 1 root root   52 Nov 23 12:10 symvers-5.14.0-427.13.1.el9_4.x86_64.gz -> /lib/modules/5.14.0-427.13.1.el9_4.x86_64/symvers.gz
+-rw-------. 1 root root 8.3M Apr 10  2024 System.map-5.14.0-427.13.1.el9_4.x86_64
+-rwxr-xr-x. 1 root root  13M Nov 23 12:10 vmlinuz-0-rescue-6bb488829fa84d4ba0ef8fc4f6ce2d1b
+-rwxr-xr-x. 1 root root  13M Apr 10  2024 vmlinuz-5.14.0-427.13.1.el9_4.x86_64
+
+
+initframs-rescue:=> De ely bet3ayesh el gehaz w de awl kernel 
+initframs=> de b2a bta3et el features w feha kol el ta3refat bta3et el kartat ely fel gehaz w de ely btft7le el 7ga 
+kdump=> 34an lw el system crashed de t2om w te7eel 
+
+Ana mmken ashel kernel w a7ot kernel w mmken a download mn 3la el net w a7oto fe mkanao /boot bs lazeem a2ol lel system 
+estakhdm el kernel de 
+
+
+
+Troubleshoot The boot process:
+What is Boot Target:
+lma el system yegy yekhosh haykhosh la anho w7da mn dol 
+GUI:graphical.target da beykon feh el message w el mouse w kol 7ga w feh shell w mmken ykon shabah el cli 3ady 
+multi-user.target:da mfhosh GUI mmken y2bl multiple user login bs text based l2en da CLI 
+rescue.target:Da lw el system w23 el target da bey7ml nafso mn read bs le read write 34an a2dr akhosh lel emergency w a7el el dnya ya ema atlob mno eno ydakhalne lel emergency 
+emergency.target:De b2a bta3et el emergency 
+
+
+=========================PERMENANT=============================================
+Hnbd2 b2a Nel3b fel target w n8ayar el graphical 
+[root@jimmy ~]# systemctl get-default 
+graphical.target
+
+[root@jimmy ~]# systemctl set-default multi-user.target    Kda ana ba8ayrha Permenant 
+Removed "/etc/systemd/system/default.target".
+Created symlink /etc/systemd/system/default.target → /usr/lib/systemd/system/multi-user.target.
+
+Lw 3mlt reboot haft7 b2a 3la el CLI mode tyb lw 3wz aft7 GUI mra w7da bs haktb startx
+
+Hanraga3o tany lel gui b2a 
+******************
+NOTE El graphical.target ma ela agent byestakhdm el multi-user.target f beykon 3la shakl GUI 
+******************
+
+=========================BOOT TO ANY TARGET ONCE====================================================
+1-Reboot
+2-Interrupt the bootloader count down by pressing any key except enter
+3-preess "e" to edit menu 
+4-Move the cursor to the line starts with "Linux"
+5-Append"systemd.unit=multi-user.target"
+6-press"ctrl+x" to boot with changes 
+
+
+==========================LETS TRY IT========================
+1- reboot from clie 
+2- hados 3la el sahm ely ta7t 34an aw2f el counter 
+3-Ha2af 3la el 2ola w hados e
+load_video
+set gfxpayload=keep
+insmod gzio
+linux ($root)/vmlinuz-5.14.0-427.13.1.el9_4.x86_64 root=/dev/mapper/rhel-root \
+    ro resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap \
+    rhgb quiet
+initrd ($root)/initramfs-5.14.0-427.13.1.el9_4.x86_64.img $tuned_initrd
+4-haro7 lel line ely awlo Linux haro7 b2a a7ot el systemd.unit=multi-user.target ba3d rakam 64 belzabt w take care lazm ykon feh msafat ben rakam 64 w kelmet root w el kelma ely ha7otha 
+5- hados ctrl+x 34an y save w yft7 
+Hala2eh heft7 CLI 3ady bs lw 3mlt reboot hyerg3 GUI Tany 
+
+==================Password Recovery===========================================
+1-Reboot
+2-Interrupt the bootloader count down by pressing any key except enter
+3-preess "e" to edit menu 
+4-Move the cursor to the line starts with "Linux"
+5-Append"rd.break"      el klma de bt2olo e3ml boot w b3d kda e3ml break 
+6-press"ctrl+x" to boot with changes 
+7-mount -o remount,rw /sysroot
+8-chroot /sysroot/
+9-passwd
+10- touch /.autorelabel
+11-ctrl+d twice
+==============Lets Try it ===============================
+Ha3ml nafs ely fat belzbt bs ha7ot "rd.break" b3d rakam 64 w abl klmt root 
+
+remount tany bdl ma ykon read only akhaleh readwrite lel
+el system bta3e msh esmo / la2a gwa esmo sysroot
+w hastkhdm passwd bs msh ha3ml restart l2en el selinux hayw2fne f lazm abl ma a3ml log out lazm a3ml le file bta3 el relabel 34an lw m3mltosh hy3ml lock lel accounts kolha l2eno kda hye3mlo lock lel shadow file 
+
+
+==============================================================
+NOTE:For secure from this thing we need to lock physical computer that can entere thee root and also dont give permissions for sudoers for every thing 
+mmken a3ml grub2-setpassword  lw msh 3awz 7d y3ml reset password beltare2a el 3adya lazm a3ml password lel grup 
+tyb lw nset el grup password hageb cd Linux w ha3ml install lel grup tany w ams7 el awlany 
+
+F version 10 el tare2a el adeema hya ely bteet3ml ha7ot bdl rd.break ==>   init=/bin/bash
+================================================================
+
+======================================Anaconda=========================
+[root@jimmy ~]# vim anaconda-ks.cfg          LAzm akon el root 
+
+Da el file ely feh el answers y3ne Eh !! 
+Awl 7ga el file da esmo Kick start el file da b2a faydeto eny lma b3ml maslan install le Linux f da script byowsf el 7ala ely ana 3wz a3ml install beha y3ne 
+kda b2a msh hy7tag 8er el iso wel file da 34an y3ml install 3latool 
+
+El file da script et3ml lw7do khad el information ely ana kont 3amelha f awl installation w 3ml beha file bs ana mmken a3ml wa7ed brdo 
+========================================================================================================================
+# Generated by Anaconda 34.25.4.9
+# Generated by pykickstart v3.32
+#version=RHEL9
+# Use graphical install
+graphical         Hna ana ekhtrt en el installation ykon graphical w kont msh mfa3al el kdump 34an kda msh mwgood hna 
+repo --name="AppStream" --baseurl=file:///run/install/sources/mount-0000-cdrom/AppStream
+
+%addon com_redhat_kdump --disable
+
+%end
+
+# Keyboard layouts
+keyboard --xlayouts='us','ara'
+# System language
+lang en_US.UTF-8
+
+# Network information
+network  --bootproto=dhcp --device=ens160 --ipv6=auto --no-activate       
+network  --hostname=jimmy.com
+
+# Use CDROM installation media
+cdrom
+
+%packages
+@^graphical-server-environment
+
+%end
+
+# Run the Setup Agent on first boot
+"anaconda-ks.cfg" 45L, 1128B          
+
+# Run the Setup Agent on first boot
+firstboot --enable
+
+# Generated using Blivet version 3.6.0
+ignoredisk --only-use=nvme0n1
+autopart                             Hna ana 34an 3amalt l partitioning auto f ekhtar el nvme0n1 w 3amal autopart 
+# Partition clearing information
+clearpart --none --initlabel
+
+timesource --ntp-disable
+# System timezone
+timezone Africa/Cairo --utc
+
+# Root password
+rootpw --iscrypted --allow-ssh $6$Yb1xVGYXx8Kg.u.8$QfszfBehDq85pWhYbI93IfESCVyIBWPAkh9wC3XgsuBhJu.AJNxlVbjIq0PSUEiVMKw6V4icYl1.ieSS6c/5t.
+user --name=jimmy --password=$6$dCNko7fARgGu5eGO$IRESu1SHx/BpWlPYYht1D3PQG4bTtoZYt7F0qdQC5PzqPf8JXPKVW3HufxRthugVnAsv0huYwrBDZFeSdN/4w0 --iscrypted --gecos="jimmy"
+
+Hna el root wel user 3ndohom nafs el password bs el hashes mokhtalefa bs el password bta3 le user m7tot fhe salt 34an yemn3 el attack 3leh 
+=====================================================================================================================================================
+         
+===================KVM Kernel Virtual management===================================
+1)Hn3ml KVM
+2)Hn3mlo GUI
+=====================================================
+1)Hzwd el Ram w hazawed el cores 
+LW EL machine eshta8alet m3aya kher w baraka Lw ma esht8ltsh ha3ml el khatawat ely ta7t 
+2)Lw el virtual machine mft7tsh lazm a2fel el core isolation          Windows security =>Device security => Close Memory integrity 
+3)Ha3ml search 3la el turn windows feature on and off w ha3ml uncheck on windows hypervisor w brdo hashel l check mn 3la windows subsystem for Linux 
+4)Hakhosh 3la l cmd as an administrator w hagarab el command d w7da wra el tanya lw w7da ng7t mnhom ne3ml restart w inshaAllah yesht8l 
+TRY THESE COMMANDS UNTIL ONE OF THEM WORKS AND GIVE ME SUCCESSFULL
+bcdedit /set hypervisorlaunchtype off”
+dism /online /disable-feature /featurename:Microsoft-hyper-v-all
+Disable -WindowsOptionalFeature    -Online -FeatureName Microsoft-Hyper-V-All
+Disable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V-Hypervisor
+
+
+===========NOW GAHZEN NEBNE MACHINE FO2 MACHINE===========================
+1) dns group list de 34an ashof l groups ley mmkn a3mlha install 
+2)[root@jimmy ~]# dnf group info "Virtualization Host"  De hatbayenly le mandatory w el options ely hyet7ml m3 el group hna 
+3)[root@jimmy ~]# dnf group install "Virtualization Host" -y
+4)[root@jimmy ~]# virt-host-validate  De 34an at2akd hal gehazy kabel eno y3ml vms walla la f el mfrod yetala3le en kolo pass 
+
+De tare2et el CLI bs lazm akhod el iso mn le windows a7otha 3la el VMware f host machine ely hya rh 9 w hasha8al 3leeha rh10
+5)[root@jimmy ~]# virt-install --name VM1 --memory 1024 --vcpus 1 --disk size=10 --os-type linux --cdrom /root/rhel-10.0-x86_64-dvd
+
+De le tare2a el tanya b2a ney aft7 cockpit (Search for all its features
+6)systemctl enable --now cockpit  34an akhosh 3la le GUI bta3 el Linux 
+7)haft7 browser mn 3la el main host w akhosh 3la ip wel port kda  192.168.65.128:9090
+8)hadeelo authenticatior el user bta3e w ha7amel el virtual machines w w lw msh sha8ala h3ml troubleshoot w aft7 le libvirtd w htesht8l m3aya w a3ml create b2a 
+
+
+

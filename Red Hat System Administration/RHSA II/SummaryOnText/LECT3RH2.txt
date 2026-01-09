@@ -1,0 +1,246 @@
+=====================SECURITY=======(SELINUX That give MAC mandatory access control list==================
+SELinux Module in the kernel 34an tetfa3al aw to2al lazem el system yt3mlo restart 
+Permissive => Setenforce 0 => Sh8al w bye3ml monitoring w logging bs laken msh beywa2af 
+------------------------------
+Enforcing => Setenforce 1 =>Sh8al w bbey3ml log and monitoring bs byemna3 b2a w b 7aga esmha labeling 
+ -Z =  print only the security context of the process
+eg:: 
+[root@jimmy ~]# ls -Z at_teest 
+unconfined_u:object_r:admin_home_t:s0 at_teest
+uconfined_u:User policy    
+object_r:Rule Policy         
+S0:MLS Multilayer security or MCS multi categories security 
+ehna hnesht8l 3la el type bas (admin_home_t)
+=> De kaza policy mktoba feh far2 complexity fehom 3la el file w el policy de bt3ml 7ga esmha labeling byerbot kol file b 7agat 3la el system 34an lw el file da et8yar esmo el permissions bt3tk to2af w mt2drsh t3ml 3leh 7ga 
+[root@jimmy ~]# id -Z
+unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+Hna b2a garabna 3la el ID f el s0 bta3to complex 34an moshtak mno kza policies tanya
+---------------------------------
+ 
+Disable => Hna ana kda mw2f el selinux khales => 34an akhaleh disable el 7al el w7ed lazem akhaleh disable 
+f file el configuration w b3d kda a3ml restart 
+=======================================================
+[root@jimmy html]# ls -Z /var/www/
+system_u:object_r:httpd_sys_script_exec_t:s0 cgi-bin
+    system_u:object_r:httpd_sys_content_t:s0 html
+
+CGI Folders:CGI is a standard protocol for web servers to execute programs (scripts) and generate dynamic content
+
+Selinux b2a 7ata policy t7meha brdo 
+
+==========================================================
+hn3ml file f /var/www/html 
+[root@jimmy html]# vim intex.html
+[root@jimmy html]# ls -Z 
+unconfined_u:object_r:httpd_sys_content_t:s0 index.html
+
+Haft7 firefox wa7ot ip le loop back hyeft7 ely ana katbo 127.0.0.1
+
+
+
+
+[root@jimmy html]# cat /etc/selinux/config 
+SELINUX=Enforcing 
+# SELINUXTYPE= can take one of these three values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+Kda ana sh8al Enforcing w brdo el targeted de hya ely bt7me kol 7ga 
+SELINUXTYPE= de leha 3 7alat
+1)Targeted bye7my kol 7ga w brdo bye7me process ely fel awl de bta3et el kernel mn el root
+2)minimum shwyet 7agat beteet7ma 
+3)mls de a3la level 7maya w de kol 7ga btesht8l betkon leha 7maya 
+
+
+
+====================LETS DO SOME EXAMPLES============================
+Hnbd2 b2a n8ayar shwyet 7gat b setenforce
+[root@jimmy html]# setenforce 0
+[root@jimmy html]# setenforce 1
+w hashof el logs f tail -f /var/log/messages
+
+
+chcon Change the SELinux security context of each FILE to CONTEXT.
+-t, --type=TYPE        set type TYPE in the target security context
+El command da 34an a8yar el label bta3 el file 
+
+[root@jimmy html]# chcon -t test_t index.html 
+chcon: failed to change context of 'index.html' to ‘unconfined_u:object_r:test_t:s0’: Invalid argument
+3amaly prevention w lw baset 3la el logs hyezhar ktir geedn bey2ol en feh 8alat bye7sl 
+
+[root@jimmy html]# setenforce 0
+[root@jimmy html]# chcon -t test_t index.html 
+
+hyedeno  eno not valid lw 7aweelt agebo b ls -Z index.html bs msh hygeb logs taya w hyeebd2 m3ak kol 7ga 
+lw sha8alt el selinux tanyu 
+[root@jimmy html]# setenforce 1
+
+w fata7t fire fox hygeely logs w en feh mshakl ktir 
+================================
+hy2oly 34an te7alah ro7 3ml 
+touch /.autorelabel; reboot
+
+tyb eh faydeetha b2a de b2a hat2ol lel selinux e3ml relabel tany w raga3 el poliy ely ana 8yrto w bawazto w raga3 lma kan mwgod fel awl 
+================================
+[root@jimmy html]# ls -Z index.html 
+system_u:object_r:unlabeled_t:s0 index.html
+
+Tyb ana lw 3wz araga3o lel label el adem mn 8ere ma3ml el file wla a3ml reboot 
+Use:
+[root@jimmy html]# restorecon index.html 
+[root@jimmy html]# ls -Z index.html 
+system_u:object_r:httpd_sys_content_t:s0 index.html
+
+============ANOTHER EXAMPLE================================
+Hn7ml setroubleshoot
+dnf install setroubleshoot
+[root@jimmy html]# sealert 
+Inside it 
+Details=> feh detail 3n el log ley gatle 
+Notify Admin=> byeb3t 3la /var/log/messages seewet lle root y2olo feh moshkla 
+Troubleshoot=> hy2oly el moshkla w ezay a7elaha w brdo feeh button plugin details lw dost 3leha hy7el el moshkla lw7do  w lw dost 3la next hala2y el 7al el tany bta3 restorcon
+
+======================EXAMPLE ON FOLDER FROM BOOK===============
+[root@host ~]# mkdir /virtual
+[root@host ~]# ls -Zd /virtual
+unconfined_u:object_r:default_t:s0 /virtual
+The chcon command sets the file context of the /virtual directory to the
+httpd_sys_content_t type.
+[root@host ~]# chcon -t httpd_sys_content_t /virtual
+[root@host ~]# ls -Zd /virtual
+unconfined_u:object_r:httpd_sys_content_t:s0 /virtual
+Running the restorecon command resets the context to the default value of default_t. Note
+the Relabeled message.
+[root@host ~]# restorecon -v /virtual
+Relabeled /virtual from unconfined_u:object_r:httpd_sys_content_t:s0 to
+ unconfined_u:object_r:default_t:s0
+[root@host ~]# ls -Zd /virtual
+unconfined_u:object_r:default_t:s0 /virtual
+
+Fel example da ana hkhale policy el folder ely esmo virtual b en lw gale http ab3to 3la el folder da 
+Lw 3wz a8yar el folders ely ta7to m3 chcon a7ot -R w lw 3wz a restore kolo brdo a7ot -R m3 restorcon 
+================================================================
+
+semanage fcontext : 
+option description
+-a, --add Add a record of the specified object type
+-d, --delete Delete a record of the specified object type
+-l, --list List records of the specified object type
+y3ne lw 3mlt el command kda 
+semanage fcontext -l 
+hyezhr policies b asamehom w mmken astakhdm m3aha grep le esm el service 34an ala2iha asra3 
+semanage fcontext -l | grep httpd
+semanage fcontext -l | grep www
+
+
+[root@host ~]# semanage fcontext -a -t httpd_sys_content_t '/virtual(/.*)?'
+
+
+
+de b2a bey2ol ay 7ga gwa el virtual directory 7awelo el policy bta3o l httpd_sys_content_t
+
+
+=========MAnage Policy Boolean 
+[root@host ~]# semanage boolean -l | grep httpd_enable_homedirs
+httpd_enable_homedirs (off , off) Allow httpd to enable homedirs
+[root@host ~]# setsebool httpd_enable_homedirs on
+[root@host ~]# semanage boolean -l | grep httpd_enable_homedirs
+httpd_enable_homedirs (on , off) Allow httpd to enable homedirs
+(ON => El label kda de ma2fola, OFF=> El policy bta3y m2fol )
+El On el ola de hya mofa3ala walla la hna ana fa3altaha b setsebool, el Off ely b3dha de 7aga mrbota beha walla la y3ne eh ya3ne ana m3ndesh directory w me8ayarlo el policy bta3o.
+[root@host ~]# getsebool httpd_enable_homedirs
+httpd_enable_homedirs --> on
+
+
+Example ely fat da  bt2ol lw enta 3wz testakhdm label mn ely mwgoda 3ndk fel list bs ma2fola ezay aft7ha w b3d kda aro7 arbotha shabah ma khadna fo2 using semanage fcontext -a -t
+
+[root@host ~]# setsebool -P httpd_enable_homedirs on
+[root@host ~]# semanage boolean -l | grep httpd_enable_homedirs
+httpd_enable_homedirs (on , on) Allow httpd to enable homedirs
+
+Hna ba2a ana fa3alt el Policy 34an yb2a kda mwgod 2 ON 34an el httpd y2dr y access el file da
+
+feh ba2a kaza example fe SELINUX w 3amal Skip lel Troubleshoot fel 7ta de 
+
+===================================FIREWALL========================================================
+yum install -y firewall-config
+hnft7o be firewall-config 
+feh b2a el configuration 
+runtime:de y3ne tesht8l 7alan w ana fate7 laken lw 3mlt restart lel firewall to2af
+permanent: y3ne lw 3mlt restart el protocols ely ana fate7ha aw 2afelha tbd2 teesama3 
+f kda ana lw 3awz a3mlha mada el 7yah lazm afa3alha fel runtime w el permanent 
+
+DA bel nesba lel GUI bs msh haneshta8al beh 
+================FIREWALL CLI===========================================================
+
+using firewall-cmd   (ZONE btb2a mante2a leha karta feha policy mo3yana 34an t2ol mene ely hay3de w meen ely msh hay3ade w mmken tkon aktr mn karta laken myenf34 nafs el karta tkon f kaza zone )
+
+[root@jimmy ~]# firewall-cmd --get-zones   De 34an azher el zones ely 3nde 
+block dmz drop external home internal nm-shared public trusted work
+
+El interface leha default zone wa7da enma el zone feha kaza interface l kaza 7ga b2a 
+root@jimmy ~]# firewall-cmd --get-default-zone 
+public
+kda el default zone 3nde hya le public tyb lw 3wz a8ayar le zone b2a a3ml eh 
+[root@jimmy ~]# firewall-cmd --set-default-zone=home
+success
+
+tyb lw 3wz a7ot service aw port 3la el firewall w a3deha f lw m7tetsh esmaha htt7t fel default f lazm aktb esmha zay kda 
+
+[root@jimmy ~]# firewall-cmd --get-services (De kol mgmo3et el services ely a2dr andaha w a3adeha aw aw2fha)
+
+[root@jimmy ~]# firewall-cmd --add-service=high-availability   Tayb lw 3wz azwd f nafs le line a7ot --add-service= w kda so On w ana m7ttsh esm el zone f kda htnzl feel default ely ana 8yartaha fo2 ely hya el home 
+[root@jimmy ~]# firewall-cmd --list-all   de 34an at2kd b2a beha en el highavailablity dakhalt fle zone el default walla la
+home (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: ens160
+  sources: 
+  services: cockpit dhcpv6-client high-availability mdns samba-client ssh
+  ports: 
+
+List-all bs betbayen el run time lw 3wz abayen el permenant a7ot --permenant tyb b2a ana 3wz azwd el high-availability fel permanent 
+
+[root@jimmy ~]# firewall-cmd --add-service=high-availability --permenant --zone=ay7ga 
+kda ana h7otha permenant w f ay 7ta brdo 
+
+================TASK=========================
+Make service firewall : ntp ssh ftp vnc apache dns  ,zone=dmz and in run time   (Apachi is the daemon for http)
+[root@jimmy ~]# firewall-cmd --add-service=ntp --add-service=ftp --add-service=ssh --add-service=vnc-server --add-service=dns --add-service=http --zone=dmz
+
+
+[root@jimmy ~]# firewall-cmd --list-all --zone=dmz
+dmz
+  target: default
+  icmp-block-inversion: no
+  interfaces: 
+  sources: 
+  services: dns ftp http ntp ssh vnc-server
+  ports: 
+  protocols: 
+  forward: yes
+  masquerade: no
+  forward-ports: 
+  source-ports: 
+  icmp-blocks: 
+  rich rules: 
+
+Fel ports b2a bktb kda 
+root@jimmy ~]# firewall-cmd --zone=public --add-port=10000/tcp  W lazm a7ot TCP and UDP dont Forget 
+
+Kda ana fata7t el port rakam 10000/tcp f public dlw2t ana a2dr asha8al 3leha ay 7ga bs lazm b2a aft7 el file configuration 
+a2ol msln sha8ale el ssh 3la el port de w lazm a3ml lel service de systemctl restart w mmken selinux yw2fhale f lazm b2a ageeb el policy bta3 el protocol da w a2olo 3adely el port da feh w da so2al el EXAM w hanakhod 3leha task 
+More Explanation:
+Hadawar 3la ssh.config w ha3adel feeh rakam le port l 10000 msln aw azwd line el 10000 w lazm a3ml command semanage brdo shabah ely fo2 34an yesht8l fel selinux bs eny 2ol el port da ye3ade lel ssh ya selinux b3d eznak y3ne lw gbt policy bta3 el ssh service mn de semanage fcontext -l | grep ssh w b3d kda a2olo 3adely b2a el port de  (SEARCH FOR IT)
+
+
+===================================================================================================================
+======================STORAGE========================================
+
+
+
+
+
+
