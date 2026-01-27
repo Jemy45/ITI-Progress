@@ -14,8 +14,8 @@ A comprehensive repository documenting my learning journey and progress through 
   - [Cisco Certified Network Professional (CCNP)](#cisco-certified-network-professional-ccnp)
   - [Red Hat System Administration (RHSA)](#red-hat-system-administration-rhsa)
   - [Computer Networks](#computer-networks)
-- [Prerequisites](#prerequisites)
-- [How to Use This Repository](#how-to-use-this-repository)
+  - [Huawei](#huawei)
+  - [Nutanix](#nutanix)
 - [Certifications](#certifications)
 - [Author](#author)
 
@@ -25,6 +25,8 @@ This repository serves as a portfolio and knowledge base for my ITI training pro
 
 - **Networking Fundamentals**: Cisco networking technologies (CCNA & CCNP)
 - **System Administration**: Red Hat Linux system administration
+- **Cloud & Infrastructure**: Nutanix hyperconverged infrastructure
+- **Vendor Certifications**: Huawei datacom technologies
 - **Hands-on Labs**: Practical exercises and real-world scenarios
 - **Projects**: Comprehensive final projects demonstrating learned skills
 - **Certifications**: Earned certificates and completion documents
@@ -43,13 +45,20 @@ ITI-Progress/
 │   └── SummaryOnPacket and Labs/  # CCNP labs and exercises
 │
 ├── Computer Networks/
-│   └── Certificates/              # Computer networking certificates
+│   └── Certificate/               # Computer networking certificate
+│
+├── Huawei/
+│   └── Certificate/               # Huawei HCCDA certification
+│
+├── Nutanix/
+│   └── Certificates/              # Nutanix certifications
 │
 └── Red Hat System Administration/
     ├── RHSA I/                    # Red Hat System Admin Level I
     │   ├── Certifiation/          # RHSA I certificates
     │   └── Labs/                  # Practice labs and tasks
     └── RHSA II/                   # Red Hat System Admin Level II
+        ├── Certificate/           # RHSA II certificate
         ├── SummaryOnText/         # Lecture notes and summaries
         └── Tasks/                 # Lab assignments
 ```
@@ -107,37 +116,45 @@ Comprehensive Linux system administration training in two levels:
 ### Computer Networks
 
 - Foundational computer networking certificate and materials
+  - [Computer Network Certificate](Computer%20Networks/AhmedGamal_ComputerNetworkCert.pdf)
 
-## 🔧 Prerequisites
+### Huawei
 
-To explore and use the materials in this repository, you may need:
+Huawei certification materials:
 
-- **Cisco Packet Tracer**: For opening and running `.pkt` network simulation files
-  - [Download Packet Tracer](https://www.netacad.com/courses/packet-tracer)
-- **PDF Reader**: For viewing documentation and certificates
-- **Text Editor**: For viewing lecture notes and text-based materials
-- **Linux Environment**: For practicing RHSA concepts (VirtualBox/VMware with RHEL/CentOS)
+- **Certification**: [Huawei HCCDA Tech Essentials Certificate](Huawei/CertificateHCCDA-TechEssentials.png)
+- Covers fundamental Huawei datacom technologies and networking essentials
 
-## 💡 How to Use This Repository
+### Nutanix
 
-1. **Browse by Topic**: Navigate to the relevant directory based on your interest
-2. **Study Materials**: Review lecture notes, summaries, and documentation
-3. **Practice Labs**: 
-   - Download `.pkt` files and open them in Cisco Packet Tracer
-   - Follow along with lab screenshots and instructions
-4. **Reference Projects**: Examine final projects for comprehensive examples
-5. **Track Progress**: Use this structure as a template for organizing your own learning journey
+Nutanix certification achievements:
+
+- **Certifications**: 
+  - [Nutanix Certified Professional - Multicloud Infrastructure 6](Nutanix/nutanix-certified-professional-multicloud-infrastructure-6.png)
+  - [Nutanix Certificate Document](Nutanix/NutanixCertification20260122-30-m6bpjt.pdf)
+- Demonstrates expertise in Nutanix hyperconverged infrastructure and multicloud solutions
 
 ## 🏆 Certifications
 
 This repository includes official certifications for:
 
-- ✅ CCNA: Introduction to Networks
-- ✅ CCNA: Switching, Routing, and Wireless Essentials
-- ✅ Red Hat System Administration I
-- ✅ Computer Networks Fundamentals
+- ✅ **CCNA: Introduction to Networks**
+  - [Certificate](Cisco%20Certified%20Network%20Associate/Certifications/CCNA-_Introduction_to_Networks_certificate_agml2048-gmail-com_78c8360d-aa89-4467-a72c-a3dda2954a72%20(1).pdf)
+- ✅ **CCNA: Switching, Routing, and Wireless Essentials**
+  - [Certificate](Cisco%20Certified%20Network%20Associate/Certifications/CCNA-_Switching-_Routing-_and_Wireless_Essentials_certificate_agml2048-gmail-com_d8d2b4f8-beb6-412a-8851-b046080bc047.pdf)
+- ✅ **Red Hat System Administration I**
+  - [Certificate](Red%20Hat%20System%20Administration/RHSA%20I/Certifiation/Certificate.pdf)
+- ✅ **Red Hat System Administration II**
+  - [Certificate](Red%20Hat%20System%20Administration/RHSA%20II/Certificate/Certificate.pdf)
+- ✅ **Computer Networks Fundamentals**
+  - [Certificate](Computer%20Networks/AhmedGamal_ComputerNetworkCert.pdf)
+- ✅ **Huawei HCCDA Tech Essentials**
+  - [Certificate](Huawei/CertificateHCCDA-TechEssentials.png)
+- ✅ **Nutanix Certified Professional - Multicloud Infrastructure 6**
+  - [Certificate Image](Nutanix/nutanix-certified-professional-multicloud-infrastructure-6.png)
+  - [Certificate Document](Nutanix/NutanixCertification20260122-30-m6bpjt.pdf)
 
-*Certificates are located in their respective directories*
+*All certificates are available in their respective directories within this repository*
 
 ## 👤 Author
 
