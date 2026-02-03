@@ -12,6 +12,7 @@ A comprehensive repository documenting my learning journey and progress through 
 - [Content Description](#content-description)
   - [Cisco Certified Network Associate (CCNA)](#cisco-certified-network-associate-ccna)
   - [Cisco Certified Network Professional (CCNP)](#cisco-certified-network-professional-ccnp)
+  - [Microsoft Certified Solutions Associate (MCSA)](#microsoft-certified-solutions-associate-mcsa)
   - [Red Hat System Administration (RHSA)](#red-hat-system-administration-rhsa)
   - [Computer Networks](#computer-networks)
   - [Huawei](#huawei)
@@ -49,6 +50,11 @@ ITI-Progress/
 │
 ├── Huawei/
 │   └── Certificate/               # Huawei HCCDA certification
+│
+├── MCSA/
+│   ├── Final Project/             # Windows Server comprehensive project
+│   ├── Notes/                     # Lecture notes and summaries
+│   └── Tasks/                     # Lab assignments and exercises
 │
 ├── Nutanix/
 │   └── Certificates/              # Nutanix certifications
@@ -93,6 +99,26 @@ Advanced networking topics building on CCNA knowledge:
   - Private VLANs
   - High availability protocols (HSRP, VRRP, GLBP)
   - Advanced EtherChannel configurations
+
+### Microsoft Certified Solutions Associate (MCSA)
+
+Windows Server system administration and Active Directory implementation:
+
+- **Final Project**: [Comprehensive Windows Server Project](MCSA/Final%20Project/MCSA_FinalProject.pdf)
+  - Multi-domain Active Directory forest (ITI.LOCAL with child domains)
+  - Read-Only Domain Controller (RODC) implementation
+  - Group Policy Objects (GPO) for user restrictions and software deployment
+  - Windows Deployment Services (WDS) for automated OS installation
+  - DNS, DHCP, IIS/FTP server configuration
+  - Administrative delegation and roaming profiles
+  - See [Project Details](MCSA/Final%20Project/README.md)
+- **Tasks**: [Hands-on lab exercises](MCSA/Tasks/MCSA_TASKS.pdf)
+  - Windows Server administration tasks
+  - Active Directory configuration exercises
+  - Server role implementations
+- **Notes**: Lecture summaries covering:
+  - Lectures 1-3: Text format notes
+  - Lectures 4-6: Markdown format notes on advanced topics
 
 ### Red Hat System Administration (RHSA)
 
