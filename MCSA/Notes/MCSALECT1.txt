@@ -1,0 +1,171 @@
+Server:7ga bet serve services lel clients 7asab ana msh8lo eh 
+DHCP, DNS, Domain Controller:Yet7km fel clients, WebServer
+
+
+Windows Server 2022: Hybrid y3ne lw 3wz tesht8l cloud tesht8l lw 3awz tesht8l On Premise (Infrastructure kolha 3nde) Tesht8al
+
+
+Faydet el Bridge eno Security wise l2en lw 3wz a7ml 7ga cracked a3mlha bridge w a7ml el 7ga w b3d kda a3mlo host only 34an afsl el ghaz bta3y bel ghaz el host eny a3mlha host only 34an w b3d kda aft7 el EXE
+
+========================================
+At Setup:
+
+Standard Evaluation: da no3 mn el windows server w lw sha8alt 3leh el hyperV a2dr asht8l l8ayet 8 VM bs 2 mnhom b nafs license w el 6 el ba2yen lazm agblohom license tanya w brdo limited fel compatability bta3et el hardware
+DataCenter: lw sh8alt el hyperV a2dr eny unlimited VMs da byesht8l 3l hardware kbir 
+
+Desktop Experience: GUI 
+
+======================================
+Custom Vs Upgrade Vs Migrate 
+Custom: Ana h3ml setup el 7ga 3la le disk w hams7 kol 7ga beh 7ta lw kan feh windows server adem 
+upgrade: atla3 upgrade l noskha a3la bs m3mlsh upgrade mn 16 l 25 3latol lazm n3my 3la 19 w 22 msln  w bey7afz 3la el security wel license bta3ty bs beykon f wa2t el downtime l2en hyakhod w2t w el services hto2af 
+
+Migrate:bey7afz en feh availability bs bakhsr eny lw m3aya license msh hyenf3 yesht8l 3la el ghaz el tany 
+w ana bageb hardware gdid lazm 34an ashel el resources wel data bt3te mn awl ghaz lel ghaz el tany 
+
+
+====================================
+Hzbt el w2t wel name wel connection ipv4 tb2a static 3ady 
+h2fl el firewall w b3d kda haft7 el manage w hakhale el refresh kol 3 mins
+
+hados VM fo2 hakhtar install VMware tools w b3d kda h3mlha setup 
+
+
+
+==================================================
+Feh task mwgod eny a3ml 2 domain controller
+myenf34 akhod clone mn awl achine w a2ol enha teb2a el makana el tnya 34an hye7sl mshakl l2en el etnen 3ndohom nafs el security identifier f kda mmken y7sl conflict 
+SnapShot: byakhod el 7ga ely fel memory wel 7ga ely fel hardisk w y3mlha save 
+=============================
+
+Ports: 65535 a2dr astakhdemhom   Dol el socket ely ana ba2dr asha8al 3leha service mo3yana 
+from 1 to 1023 dol reserved
+80 HTTP, 443 HTTPS
+FTP:20 data 21 control (Upload or Download)
+34an de ely haft7ha 
+1023=>49151 Not reserved bs feh 7gat mshhora shabah el database 
+49152=>56535=> Dynamic Ports dol beykono dynamic y3ne lw ana fat7e kza tab hykon kol w7da betkon wakhda dynamic port mokhtalef w byakhdo dynamically 
+netstat command yebayen kol el 7ga 
+
+
+#################################
+El server 34an yesht8l webserver lazmlo 7ga esmha IIS(SEearch for it)
+
+w lma a3ml mawke3 lazm a3ml search hal el esm da metakhed wla la l2eny zay m hakhod mn el isp unique ip lazm el name bta3y ykon unique 
+
+Difference between 
+.com => 7aga togarya 3al 3ady 
+.net => shabakat w aghezet el computer
+.org => monazama 7komya w btakhod ma3onat w btesh7t 
+.edu => Ta3lemya 
+.gov => 7ga 7komya 
+.eg => de 7ga lel balad ely ana a3ed feha 
+
+
+dol esmohom TLD (Top level domainname)
+dol awl 7ga bro7 adwr fehom 34an ala2y el domain da 
+
+ICAAN => Zawedt 7ga esmha NTLD (New ..)
+
+
+####################################
+Hn3ml DC2 WebServer(IIS)
+H3ml addfeature w a3mlm 3la webserver IIS
+w msh hzwd features tnya l2en kol mzwd feature kol m el security tes3b w sahl 3al attack yekhosh 
+kan feh ekhtayen role based w remote based ana ekhtart el role based w b3d kda install 
+
+
+######################################3
+Haft7 el IIS manager b click ymen mn 3la el IIS ely 3al shmal
+w ha2dr a3ml explore w ashof el default web site 
+%SystemDrive%\inetpub\wwwroot w hya metkhazena el mkan da 
+mmken agebha mn kaza mkan ahm 7ga lma a3ml explore 3la default web site hla2y el html 
+lw 3dlt feh yasma3 f el clients kolohom 
+lw 3mlt share fel PC1 3la IP el DC2 10.10.10.2 hla2y el ta8yer ely 3mlto 3la DC2
+
+###################################################
+
+ha3ml website tany w ha3ml stop lel default website w h add website tany 
+bs lw sametha ay esm 8er el asamy ely fel default document 
+bs lazem adefha fel default f ana sametha mn el asma2 el default index.html
+w ha3ml wa7ed tany w hkhaleh 3la port 8080 brdo 
+
+Lazm adwr 3la file el index.html w a7ot elpath bta3o 34an lw b3ml website kbir 
+####################################################
+
+Dlw2t tab3n ana msh kol m3ml publish l websit ehadelo port tb3n w aro7 lel firewall a2olo 3adely el ip da 
+f bnelg2 l 7ga esmaha hostname w asha8al el default ips bs 3al firewall ely hma 80 w 443 
+
+hakhaleha all unassigned w hakhale el port 80 3ady w ha7ot hostname y basha HAL HYESHT8l ??
+lsa la 34an mfesh DNS 
+
+
+haft7 hosts hadawar 3leha mn 3la pc1 w ha7ot el file 3la pc 1 fel desktop  w ha3ml edit feh w b3d kda ha3mlo copy gwa el folder tany el path hwa da 
+C:\Windows\System32\drivers\etc
+w ha7ot dol 
+10.10.10.2 www.web1.com
+10.10.10.2 www.web2.com 
+10.10.10.2 www.web3.com 
+
+w hakaza kda el hosts file da hy3rfne ana aro7 as2l men 34an a3rf el 7ga fen 
+dlw2t el client awl 7ga byes2l el cache f msh hayla2y 7ga hay2om ray7 yes2l el hosts
+dlw2t kda b2a ana kda b2ol lel client lma 7d yes2lk 3la www.web1.com ro7 es2l 10.10.10.2 w hayla2y 3ndohom el 7ga 
+
+
+w hna b2a byegy dor le DNS 34an mnstakhdmsh le hosts file khales w b ezn allah da ely hn3mlo 
+
+
+DATACENTER:
+Da el mkan ely feh el servers kolha 34an el high availability 34an lw msln el internet w23 
+UPS => da shabah el powerbank el kbir 34an ye8az el datacenter bta3etna lw 7ga w23t y2wmha 
+
+nafs el 7war brdo 34an el 7arara 34an el agheza hteskhan 
+feh 7ga esmha b2a physical security de 34an msh ay 7d y2dr yekhosh el data center 
+
+lw ana 3wz a3ml update msln msh hro7 lel server beykon remotely 3n tare2 el rdb remote desktop da shbh el ssh bta3 Linux w bakhosh 3la el gehaz kolo msh files bs 
+w da lazem ykon 7d mawsok aw administrator enma el client el 3adya de hadeha ftp 3al 3ady  
+ana b2a hastakhdm FTP l2eno TCP 34an lw 3wz msln a3ml update w da ely hn3mlo dlw2t 
+
+##############################3
+Lazm anzl el FTP Server 3la el DC2 hala2yha f add role ta7t el iis 3ady 
+
+Ha3ml user gdid b2a mn tools then computer management 
+w local users and groups then users then add user 
+
+user can change after first logon=> d 34an el user yekhosh bel password ely ana 7ato w b3d kda hwa ye8ayar el password da 
+ana ha3ml password never expire w cant chang epassword 
+account is disabled de y3ne eny a3ml account w akhaleh disabled 
+
+haft el IIS manager w hala2y el FTP tools zaharet 
+ha2af 3la sites w click ymen w add ftp site 
+w ha3ml ftpweb1 
+w ha7ot ip w el port bta3 el ftp 
+w ha3mlha no ssl ana msh 3awz a3mlha authorization dlw2t 
+Then next
+Authentication:Basic
+Allow user: Specified w ha7ot Jimmy
+w haft7 read w write (lw ft7t write yb2a y2dr y3ml upload fel file da )
+
+Kda DC2 done haro7 lel pc b2a 
+
+haro7 lel pc w haft7 internet explorer w a search 3la ftp://10.10.10.2 w da hytlob mne username w pass w ha2dr aft7 w a3ml download bs msh ha2dr a3ml upload lel asf bel tare2a de w brdo msh sha8ala b Microsoft edge 
+
+mmken b2a mn el file explorer 
+ftp://10.10.10.2
+ha7ot de bs f ay file mn el search fo2 
+w h7ot el username wel password w ha2dr b de b2a a3ml upload 
+
+3rd Method:
+In CMD 
+ftp 10.10.10.2
+w ha7ot el username wel password w ls b2a w hashof el denya 
+put C:\Users\Jimmy\Desktop\TESTFT.txt
+de 34an a7ot 7ga w mmken get 34an akhod file w byenzly fel user/Jimmy aw ageebo mn lcd (locat current directory)
+
+feh tare2et el filezilla b2a hagarabha b3den bs EZ
+
+=============================================================
+Logging file 
+lazm aro7 lel file bta3 el logs w ashof el dnya w el mkan bt3o hna 
+C:\inetpub\logs\LogFiles
+mmken agebo mn explore 3al 3ady 

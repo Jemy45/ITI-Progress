@@ -1,0 +1,273 @@
+====================DNS=================================
+lw msln 3awz a7gz domain f baro7 l sherka zay hostinger aw godaddy(domain registrars) ely wakhdy tafweed mn el ICAAN 34an ye7gzo lel nas domain b ips 
+
+Dlw2t ana 7agazt domain esmo abas.com w eshtret ip mn isp msln 11.11.11.11
+ta7teh b2a record mno esmo www da ely beyshawr 3la el ip ely wakhdo mn el ISP 
+
+el client lma byegy y ssearch 3la website mo3yan:
+beyes2al el nas de beltarteb:
+1) Cache
+2) Hosts file => Mb2ash yostakhdam 
+3) DNS
+
+ana lw 7atet dns google 8.8.8.8 aw el alternative bta3o 8.8.4.4
+lw mla2osh 3ndo bye3ml re7la kda mn 3ndo b2a 
+
+ay website 
+www.abas.com.
+el dot el akhera de esmha root hints f el dns da b2a hyebd2 yro7 yes2lhom 
+hyes2l awl 7ga el root hints fel TLD 
+hyrod 3lya y2ol ana msh 3aref el site da fen bs ana 3aref .com fen 
+yro7 b2a TLD bta3 .com 
+f .com y2olo ana msh 3aref www bs 3aref el zone bta3 abbas da fen wel lw ro7t tes2lo hay2olk 3al ip bta3o 
+f .com y2olo hatla2y abbass.com de hatla2eha msln f dns 12.12.12.12
+f dns google hayro7 l dns 12.12.12.12 w yes2alo el record bta3 www bta3 abbas.com da beywdy fen f hy2olo 
+beywde 3la 11.11.11.11 f yerg3 lel client w y2olo b2a bs abl m yes2lo el dns bta3 google hy3mlha cache 34an msh kol mra yro7 yes2al lel client w yerg3 tany la lma el client ys2lo yrod 3leh 3latol 
+
+
+###############################################################3
+
+Tools => DNS => Hybayenly DNS Manager 
+
+f iti.local hala2y el 7gat ely etsagelt tyb leh el pc beysagel nafso 
+lw dakhalt 3la mkan ipv4 w dakhalt 3la advanced=>dns hala2y eny m3lm 3la register the address in the dns 
+
+
+mmken a7ot b2a record b edaya 3ady fel iti.local 
+eny a3ml new host w ha7ot msln pc2 b ip 10.10.10.7
+
+
+fata7t pc1 w 3malt ping 3la pc2.iti.local 
+hyrod 3laya w lw 3mlt nslookup da b2a hy2ole el DNS bta3e el ip bta3o eh 
+
+tyb lw grbt 3la el main pc 
+hyedene el dns bta3 el DHCP ely beywz3o y ema lw 3mlo 3ady hyeb2a bta3 google 
+sa3at byektb b2a non authoritative answer lw s2alto 3n 7ga 3ndo 
+de m3naha en el dns 3ml query w ra7 gabhalk enma de msh 3ando lakn lw 3nd el dns 
+f hyshel el kelma de 
+
+#################################################################
+Dlw2t b2a hansha8al el website bt3na 3la el dns 34an lma yes2lne arod 3leh 
+in forward lookup zones => new zone => primary zone(w mmken a7otha fel acive directorey y ema ashelha =>hakhtar replicate le dns b7en eny a3mlo replicate 3la el additional ely 3nde 
+=> dynamic update (de bteft7 lma a7ot el zone bta3e fel active directory)
+de lw fa3altha b2a ay gehaz trusted aw msh trusted ana ha7oto fel zone da w hyetkhazn lw7do 3latol w da khatar mmken a3mlha dont allow w ana ely abd2 
+a7ot el 7gat fel zone manually 
+
+w ha3ml esm el zone msln web1.com 
+w ha3ml gowaha b2a new host esmo www w akhale el ip bta3ha 10.10.10.100
+
+haro7 b2a le pc1 nslookup w as2lo 3la www.web1.com
+msh haygeblo non authoritative w hyedeny 10.10.10.100
+
+w mmken azwd hosts tanya brdo l www b 101 w 102 ips 
+
+
+################################33
+TASK Craete zone web2.com, ha3ml record www => 10.10.10.200
+#####################################
+dlw2t lw 3mlt host www 3la zone web2 b ip 10.10.10.100
+hyenfa3 3al3ady msh hyegra 7ga el ip mmken ykon 3leh kza webserver 3al 3ady lma adwr 3la www.web1.com aw web2.com hyrod 3laya bel ip 3al 3ady bta3 10.10.10.100
+
+
+
+##################################################
+Hn3ml reverse lookupzone b2a 34an y transform el ips into name
+w ha3ml new msh host b2a la PTR l2en de 7aga mwgoda w mshwra 3la 7ga mwgoda tanya 
+
+w lw 3mlt 3al pc nslookup w 7atet 10.10.10.200 hayrod 3lya bel www.web2.com
+
+tyb dlw2t web1 haybos 3la eh mtegy ngrb 
+hakhosh 3lehom mn el forward b2a w a8yrhom mn gwa 3ady b eny ashel mark mn 3la update w a7ot el mark tany hyesht8l m3aya w hy3ml create 3al 3ady 
+w mmken wna b3d el forward asln afa3al el PTR 3latol y basha bs lazm a3ml create le 
+zone 10.10.10.inaddr.arpa fel reverse lookup zone 34an yerme el 7gat 3leha 
+lw 3mlt nslookup 3la 10.10.10.100 b2a kol mra hyedy 7ga mokhtlfa web1 w web2 w sp.com
+===============================================
+*******************
+reserve el name into ip w lw hwa configured l 7ga mo3yana akhaleh y3ml el reverse lookup for interviews da afdl 7ga lel DNS laken myenf34 aft7 el forward kolo yb2a reverse klo 34an khatar 3l attacker 
+*******************
+================================================
+
+Hane3ml 7ga esmha alias b2a 
+34an lw 3nde msln link esmo tweel
+aa.bb.cc.dd.ee.web1.com w up 10.10.10.150
+
+click ymeen 3la web1.com w create new alias w hasameh w h3ml browse 3la aa.bb.cc.ee.dd w kda 
+
+#################################################
+Case Scenario:
+Sherka esmha tata.com 
+ra7et l sherket registrat 7agazetlo el domain da tata.com f el registrat de ra7et 
+le .com w aletlaha ana 3wz adelk tata.com hya khadetha w wadetha lel dns msn 12.12.12.12 f el dns da b2a mtsgl 3ndaha zone esmo tata.com w ta7to record esmo www el ip bta3o 11.11.11.11 
+
+Revise 3al scenario tany :
+el client bta3y hyes2l el dns bta3o 8.8.8.8 f el dns btya3 google yro7 ys2l root hints TLD y2olohom ana msh 3aref www.tata.com bs y2olo 3la 3aref el .com f el dns bta3 google yro7 l .com y2olo ana msh 3aref www bs 3aref tata.com w yrod 3leh bel zone f dns google yro7 yes2l el zone ely feha www.tata.com f yrod 3leh y 2olo ah 3ande khodha f dns google yro7 l www.tata.com b2a bel ip yakhod mno el website da w yero7 yeraga3ha lel client ely sa2al
+
+dlw2t b2a el Query ely ben el client w dns server bta3 google esmo Recursive query 
+
+ely bye3mlo DNS bta3 google m3 kol el lafa bta3to de esmha iterative query 
+
+dlw2t b2a ana lw client 3nde w 3wz yes2l el dns bta3y w yro7 l 7ga 3al internet 3ama ne3ml eh ?
+hwa el dns w byet7ml beykon fehom shwyet roothints 
+lw w2ft 3nd DC1 w dakhalt properties fel saf7ta bta3et el DNS manager f hwa mwgod 13 roothints  from A to M w mmken ageb mn 3al net file wams7 ely 3ande w ageb el updated mn 3alnetw a3mlo import 
+
+
+##############################################
+Dlw2t ana b2a el DNS bta3y ta3ban leh m7otolosh forwarders yes2lhom 
+f properties bta3 DC1 wados 3la Forwarders w a7ot 8.8.8.8 
+kda b2a el dns msh hyro7 yes2l el root hints la hayro7 3la el forwarders 3latol 
+w b3d kda lw el forwarders mwslhosh yero7 yes2l el roothints
+
+client default caching =>1hr, DNS default caching=>1day
+Tyb dlw2t DNS bta3y belnsba lel DNS bta3 google eh ? 
+dns bta3y esmo client f kda el query ben el dns bta3y wel dns bta3google 
+Recursive Query *****************
+
+
+#################################################
+Lets Try this 
+Open DC2 add role DNS w eft7 el DNS manager 
+
+w create Zone tata.com w ha7ot feh record www 11.11.11.11
+
+w b3d kda ha7ot fe DC1 forwarders bta3to hatkon 10.10.10.2 w da hwa DC2
+fdlw2t lw 3mlt 3la el pc 
+nslookup www.tata.com 
+hayraga3le 11.11.11.11
+y3ne 10.10.10.1 ely hwa el dns bta3 el Active directory bta3y ra7 sa2al el forwarder 
+10.10.10.2 f 2aly aywa 3nde w tab3an lw mkansh la2aha hyebd2 yro7 lel roothints 
+###################################################
+Akher test case de lw ana 8yart el DNS bta3 el PC into DC2 10.10.10.2
+w lw dawart 3la www.tata.com hayla2ih 3ady bs b3d 2 request time out 
+
+enma lw dawart 3la www.sp.com msh hykon 3aref 3nha 7ga l2eno 10.10.10.2 msh bye3ml forward 3la 7ga w beyshof el roothints 
+
+******************************************************************
+ipconfig /flushdns => For clearing cache 34an ams7 el cache 34an agrb
+******************************************************************
+Feh 7ga esma Conditional forwarder 
+
+msln ana 3nd DC2 Hadef conditional forwarders le sp.com w ha2ol dwr 3leha f 10.10.10.1 f hyla2eha 3ade 
+bs el no2ta de lazm dns ykon sabet 34an lw el ip et8ayar el dnya hatboz 
+Stub zone de b2a bet7l el moshkla de 7ga shabah el shortcut 
+##################################################################
+Lazm bs fel awl ams7 el cache bta3 el pc w bta3 el dns ely 3nde 
+bel command ely fo2 bs el cache ely bms7o be command da cache el browsing
+bs 3al server lazm ams7 cache el dns de hya el aham 
+mn 3la DC2 click yemen w a3ml clear cache 
+
+Hane3ml stub zone b2a 
+hn3ml new zone fel forward zones 
+w hakhtar stub network w haktb sp.com w ha7ot el ip ely hya mwgoda feh 
+dlw2ty ely hwa 10.10.10.1 bs lw et8yart b2a hwa hy3rfha w hyetataba3ha w de b2a el shortcut ely hwa bye3mlha 
+
+El sp.com dlw2ty b2et 3nde f DC2 bs gaya faradany mfhash ely kan feha f DC1 
+bs lw 3mlt nslookup 3al pc be www.sp.com msln 
+el pc hyes2l el short cut f el short cut hye3rf m3loma 3n el zone fen w haygeb el m3lomat mn ely hnak 
+mn el akher 
+el conditional forwarders=> Static => Astakhdmha lw ana ely 3amel el DNS w msh h8ayar el IP
+Stub Zone => Dynamic => Lw m3 DNS ana msh 3aref 3ano ay 7ga 
+
+
+El StubZone betgeb non authoritative brdo TAKE CARE
+*************************************************************************
+Dlw2t b2a ana lw 3wz ageb noskha kamla mn el zone ely f DC1 le DC2
+w el no3 da esmo secondary zone w h3mlo creation 
+
+hyezhar 3nde lw 3mlt refresh msh htezhar khales 
+
+lazm aro7 3la web1 fel DC1w aft7 properties w zone transfers 
+feh 3 ekhtyarat 
+To anyserver da fokk mno 8alat eny aft7o 
+Only to servers listed on the name servers tab => Da b2a bel name w da a7sn ekhtyar bs el DNS bta3y m3ndosh name 
+Only to the following servers => Da b2a bel ip bs khatar 34an lw el ip et4al mn 3ndy wel server wa2af mmken 7d tany yakhdo w yekhosh w yakhod 
+
+ana hakhtar only to the following servrs dlw2ty y3ne 
+
+Lw la2et web1.com mgatsh f mmken ams7t web1.com tany w a3mlha mn el awl b3d ma fata7tha mn 3la DC1 w htegy 
+dlw2t lw 3mlt ping mn el PC hatgely w msh hatkon non authorized b2a 
+
+
+El zone ely gatle 3la DC2 de b2a Read only la a2dr a3ml record aw ams7 record 
+
+enma lw fata7t DC1 w 3adelt hnak yet3adel 3nde f DC2 3latol Dynamically 
+
+
+###########################################################
+
+dlw2t feh 2 files byet3mlo by default fel zone el b3mlha create 
+SOA el file da b2a lw ft7to hala2y e3dadat el time b2a el refresh wel caching w kol el 7gat de
+feh 7ga esmha minimum ttl da el wa2t ely ana h3ml cache l nafse 3nd el client ad eh w da bshofo 3al client mnen ??
+ipconfig /displaydns
+Eh el ahsan b2a eny a3ml cache l moda twela walla l moda so8ayara 7asab el case:
+lw msln 7ga shabah google f hya masla7tha en el cache time ykon olyael 34an bye3ml load balancing w kol mra yedelak dns mokhtlf w asr3 
+
+laken lw el 7ga sabta w msh m7tag a8yar ktir akhale el cache bta3et el zone de wa2t tweel b2a y basha 
+
+===========================================
+In properties of DC2 hanla2y enena 3amlen 7ga esmha roundrobin da faydte eh ?
+da yo3tabar no3 mn anwa3 el load balancing w da sh8al by default 34an kol mra 
+a3ml nslookup yegeble ip mokhtalef 
+ 
+
+#################################################################################
+Eh faydet el DNS b2aaaaaaaaaaaaaaaaaa !:
+
+el DNS mmken yetla3b beh le3ba baseeta
+en ely beywz3ly el DNS da beykon el DHCP ely 3la el router f ana lw bakhdo dynamically 
+mmken yewadeny 3la local DNS 7d 3amlo w 3amel webserver shabah facebook mmkne yakhod el id wel password mne w b3d kda yeb3tne 3la facebook el 7a2e2y 
+
+Mn el Akher el PC el personal khaleh 3la DNS bta3 google w m3mlosh dynamically 
+=====================================================================
+TASK1:
+DC2 h3ml webserver IIS we ha3ml create l 2 links
+www.Task1.com
+www.Task2.com
+
+
+On DC1:
+DNS b2a 3leh 2 zones le task1 w task2 34an yrod 3al pc 
+
+on PC1 lma a3ml http:\\www.Task1.com yro7 3latol badal m kona ben7ot el ip f file el hosts
+
+
+Answer:: 
+haft7 DC2 w ha3ml 2 files gwa el C w ha3ml index.html l kol wa7ed 3ady zay el tare2a el awlnya 
+ ha3ml 2 add website 3ady w hasamehom www.Task1.com w www.Task2.com bel hostname 
+w Haseeb unassigned 3ady w port 80 zay ma homa 
+
+Da kda done b2a w hat2kd en el DNS bta3o 10.10.10.1
+
+In DC1:
+da ha3ml feh 2 zone kol wa7ed esmo Task1.com w Task2.com w ha3arf fe kol wa7ed 
+www w haykon wakhed ip DC2 10.10.10.2
+
+In PC1: Hat2kd en el DNS bta3y 10.10.10.1
+w b3d kda awde wa7ed search 3la www.Task1.com w www.Task2.com w hyesht8l 
+b3on allah 
+=====================================================================
+
+DHCP In Microsoft:
+Lease time is 8 days 
+DORA 3ady bas Microsoft bt3ml kol 7ga mn el requests de Broadcast 
+y3ne el discover wl offer wl request(de ely bkon ba3et feha el client mac address bta3o 34an el DHCP y link el ip da bel mac da) wel acknowledgment broadcast(Search for it why Microsoft do this)==> TASK
+
+feh 7ga esmha renwewal process => de bab3tha lel dhcp server unicast 34an agdd wa2ty 
+htestana l7d el 8 ayam m tro7 w b3d kda teshel el macaddress da w tkhale el ip mota7 
+
+===================================================================
+ana 3nde msln f iti el lease time bey23od 1 day da 7lw walla w7esh 
+da we7esh l2en kol yom kol el nas ely hatkhosh ht3ml broadcast f awl el yom w el traffic hyo23 
+w adelo 7 ayam msln tyb kda msh da hyestanzef IPs ?
+ah bs class a f range el 10.0.0.0 de btest7ml ips ktir f msh htefr2 m3aya 
+enma msln lw el business hwa ahwa 
+f lazm el leasetime ykon olyel 34an ma7gzsh kol el nas lw ana f range 192
+
+===================================================================
+tyb lw el DHCP wa2ef el apipa hyetakhed sa7 f el nas lw kolha f apipa hyklmo ba3d 3al 3ady w da bakhodha mn el OS bta3 el ghaz 
+w da rakam random wared kaza pc 3ndohom nafs el apipa 
+w myenf34 el apipa yetl3 3la internet 
+===================================================================
+Lw 3nde 2 DHCP servers ely byewsl el awl hwa ely hakhod mno ely byeb3t ack el awl f de mmken ye7sl DHCP starvation w 7d yegy y2ol en ana DHCP w kda 
+tyb lw f sharekat kbira lazm el DHCP server 3nde fel domain controller ykon Authorized 
+
+w mmken a3ml network guest w adakhal 3leeha el nas ely bara el Domain 3ady 34an ykonsh lehom 3laka bel shbka bt3ty 

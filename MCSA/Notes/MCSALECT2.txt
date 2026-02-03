@@ -1,0 +1,264 @@
+Fel Linux b2a y basha 34an a2ml remote login bstakhdm
+ssh y ema telnet el m3rof en el far2 benhom en telnet beykon el password planned text enma el ssh beykon encrypted 
+
+fel windows bstkhdem RDP remote desktop protocol:
+
+wel port bta3o 3389 
+
+3amalt user esmo rdp 
+w b3d kda haft7 tools w b3d kda computer management => local users and groups 
+w b3d kda akhosh 3al group w azwdo f group remote desktop users
+
+dlw2t b2a eny lazm afa3al RDP 3la DC2
+ezay ? mn el 7ta ely feha computer name hados 3leha w akhosh 3la remote 
+w a3mlha allow w feh checkbox kda da lw etnen windows 3alyen 11 aw 10 msln f da ana a2dr a3le level el authentication 
+benhom b7es ykon secured aktar laken lw Linux aw mobile m7ml 3leh rdp f lazm afok el checkbox w mmken agarabha law 7sl mshakel lazm 3rf en hya el moshkla mn de 
+
+Haro7 lel PC b2a w aft7 remote desktop connection bs msh ha2dr a3l sala7yat ktir 
+
+el Server ye2dr y handle 2 User mokhtalefen ye2dro yekhosho 3la nafs el server b rdp f nafs el wa2t w mmken tezawed bs lazm teshtre el licence mn Microsoft 
+enma fel Client wa7ed bs ely y2dr yesht8l 3leha y3ne lw 7awelt a3ml login hyesta2zn ely fat7 el pc da eny mmken akhosh 3lek 7ata lw different users 3ady 
+
+
+lw grbt akhosh mn PC1 into DC2 bel administrator b2a hala2eh kharagne mn DC1 w 3ml logout w fata7 f PC1 interface el administrator bta3 DC2
+
+lw dakahalt 3la remote desktop connection=> advanced a2dr ashof el local resources a2dr a share printers w clipboard 
+What is the diffrenece between clipboard and FTP?
+El FTP da more accurate mn mkan l mkan mo7dad enma el clipboard a7ot f ay 7tabta3te 
+
+mmken ashare el drivers brdo w ashare el C ely 3ala el PC 
+
+Dlw2t el so2al leh mastakhdmsh third party tool shbah anydesk w team viewer 34an yeft7le aktr mn session w connection br7ty 
+el no2ta en el data bt3ty betkon mo3arada lel leaking f da khatar f beykon rdp afdal y3ne w a2dr a connectmn ay 7ta l ay 7ta 
+bs lazm ya ema ykon 3ndo public ip akhosh 3leh 
+ya ema akhosh b private ip bs lazm akhosh fel network bta3et ely odamy b vpn 
+
+#############################################################################
+SLA
+wa7ed administrator beyft7 el site ely ms2ol 3ano msln b http w https w sh8al zy el fol 
+bs lma 3mlt ping mn ghaz wa7ed bs fat7o w hwa gehazy 34an mye7slsh DDoS attack 
+la2et el ping wa2e3 
+f kalem el datacenter b2a 2alolo enta lek service tool el sana 3latol bs feh sa3ten maintenance datacenter byakhdoha lel 
+maintainance w de el SLA bs mgalosh mail menhom bs lzma msh sh8al 
+f lma 3amal ticket b2a w ra7 yshof el server fel datacenter w dakhal 
+l2a en cable el network metshal makano w m7tot f port tanya f mb2ash el ip ely wakhdo w b2a wakhed apipa 
+
+tyb ana lw 3nde 3 ports ezay astafed mnhom ??
+
+NIC Teaming = EtherChannel b7es eny agm3 el 3 ports b 3 NIC a2dr eny amashe el traffic 3la el 3 f nafs el wa2t 
+
+Hazawed 3 NIC cards zyada 
+
+w ha7otlhom IPs 
+w aro7 lel local server w asha8al el NIC Teaming 
+w a3ml new team w a7ot fehom el 4 cards 
+w asameh ay 7ga w ados 
+
+Additional Properties:
+TeamingMode
+Static Teaming => Da manual configuration y3ne ana a2ol da yesht8l w da yp2af w yesht8l b3d eh kda 
+w da beykon 3la configured switch shabah bto3 cisco laken ehna virtual switches 
+Switch Independent=> Da b2a automatic haseb el server hwa ely yhandl el mwdo3 hayekhtar el card ely yeb3t 3leh w yst2bl 3leh 
+LACP(Link aggregation control protocol)=> Da protocol hwa ely haynzmha b2a men ely y send w meen ely y receive 
+
+Fa hanekhtar switch indepented
+
+LOAD BALANCING MODE:
+Address Hash:da byeb2a 7lw lel webserver leh ?? 34an da bey receive 3la selka mo3yana w y3ml send 3la ba2y el solok 
+
+Hyper-V Port: de bnstakhdmha fel datacenter w de el ports ely betkon tal3a mn el hyper v w betetwsl bel virtual machines ely betetwsl 3leha 
+
+Dynamic:de b2a shwya bey3mlo send w shwya bye3mlo receive w b3d shwya mmken yetbadlo kda y3ne  
+
+
+STANDBY ADAPTER: da b2a y3ne ana hakhale card a3ed mstne lw 7aga we23et ye2om hwa m3ahom mn el akher msh yekon sh8al 
+ela lma 7ad yo2a3 
+
+dlw2t b2a el ekhtyarat ely hnekhtrha 
+Switch independent, Address Hash,  Ehternet3
+
+w hala2y zaharle 1 card esmo mynic haro7 adeh ip b2a 34an a3rf a ping 3leh 
+lw dakhalt 3la el status bta3o hala2y el sor3a 3GB w lw garabt awa23 wa7ed fehom hanla2y hanla2y el sor3a zay mahya 34an 
+ethernet 3 hay2om laken lw w23t aktr el sor3a hat2el 
+
+w lw ekhtart eny m3mlsh backup hteb2a sh8ala 3la 4 bs el 7ala de jhatar shwya lazm azwd wa7ed backhup 3latol 
+#############################################################################################################
+
+DC (Domain controller): y3ne netak el saytara (Logical boundary) 
+bekon feh aghza ktir w kol wa7ed leh policy w permissions mo3yana mwgoda fel domain 
+w el DC hwa el bey control el mwdo3 da 
+
+Windows server ha7aeml 3leh rule esmha ADDS (Active directory domain service)
+w beykon m3aha NTDS (New technology data services) w de beykon feha kol el users wel object bto3na 
+
+el DC da b2a beykon 3leh Edarat 
+eg:: (Dol el Users)
+HR => w hykon el moder HR1 
+w IT => w hykon el moder IT1 
+w hakaza
+w kol wa7ed leh sala7yat mo3yana de b2a hya el OU (Organization unit)
+w kol wa7ed leh PC aked 
+
+Dlw2t kol user b2a lazm y2dr yekhosh mn el PC 3la el Domain da bs lazm a3ml lel gehaz da Join 
+f lma kda msln 
+IT1 3wz yekhosh 3la PC mo3yan y2olo enta taba3 men 
+lazm y2ol ana taba3 el domain bta3 ITI.local masalan 
+
+tyb lw feh foro3 tanya hteb2a kda msln 
+Alex.ITI.local w alex da ba2a hyeb2a child mn w el domain da hykon leh dc tany w 3leh adds 
+w el 7raka de esmha tree 
+
+Tyb dlw2t l DC wa2a3 eh ely hye7sl lazm a3ml Additional DC w ykon 3leh nafs ADDS w mmken a3l beh load balancing brdo 
+dlw2t el user IT1 msln ye2dr yekhosh 3la el PC bta3o 3ady lw wa7ed wa2e3 fehom 
+
+w kol el system da esmo Forest 
+
+
+##########################################################
+DC1 => Ha3ml 3leha setup lel ADDS 3ady mn add role 
+
+Hados 3la 3lamet el ta3agob ely fo2 3al ymen w hadef domain controller option w hakhtar forest b2a 
+w hasameh iti.local 
+Forest Functional level: de b2a a7ot feha a2l 7ga fel forest bta3ty hatkon sh8ala tkon 2012 msln lw ekhtrtha w eh R2 de 
+ely hya version tany feh shwyet updates 
+
+Domain functional level: de b2a 3la el domain bt3ty y3ne el bakchup akhtro ykon kam 
+
+DNS hyet3ml m3ah brdo 
+Global Catalog(GC) da b2a el catalogue bta3o ely lw feh 3wz a search feh 3la 7ga a2dr a search feha 
+RODC(Read Only Domain Controller): Matchara7etsh 
+
+Directory services restore mode password: (DRSM) da b2a el safe mode bta3 el domain controller 34an lw 7sl corruption 
+aw lw msh 3aref akhosh 3leh mmken akhosh mn el mode da b password w a2dr at7km tany w a7el el moshkla 
+
+next
+NetBIOS domain name : de service adema abl el domain controller w de b2a sh8ala broadcast y3ne byes2l kol el nas w b3d kda 
+yla2y ely beydwr 3leh 
+w de 34an lw msln feh services sh8aa bel tare2a el adema yro7 yshof el NetBIOS 3ady zay m hwa mt3wd 
+
+**SYSVOL => Da b2a location ely feh kol el policy bta3et el group ely betet7t 3la el users ely 3nde 
+
+
+#######################################################
+Dlw2t el user adn groups ekhtafet l2enha etn2lt lel NTDS
+f hala2eha f tools w active directory users and computer 
+
+ha3ml b2a organization units lel IT wel sales wel FIN wel HR w kolohom proteted ela sales 
+w ha3ml f kol wa7ed user 
+(Protected de y3ne ana m2drsh ams7 el OU bel tare2a el 3adya ely 3al3ady)
+
+dlw2t b2a hal ana lw fata7t PC1 w 3wz a3ml login b IT1 msln haykhosh !! 
+aked hy2ole meen da asln 
+f lazm adefo fel domain f eakhosh 3la this pc w b3d kda properties w b3d kda change pc name w change w b3d kda akhale el work group domain 
+
+hakhtar domain w a7ot iti.local 
+w a7ot password el administrator w el password bto3 el domain controller ely hma admin bta3 el DC1 
+tb3n da khatar f ana a2dr a3ml login lel domain d b ay user 3ady msh lazm el password bta3 el admin bta3 DC1 
+w el pc da beyet7t fel computers 3nde 3la el DC1 w mlosh ay sala7yat f lazm ana k administrator ashelo 
+mn computers w a7oto f OU(organization unit) 34an a2dr a7otelo sala7yat 
+
+
+dlw2t b2a ana a2dr a3ml login 3al pc da b IT1 w S1 w ay users ana kont 3amelhom fel OU hnak 
+
+ha3ml logout 
+
+wakhosh bel local tany bta3y ely hwa .\Jimmy 
+
+
+dlw2t ana lw msh 3awzo yekhosh bel local account bta3o b2a mn el computers f DC1 ha8ayar hakhosh 3la PC1 w a3mlo management w y ema a8yr password Jimmy y ema a3mlo disabled 
+
+
+el Domain Controller mye3rfsh eh hwa S1 aw IT1 hwa ely leh eno shayef bs el SID (Security identifier bto3o)
+34an ashofo view => advanced ,  akhosh 3la properties bta3 s1 => Attribute editor w search for objectSid
+
+lw ms7t el user da w 3mlt OU gdida b user b nafs el m3lomat haykon leh SID gdid w profile gdid 
+
+
+Tyb eh el 7al 34an lw el user etmasa7 lazm asha8al el recycle bin 
+Tools=>Active Directory administrative center=>iti.local=>enable ecycle bin 
+w a3ml refresh hala2y deleted object w ay 7ga ams7ha hala2y el user beyetrma 3leha 
+
+Deleting Protected OU ezay b2a ?
+hakhosh 3la properties el OU => Object => protected w hashel el bta3a bt3tha w b3d kda arg3 a3mlha remove w mmken b2a agebha tany mn el recycle bin 
+
+
+Haro7 b2a atala3 el PC mn el domain controller mn this pc w adakhalo WORKGROUP 3al 3ady bs tab3an lazm y ema admin y ema user 3ade fel domain controller hwa ely y2dr yetla3ha bs w b3d kda 
+ashelha mn 3nde mn 3la computers mn DC1 ashel PC1
+
+##########################################################3
+dlw2t ana 3nde computer esmo PC1 34an y3ml join lazm adakhalo  connection mn el akher w akhosh b user aw administrator 
+tyb lw mfesh connection feh 7ga esmha Offline Join 
+da 34an lw mfesh connection nedawar 3leha b2a ezay n3mlha 
+
+
+ON DC1:
+djoin /provision /domain iti.local /machine DESKTOP-RCI66I0 /savefile C:\win10.txt
+
+It will create win10.txt file in C of DC1 
+hakhdo copy w a7oto f PC1 w b3d kda 
+a3ml 
+
+On PC1
+lazm aft7 el cmd as administrator
+djoin /requestodj /loadfile C:\win10.txt /windowspath C:\Windows /localos
+
+w b3d kda a3ml restart w agrb akhosh b ay user 3la el domain hy3ml login m3aya 
+
+
+##############################################3
+Hn3ml b2a DC2 Additional DC w a3ml create l user hna washof haysama3 walla la w el 3aks brdo Lets do this 
+hakhoish la promote this server as domain controller 
+w ha3mlo existing to an domain controller
+w a7ot administrator@iti.local el password bta3 el domain controller el tany b3d kda Akhtar fel replicate DC1
+w b3d kda next f next b2a w b3d kda install
+
+dlw2t b2a ana 34an mw7d el password bta3 DC1 w DC2 f m7stsh bel ekhtlaf bema3na
+lw ana 3amel password DC2 iti@iti2
+w 3aml password DC1 iti@iti1 
+ely yekhosh m3aya 3la DC2 hwa iti@iti1 msh 2 laken lw dakhalt b iti@iti2 msh haykhosh m3aya 
+
+#################################################
+Hanshel DC2 b2a w nerg3 lel pure 
+w b3d kda hakhaleh child h7aml el Active Directory domain service w akhaleh child w hwa tany ekhtyar 
+w akhaleh child w asameh alex
+w hanazelo DNS w catalogue brdo l2en ana lw mnzltsh hykon el DNS el assay hwa bta3 el kahera ely hwa el parent f lw sa2alt PC
+enta te3rf 7aga mo3yana f hyro7 yes2al el DNS bta3 cairo f tb3n mmken mykonsh 3leh el m3loma f lazm anazlo DNS w anzlo Global catalogue 
+
+Global Catalogue=> indexing lel database bta3ty y3ne y2ol el object da taba3 anho domain w mwgod fen msln kda f a2dr a search 3leh 3la ay makana mwgoda 
+el NetBIOS hykon alex w hwa el goz2 el awlany mn el domain 
+
+Tb3n lma age a3ml login hykon b password el domain el tany 
+
+##################################################
+
+Dlw2t ana b2a lw 3mlt user esmo abas@alex.iti.local 
+ya tara haykhosh 3la pc ely f domain iti.local !!
+PC da hybos 3la san file bta3o msh hayla2eh f b3d kda hyro7 yes2l el domain controller f el domain controller hy2ol lel pc swany hs2l el childs 3nde fel tree f hy2olo ah 3nde el ragel da f child domain esmo alex estna has2l alex b2a el password bt3o eh w awl mye3ml authorization yerg3 y2ol lel pc e2bl el user da yekhosh 3lek 
+
+tyb lw 3ksna brdo hyenf3 3ady w yekhosh w de faydet eny a3ml global catalogue w2t el creating 
+####################################################
+Lw 3wz iti.local y manage alex 
+tools => Active directory domain and trust => w a3ml manage l alex w azwd users br7te enma b2a el 3aks myenf34
+
+######################################3
+RODC (Read only domain controller)=> da additional controller f nafs el domain w read only f da mlosh ay sala7yat 
+da lw msln ana lw 3wz a3ml 2 users yesht8lo 3la printers w flash bs 
+w a7otelhom el policy ely hma 3wzenha 
+tyb dlw2t b2a ana lw 3wz a login 3lehom b user mn hnak ezay ?
+ha7ot 2 users dol 3la el RODC da b7es eno myerg3leshtyb msln w hya esmha replicate password 
+tyb dlw2t analw 3wz ams7 b2a el RODC da w al8eh mmken a3ml user 3nde 3al main DC w adelo sala7yat login b7es eno y3rf y login hnak w a3ml shutdown lel machine w b3d kda a2dr ashel el server ely hnak 
+##################################################
+
+
+ha3ml ADDS 3ady w hakhtar awl option bta3 el additional w b3d kda a3ml checkmark 3la RODC
+w Akhtar fel delegated user user ye2dr y3ml login 
+
+feh b2a accounts that are allowed to replicate password to RODC
+Dol b2a el password ely htkon mwgoda 3la RODC 34an ye7sl cache lehom hnak w mye7tgsh yerg3 yes2l Domain controller el assay 
+
+dlw2t user help da lma akhosh beh msh hykon 3ndo ay sala7yat la y3ml ay 7ga kol ely y2dr y3mlo shutdown w tb3n ana ha3mlo disable 3latol l7d m a7tag 3am Mohamed yestakhdmo 
+
+w lw 3amal login bel administrator hyesht8l 3ady w ha2dr a create user w a3ml kol 7ga 3ady bs el password msh hyet3mlo cache l2eno hyro7 yes2l el DC el asasyy w b3d kda ydakhalo y3ne lma el administrator yetl3 wla ka2eny kont 3aref 7ga 3n el password 
+
+feh gwa el Users f DC1 allowed RODC replicate password lw 3wz azwd password dmmken azwdha 34an yet3mlo cache f far3 el 3aresh 
+##################################################
