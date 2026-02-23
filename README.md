@@ -170,17 +170,25 @@ Nutanix certification achievements:
 
 VMware vSphere server virtualization training covering both theoretical foundations and practical implementation:
 
-- **Lecture Notes** (7 lectures): Comprehensive notes covering:
-  - Lecture 1: Hypervisor types (Type 1 & Type 2), VMware ESXi, vSphere components (ESXi + vCenter), SDDC concepts, vMotion, HA, DRS, and storage fundamentals (SAN/NAS)
-  - Lecture 2: ESXi resource allocation, VMware Tools, virtual networking (Virtual Standard Switch), file systems (VMFS/NFS/vSAN), ESXi security features, and lockdown mode
-  - Lecture 3: vCenter deployment and configuration, Single Sign-On (SSO), Enhanced Linked Mode, HOSTD/VPXD/VPXA services
-  - Lecture 4: Active Directory integration, syslog configuration, virtual networking hierarchy, Standard vs. Distributed switches, VLANs, storage (SAN/NAS/vSAN), VMFS datastores, NFS datastores
-  - Lecture 5: VM creation from templates, content libraries (local/shared/subscribed), PCI passthrough, EVC (Enhanced vMotion Compatibility), DRS (Distributed Resource Scheduler)
-  - Lecture 6: vMotion migration, Fault Tolerance, High Availability, storage migration, and advanced DRS policies
-  - Lecture 7: Advanced topics and review
 - **Final Project**: [VMware vSphere Infrastructure Design Project](Vmware%20Vsphere/Project/OJA.pdf)
-  - Comprehensive end-to-end vSphere environment design and implementation
+  - End-to-end vSphere environment design and deployment
+  - ESXi and vCenter Server installation and configuration
+  - Virtual networking with Standard and Distributed switches
+  - Storage configuration (SAN/NAS, VMFS datastores, NFS)
+  - High Availability (HA), vMotion, DRS, and Fault Tolerance
+  - VM templates, content libraries, and customization specifications
   - See [Project Details](Vmware%20Vsphere/Project/README.md)
+- **Lecture Notes**: Covering key topics across 7 lectures:
+  - Hypervisor types (Type 1 & Type 2) and VMware ESXi architecture
+  - SDDC concepts and vSphere components (ESXi + vCenter)
+  - Virtual machine resource allocation and VMware Tools
+  - Virtual networking (vSS, vDS), VLANs, and network policies
+  - Storage types (SAN, NAS, vSAN) and file systems (VMFS, NFS)
+  - vCenter deployment, SSO, and Enhanced Linked Mode
+  - Active Directory integration and lockdown mode
+  - vMotion live migration, HA, DRS, and Fault Tolerance
+  - VM templates, content libraries (local, shared, subscribed)
+  - EVC, affinity rules, and advanced DRS policies
 
 ## 🏆 Certifications
 
