@@ -1,0 +1,117 @@
+LECT2############
+VMware tools shabah  drivers fel windows 
+betsa3ed el esxi yes7ab mn ay vm el resources el zyada ely msh mstahlekaha el vm  
+w fel tools de beykon feha 7ga esmha balloon drive hya ely betkhalene a3ml kda 
+lw 3mlt reservation lel resources de bta3et vm mo3yana f kda khalas el esxi my2drsh yakhod mnha 7ga 7ta lw hya msh htestakhdmhom 
+
+
+ESXi Hypervisor da Allocator: y3ne hwa ely beywz3 el resources 3la el VMs ely 3leh w el VMs dol el applications bto3o 
+ESXi msh mogbar eno yewaza3 bel tasawy ben el VMs
+
+Physical architecture: OS hwa el allocator w beywza3 zay el windows 3nde w el application hwa el consumer
+Virtual architecture: Hyper visor hwa el allocator byakhod el physical resources w y7wlha l logical w ybd2 ye2asemha w el vm hya el consumer 
+
+Example : 16GRam, 8CPU 
+el ESXi => allocator hyedy el VM msln 4GRAM w 2CPU w ely beykhaleny a3ml kda el OS(kernel) ely f esxi  2x1 DontForget 
+VM => Consumer
+Gwa el VM b2a 
+OS of VM => Allocator beywaza3 el 4GR w el 2CPU 3la el consumer ely gwa el VM ely hwa el application msln 
+
+Lw mgmo3 el resources bta3et el VMs 3adet resources el ESXi de 7ga esmha OverCommitment 
+
+
+Tyb lw 3nde 3la el ESXi wa7da VM bs w el resources bta3et el VM 3wza aktr de el 7ala el w7eda ely ESXi hyerfodha w hy2ol la
+
+
+===========NETWORKING==============
+el ESXi byenzl m3ah Virtual Switch 
+Virtual switch 2 types:
+Virtual standard switch => Da byenzl automatic m3 el ESXi
+virtual distribution switch 
+
+Kol wa7ed leh Use case mokhtlfa w mmken a create kaza wa7ed 3la nafs el ESXi
+w el switch da byede IPs Dynamically w bye3ml DHCP 
+el switch brdo da byed3m el VLANs lw 3wz a7ot el VMS f vlans mokhtlfa bs lw msh 3wz 7ga tekalem 7ga de leha 3laka bel firewall
+================================
+El tawsela kda 
+El server 7etet 7deda gwaha esxi gwah el switch da virtual w beykon mtwsl bel vms virtual w mtwsl be port el server da virtual bakhod cable b2a mn port el server(IPESXi bta3o da hwa ely bdeholo w2t el setup w mmken a8ayaro) da bwasalo bel physical switch w batl3 3la el router
+
+El server b2a da feh kaza port =>
+Managment IP port => da b2a ely beykon mtwsl b switch w el gehaz bta3y el manager mtwsl bel switch da w a2dr akhosh tyb lw ana b3ed ezay akhosh 3nde 7alen ya ema el management ip da ykon public w ashtreh ya ema VPN a3ml tunnel aro7 le hnak w b3d kda akhosh leh private 
+Port tany => 34an yekharagle l VMS 3la internet msln 
+================================
+###############################################################################################
+FILE SYSTEM 
+tb3an kol os byefhm file systems mokhtalefa sawa2 windows aw Linux aw mac  (NTFS befhamo windows w Linux)
+f el ESXi yelg2 l eno y3ml format 7ga 3ndo fel storag w tenf3 m3 kolo 
+VMFS or NFS or vSan or Vvol vsphere virtual volumes
+
+IF MY Storage is 
+SAN => VMFS or Vvol
+NAS=>NFS or Vvol 
+
+
+El tarkeb ezay :
+Storage system fel sherka feha storage kbira esmah Lun logical unit
+bakhod 7ta b2a w bkon 3arefha bel UUID bawasalha 3la el ESXi w a3mlha format bel 7gat ely fo2 ely olt 3leha de 
+
+=====================================================================================
+##################################################################
+SHARING THE GPU
+el CPU da byet2sm 3ady tebkan lel VM 3wza eh w baseta 
+enma el GPU mokhtlf lazemlo software 34an a2dr a3ml share lel GPU ben el VMs ely 3nde 
+Software is BitFusion w da extension beykon nazl m3 esxi
+
+====================================================
+ESXi features:
+Highsecurity
+Memory Hardening bye7me el memory mn ay haka aw ay haka 
+TPM 2.0 Trusted platform module da security bs 3la el CPU 
+Feha firewall kol el outbound khareg by default w ay 7ga inbound yw2fha l7d mzbto 
+Kernel Module integrity : el kernel bta3 el ESXi byet2kd el application lw ana gaybo msln zay el backup ana 3wzo yekalem el ESXi f el kernel beyet2kd el application compatible m3a el ESXi wla la 
+UEFI SECURE BOOT: E2fl Yaba
+Encrypted core dumps: shabah el hibernate fel windows y3ne el bakhod goz2 el memory da w a7oto fel harddisk w awl m aft7 el gehaz tany yakhod el 7gat mn el disk w yerg3 ywdeha lel ram w tetft7 tany 
+fel ESXi b2a lw el gehaz haneg w hye2fl y2om 3aml e el coredumps de yakhod el snapshot mn el 7gat ely mfto7a w y7otha fel harddisk w awl m el server y3ml restart yeraga3 tany el data 3la el memory awl myeft7 tany 
+mn el akher el option da 34an y2om el machines lw7do awl m el esxi ye3ml restart bs lazm el feature de aft7ha el awl 
+
+
+Small disk footprint : mbyestahleksh memory 
+Fast in boot, Patch, update, upgrade
+Patch shabah el update bs related be security b3ml update l nafs version msln el os bs b7el bugs mo3yana
+upgrade ba3la mn os l os a3la mno shbh wind10 into win11
+
+byet3ml setup 3la ay no3 hard b2a external, internal, sata, nvme
+
+######################################################################
+Requirements for Download ESXi 8.0:
+2 cores,atleast8GB => 12GB ram lw h3ml production environment 
+one or more Gigabit or faster Ethernet => yofadal ykon feh aktar mn card 34an lw wa7ed w2e3 el tany yefdl sh8al 34an el services kolha mtw23sh
+Bootdisk => atleast 32GB of persistent storage 
+
+
+#####################################################################
+H3ml setup lel esxi 3la VMware workstation b2a 
+
+########################################3
+Ezay ragel bta3 el storage byedeny 7tet storage lel server bta3y 
+3nde no3en san w nas w7da b fiberswitch  w7da la 
+awl 7ga el storage admin da beykhosh 3la IP el storage ely 3nde w b2smha l Luns b a7gam mokhtalefa br7to w byeb2a kol 7ga leha UUID
+ana b2a hwsl el server bta3y b switch byetwsl bel storage f dlw2t ha2dr ade el UUID lel server w akhosh 3la el esxi w a7oto w a3ml beh datastore
+
+===========================
+PTP precission for time shabah el NTP bs bel Msecond t2rebn 
+w mmken akhaleh da el main w a2olo khale el NTP da el backup bta3k bs el 3ks myenf34 yet3ml 
+Lazm bs a3mlha Enable el awl w kaman a3deha mn el firewall take care 
+
+
+===========================
+Mmken el ESXi de adakhalha  active directory fel Host=>Manage=>Authentication w a2dr at7km feha mn hnak 34an lw 3ozt a3ml feha 7gat 
+w akhosh b user mokhtalef 3n el root 
+w lw 3ozt akhosh 3leh hykon b name@esmdomain.local w b password 
+bs lw el windows server wa2a3 a2dr akhosh el user 3ady 
+
+
+
+LockDown mode By default Disabled y3ne a2dr akhosh mn kol 7ga DCUI, Hostclient, Vcenter kol 7ga 
+lw fata7to a2dr a2fl 7gat mo3yana 
+

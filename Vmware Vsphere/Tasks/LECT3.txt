@@ -1,0 +1,110 @@
+El Vsphere beykon leha ip msln 1.20
+w el ESXi ely el vshpere gwahaw leha msln 1.10
+ana lw 3wz at7km f kol le ESXis hakhosh 3la bta3 el vsphere
+laken lw 3wz at7km n el ESXi
+tiny=>a2al resources el vsphere bye7tgha lw version 8 => 14GRam, 2 process
+
+el vShpere client 8er el ESXi host client 
+el vshpere ana w b3mlo deploy b3mlo username w password msh bakhod b username w password el machine shbah el esxi 
+
+lw 3nena active directory m3 sherka tanya mo3yana (Microsoft AD) of (LDAP Linux)
+badal m bastakhdm l local domain ely b3mlo w2t el deployment la hastakhdm el domain bta3 el AD External identity provider
+34an t3mle authentication w akhosh 3leh 
+w de hya el single sign on ely byestakhdmha l vsphere 
+lazem a7ot el vsphere f domain awl 7ga b3d kda a3ml restart 
+f ana kda b2olo ana lma age a3ml login dakhalne bel users ely fel domain bta3k ya local 
+lw hastakhdm internal identity provider(local domain) w external identity provider lazm a2olo meen ely yestakhdmo l awl w ydwr feh w lw ml2ash yro7 lel tany 
+
+feh 7ga esmha enhanced linked mode de b2a yabasha el ras el kbira bta3et el Vcenter beykon shayef  w motal3 3la kol el vcenters w kol ely gwahom w da bakhtaro w2t el deployment w awl m b3mlo myenf34 akhaleh client 3nd 7ad 
+
+akhre el vcenter da yet7aken f 15 vcentre tanyen 
+
+HOSTD:
+Feh 7ga b2a esmaha Hostd de el daemon service ely beykhaleny akhosh 3la el ESXi host client interface el 3ady bta3y 
+tyb b2a lw msh 3aref akhosh 3leha w el ESXi sh8al w zay el fol yb2a aked el moshkla eha f lazm a3mlha restart aw ador eh el moshkla feha 34an a7elha 
+LOCK DOWN MODE da b2a by2fle el daemon de 34an kda bye2fl el login 3l
+
+
+VPXD vs VPXA:
+dol el etnen service lazm el vpxd tkon sh8ala fel vcenter w el vpxa sh8ala fel esxi 34an y2dr el vcenter yet7akem fel esxi
+
+ 
+
+Arkam el vcenter ely t2dr tshelha:
+Hosts per vCenter instance     2,500
+Powered-on VMs per vCenter instance  40,000
+Registered VMs per vCenter instance  45,000
+Hosts per cluster              96
+VMs per cluster                8,000
+
+
+
+HOW TO INSTALL IT:
+fel windows lw fata7to 3latol hye3ml mount 3latol w hakkhosh 3la win32
+h3ml mount w haft7 folder VMware vcsa w b3d kda ui installer folder w hakhosh 3la Linux 64
+haft7 el ui installer b2a b3d kda feh 4 ekhtyarat 
+install  7ameeel yaba 
+upgrade  3nde version w erfa3 yaba 
+migrate  7arakle el vcenter mn esxi l esxi tany yaba
+restore	e3mly restore l vcenter kont 3amelha abackup yaba
+
+Next Next Next hygely saf7t feha ma3lomat lel esxi 
+ip hagebo mnen 
+ha7ot ip el esxi ely ha7ot 3leh el vcenter  
+username: root 
+password: esxi
+
+edeha next
+n7ot esm el vcenter
+n7ot el root password w el confirm bta3o bta3 el appliance vm 
+edeha next
+deployment size:
+edeha tiny w next
+select datastore:
+hakhtar el datastore1 ely esxi kann 3amlo create w ana mesatabo 
+w hakhtar enable thin disk mode :
+Thin mode => Dont allocate the disk de ely Shabah VMware workstation 
+then next 
+Configure Network setting:(FOR VCENTER)
+ha7ot el ip w kol 7ga lel vcenter w recommended en ip address tkon same network 
+with esxi
+
+FQDN:Fully Qualified Domain Name=>ana m3ndesh domain name dns f ha7ot nafs el ip ely ana 7ato fel vcenter w khalas 
+
+nerg3 nbos fel esxi 3la el gateway w el dns mno hanla2y en el etnen nafs el ip zay b3d 
+f fel vcenter ha7ot gateway wel dns shabah b3d zay el esxi 
+wel arkam el ba2ya bta3et el http w el ba2y hasbhom zay m hma 
+Then Next then Finish 
+
+hyezharle 3 options cancel exit continue lw dost continue kda ana lazm a7ot el ip bta3 el machine 
+ana b2a hakhod el link ely 7ato copy w hakhsoh mno ana b2a 
+b3d m searcg leh hyezhrle el application management 
+hakhtar setup hyezharle 5 mara7el 
+harage3 b2a el 7aget el IPs w kol 7ga 
+feh el System name:Photon-machine da lazm a8yaro w a7ot ip el vcenter bta3y 34an mydenesh error fel setup w de el moshkla lw kont dost 3la continue fel awl 
+Then Next
+SSO Configuration (Single sign on ) de ely bfa3al beh el enhanced linked mode
+
+Ana lw el Vcenter el kbir ely byet7km bel vcenters el tnya  hakhtar awl ekhtyar create new sso domain 
+
+el ekhtyar el tany join existing domain 
+ana hakhtar el create new 
+
+domain name: vSphere.local
+w ha7ot el password 
+
+kda lma age a3ml login 3la le vsphere ha7ot el 
+username :administrator@vSphere.local
+Password: nafs el password ely 7ateto 
+34an akhosh ela el vsphere client 
+
+Next Next Finish 
+
+
+3nde saf7ten b2a w7da lel backup w el 7gat de w ely thmne b2a el vsphere client w de ely btmanage kol 7ga b2a
+
+awl m haft7 hala2y ip 3al shmal 
+hdos right click w h3ml datacenter 
+w b3d kda hadef cluster b3d kda hadef host 
+ha7ot fel host ely ana b3mlo ips w 7agat el esxi ely hadefo k host 
+

@@ -1,0 +1,96 @@
+Intel and AMD are only supported by VMware Take Care
+Lw 3wmlt migration ben ESXis sa3at byerfod mmken ykon el moshkla bsbb el compatability 
+bsbb el processors 
+f 34an a7el el moshkla a7ot f kol el cluster AMD w cluster tany Intel
+tyb lw na2alt ben Intel w Intel w ygblo not compatable yb2a moshkla fel features 
+3adad el cores msln aw sor3a msln aw generation 
+
+el 7al enena n3ml EVC 
+de hatkhale kolo zay b3do y ema a raise kol el resources 
+y ema a3ml lowering f akhale kol el Servers sh8ala zay a2l Server 3nde 
+
+
+Tyb lw 3wz a3ml migration hal ana lazm a3ml lw el resources khalast la feh 7ga esma 
+DRS(Distributer Resource )da ely bey7rk el VMs lma y7sl resource contention (ekhtenak lel VM mn na7yet el resources ely wakhdaha mn ESXi)
+
+DRS is Fully automated and also Partialy automated 
+ya ema y3ml lw7do ya ema yes2alne abl m y3ml 
+
+Abl el Migration:
+LAzm shared storage
+azbt network el vMotion 
+
+Lazm brdo akhale el destination ykon connected 3la el RDM raw device mapping disk w brdo a3ml off lel cd wel dvd 
+
+
+######################################################
+Sa3at balga2 eny an2l swap files bta3et el VMs 3la hard sare3 34an tb2a asr3 
+#############################################3
+Migration Encrypted VMs 
+ha2a3 3la el VM w a3ml Edit setting => Options => hakhtar Encrypted vMotion
+Lw damen en el etnen compatible ekhtar opportunistic 
+lw msh mot2kd estakhdm l Required => l2en de ht3ml fail fel nos w tw2fne 
+
+
+#######################################################
+EVS(Enhanced vMotion Compatability)
+
+
+k general beyetf3l 3la el cluster 3ady 
+enma lw han2el 3la vCenter tany 
+f lazm af3l el EVC 3la VM mo3yana
+
+===========================================================
+Lazm 4an el vmotion yeshta8al lazm el disk ykon persistant y3ne mfesh snapshot mno lw mohma a3ml commit lel 7gat ely fel 
+snapshot 3la el disk el assay b3d kda a3ml vmotion 3ade w feh shwyet limitation 
+====================================================================
+
+el DRS bey7rk lma y7sl contention 3la el VM 
+btetf3l 3la mostawa l cluster 
+
+bzbt el drs b2a hwa aggressive walla conservative 7ga zay kda
+aggressive y3ne yen2l 3latol bsor3a y3ne kol d2e2ten mmken nla2y el vms btetn2l mn 7ta l 7ta 
+conservative de b2a lma el vm tgeb akherha khales ybd2 yen2lha mn el akher lma tekhsoh f contension 
+
+el DRS bey7dd hyen2l 7sb el score lw oryba mn 0 yb2a VM sad w el DRS hyen2lha lw el score bta3ha kbir 2orayb mn el 100
+yb2a el vm happy 
+============================================================================
+feh 7ga esmha vm level automation de 34an ana lwa feh vm mo3yana 3wz a3ml 3leha drs makhjsos l 7ga mo3yana leha 
+
+Feh 7ga esmha affinity rules de bdeha ll drs 34an lw 3wz arbot 2 group bb3d y3ne mn el akehr 
+3nde group feh esxis w group tany eh shwyert vms 3wz b2a a2ol lel DRS bos elvms lw 3wz tel3b feha w t7rkha
+t2dr te7arakha fel group elp tany msln 
+
+============================================================================
+High Availability:
+bt reduce el downtime bs feh anwa3 highavailability tanya 0 downtime w 0 dataloss bs de 8alya shwya shabah l fault tolerance w de bt3kon 3la mstawa vm 
+feh shwyet errprs y2dr y handlha mktoben el wara2a 
+
+
+byet3yn master w slaves aw primary w secondary 
+esxi wa7ed beykon master w beygelo esxi heartbeats w hwa ely beytab3 el failure b2a 
+
+el heartbeat btetb3t m3 el vSan w lw ana m3ndesh vSan betebd2 tetb3t m3 management 
+
+
+34an ashof el master w el slaves 
+https://192.168.65.134/vod/index.html 
+l2enaha msh mwgoda fel dashboard bta3et el vsphere el asasy 
+w ados 3la hoststatus 
+
+
+Moseba eny aw23 el highavailability el service bt3ty production f lmsh lazm eny a2flo mmken a2fl el host monitoring bs 
+
+Faulttolerance 
+bye3ml machine tana kda w7da primary w w7da secondary w beykono synchronized 3latol 
+bs lazm a3ml FT Network w da brdo 3la swtich gdid w card network gdid balash a3deha m3 network el management aw ay 7ga tanya
+
+tab3an el drs hwa ely bye3ml el machine ely tnaya ely byet3mlaha create w byekhtar el esxi el tany 
+tyb lw el esxi ely shayel el primary w23 
+f kda hyen2l 3la el esxi tanya ely feha el vm el secondary 
+w b3d kda tro7 tgeb esxi tanya 34an 34an tw2m 3leha el primary w kda el secondary htb2a hya el primary wel tnya htb2a hya el secondary w hyefdlo synchronized brdo 
+
+
+
+
+

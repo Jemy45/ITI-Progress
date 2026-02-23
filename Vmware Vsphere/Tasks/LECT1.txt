@@ -1,0 +1,96 @@
+Hypervisor has two types:
+Type 1 BareMetal sha8al 3la el 7adeda 3latol w m3rfsh a3ml backup 8er lma ageb 7deda tanya 
+HW=>HyperVisor(2x1)el hypervisor gwah el kernel bta3o 3la yklm el hardware=>VM1,VM2,VM3(Guest Host)
+VMware ESXi 8
+XenServer => Citrix
+KVM => Linux
+HyperV=>Microsoft 
+Type 2 (Hosted) da VMware HW=>HostOS=>HyperVisor=>VM1,VM2,VM3(GuestOS)
+VMware work station, Player
+Virtual Box => Oracle 
+
+=====================================
+ThinProvisioning=> mye3mlsh allocate lel storage mra w7da 
+ThickProvisioning=> el data e7tmalyetha tkon oryba mn ba3d de faydetha el w7eda 
+Tb3an da hy2sr fel read el performance bta3o hyb2a bte2 34an hydwr 3l file fen laken el write msh htfr2 
+OverCommitment=> de VM msln khadet msa7a think msh allocated w el hard etmlha f hat2ol fen msa7ty ana m7tagaha 
+
+HardwareCompatabliity => lw mekhtar msln workstation15 kda el vm tesht8l 3la 15 aw a3la enma abl kda mtesht8lsh 
+
+CPU=> Have many cores w de hya el bt process el 7gat b2a 
+
+ESXi => lw 7atet ram 3la aktr mn kaza vm  da aktar mn el ram bta3ty byebd2 ystakhdm techniques 34an yefady mkan 34an y2m machine kdeda
+Compress Ram de mn el toro2 w brdo sa3at byakhod goz2 mn el hard w y3ml beha swapping 
+======================================
+Network
+Use Host only network => el Host bs hwa ely yshof el machine laken machine tanya mt2drsh tshofk wla tklmha w brdo mt2drsh tetla3 3la el internet 
+Bridged networking => el machine btro7 tshof el host wakhed mnen w takhod shabaho mn nfs el dhcp f nafs el range(subnet)
+w kda el machine te2dr tkml el host wely zayaha  fel network w el internet bs mte2darsh tkalemel nat bs mmken bel firewall a2olo t2dr tklmo(m2drsh atl3 3la el internet 
+8er l el host tal3 net brdo) 
+NAT => el machine hna btakhod el ip mn another network b2a beyedhale el VMware hypervisor w hya ely bt7ot el dns wel gateway w kol 7ga b3d kda tero7 lel host b3d 
+kda atl3 3la el internet w lazm el hsot ykon tale3 internet brdo 
+lw fata7t edit=>virtual network editor a2dr ashof kol el characteristics bta3et VMnet8 elyhwa el nat w a8yr el network id wel subnet w kol 7ga 
+NATSetting wel DHCP Setting a2dr b2a a3dl feha ely ana 3wzo 
+el Default gateway bta3 el NAT b2a da rakam el ip bta3 VMnet8 el card ely mwgod 3la el network adapter setting fel host bta3y 
+================================================
+I/O Controlle types => de el controller b2a bta3e tl storage w kda bnkhtar el recommended SCSI 
+w no3 el disk typ hasebha SCSI brdo 
+=============================
+Harddisk
+lw ekhtart el select existing harddisk da lw harddisk kan m3mol f machine tanya w akhod el folder bt3ha msln bs lma bakhtar bakhtar el VMDKfile el parent 
+
+=============================
+Cluster => Logical eny agm3 resources kaza server  ashofhom ka enohom 1 Disk msln 
+dwr 3la el far2 ben el shared storage w el external storage 
+====================================================
+vSphere6.7 pr 7 or 8 ely hnesth8al 3leh: virtualization for servers 
+NSX => Virtualizatin for network 
+vSAN => virtualization for storage
+Horizon => Virtualization for desktop 
+
+
+
+VSPHERE:Product Consists of 2 things 
+HyperVisor => ESXi  (Required lazm a7mlo) (Installing)
+Management tool => vCenter  (Not Required lw el sherka so8yara w 3dad el servers olayela)(can handle up to 2500 esxi host)
+(Deploying=> Preconfigured appliance vcenter)
+
+34an negarab lazm:
+Create VM on VMware workstation 3ady w ha7ot 3leh el esxi w da b2a ely h3ml create 3leh kza vm el esxi da 
+tyb lw 3nde kaza esxi b2a hat7km fehom v vCenter w de VM brdo bs metgahza 3la sho8lana w7da(Appliance) w hya enha tet7km f kaza esxi 
+el vCenter da ana b7mlo f shakl mad8ot ya ema .ova or .ovf w babd2 a3ml feh shwyet configuration so8yara bs 
+======================================================
+
+LECT1:
+SDDC Software Defined data center 
+da eny a7wl el datacenter bta3y le software f lazm ykon 3nde fel datacenter 4 7gat ely oltha fo2 vspere, vsan, nsx, horizon w m3aha shwyet tools tnya for automation, security w akher 7ga ssc self service catalogue (da b2a el portal ely bara ely b2dr msln aghz mn 3leh vm w kda w kol 7ga w mmken a3mlo 3la 7ga esmha openstack bdl m3ml website from scratch)
+
+Concepts:
+vsphere Done, Cluster(mgmo3a mn el ESXis), vcenter
+vSphere vMotion: Tool bt3ml el migration y3ne hya de ely bt7rk el virtual machine msln mn esxi le esxi tany f de taba3 el vcenter el tool de
+vSphere HA: High availability (Lw lakadar allah el server bta3y ely 3leh esxi wa2a3 f lw 3nde VMs kanet 3leh f ana lw 3amel enable lel HA khalas haykhale el VMs ely 3la el server el baz da yesht8lo 3la servers tanya w ely byeskhtar el servers ely hyesht8l 3leha el DRS
+vSphere DRS: Distributed resource scheduler da ely msln l 3nde server 3leh esxi w etmla w msh ader yesh8l vm msln 3leh f y3ml eh yakhod el vm mn edha yewadeha l esxi f nafs el cluster w y7otha 3la esxi tany (Automatic Migration)
+=========================================================
+El 3 features ely fo2 de taba3 el Cluster TAKE CARE
+=========================================================
+=========IN DATA CENTER==============================
+Lma b3ml ESXi 3la server el resources bta3et el ESXi betkon wakhdaha mn elserver zat nafso kolha 3ady enma ay VM gwaha 
+bakhod elstorage bta3ha mn external storage ely hya no3en SAN or NAS 
+SAN => el cabling bta3o lazm ykon fibre channel storage de 8alya w sare3a w overnetwork bs el aghza lazm tkon compatible m3 el 7gat de  
+NAS => over network w arkhas seeka w el aghza el 3adya btesht8l 3leh
+
+====================VCENTER======================
+da b2a lazm yet7t 3la wa7ed mn el ESXi ely mwgoda 3nde 34an y2dr yet7km f kol el ESXis el tanya kolha bs byakhod resources ktir take care
+Vcenter 8 hye7tag 2 cpu w 16 GB ram lw h3ml manage 10 esxi 
+minimum a7ot 12GB ram yakhod mno w el storage minimum 130 gigabyte 
+
+=================================================
+Maynf34 a3ml virtual GPU msln lw ana m3ndesh 3al ghaz el physical GPU
+w el drivers ely ben7mlha el 3adya 3al windows de feh 7ga shabaha esmha virtual tools brdo b7mlha 
+====================================================
+vSphere+ da b2a 3ml layer zyada 3la el cloud b7os mn khelalha a2dr akhosh 3la el vcenter w b3d kda a2dr awsl l kol 7ga 
+y3ne mn el akher btedeny portal f ana mmken a3ml el portal bta3y 3ady 
+
+============================================================
+Nekhosh 3la el ESXi b2a b el ip bta3o mn 3la el webpage 3ady w nafs el 7kaya lw 3wz aft7 esxi tany hft7 tab tany w a7ot el ip w el saf7a de esmha ESXi host client (IP el ESXi w da ana w b3mlo configure lazm a7fzo ya ema b2a a3mlo b DNS w akhosh bel name f lazm a3ml DNS 3la active directory)
+vCenter b2a hya tab wa7da bethandl kol el ESXi w esm el tab vsphere client (IP bta3 el VM bta3 el vcenter )

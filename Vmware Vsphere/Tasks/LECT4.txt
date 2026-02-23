@@ -1,0 +1,96 @@
+Lw 3wz a3ml koin lel ESXi lel doman 
+Manage => Security & Users => Authentication w adefo da sahl w baset w hyefhm y default eny a2dr a login mn gwah w khalas w el esxi msh m7tag restart 
+Yofadal eny aseb user wa7ed fel local domain 34an lw el server wa23 ely bakhosh mn 3leh shabah el AAA Take care 
+VSPHERE LOGIN Using Active Directory DOMAIN:
+menu tab 
+administrator
+single sign on => Configuration => Identity sources => Add identity source w mmken a3mlha set as default b2a 
+w Akhtar el domain w a7oto bs lazm ykon 3nde domain 
+f de b2a mn tab el active directory domain w b3d kda azwd el AD bs ana m3ndesh
+
+ANA WA2ef 3la el vsphere w fat7 bases 3la esxi .65.133
+mmken akhsh 3la monitor w aft7 el events de shabah el logs w a2dr a3mlha export w btetkhazm lmodet 30 yom w b3d kda btetms7 lw7dha 
+
+
+=======================================================
+lw ana 3wz ab3t el logs f makan ma 
+hakhosh 3la esxi mn el vcenter 
+monitor=>advanced setting => edit => search for syslog.global.logHost w haktb ganbha kda 
+udp://(IPbta3 el server ely hyrme el logs ely feh 3la el esxi):514 
+ Haro7 3la saf7et el managent 192.168.65.134:5480
+w b3d kda hakhosh 3la el rsyslog w b3d kda hadefo 
+kda el logs hatetrma la el server w a2dr ashofha 
+========================================================
+
+Rakez b2a : fel NEtwork hierarchy 
+
+AdminPC Connected with physical SW 
+Physical switch connected to 2 servers each server have esx1 and other server has esxi2
+da b2a lel management yabasha w mlesh d3wa beh tany 
+kol server 3ndo kaza port ana kda mestakhdm port wa7ed da bta3 el management ely mtwsl b phisycal switch
+
+Kda de el 7gat el physical nbos b2a lel 7ta ely virtual ya basha 
+3 anwa3 connections :
+1) uplink da twseel el vswitch b server port 
+2)VM port da b2a tawsel el  ports bta3et el virtual switch ely mwgod gwa el esxi w virtual machine w de tawsela virtual f virtual shabah el VLAN
+3)VM kernel port (de tasmyet el connection ely physical ely for management aw for migration w lazm afselhom n ba3d 34an lw wa7ed wa2a3 el tany ykon sh8al )
+
+
+3nde talat 7alat :
+ESXi yekalmo b3d for migration msln 
+ESXi yekalem el storage 
+ESXi yekalm el admin user 34an el administrator 
+
+Kols esxi b2a gwa virtual switch no3o standard w mmken ykon aktr mn vswitch fel esxi 
+bs lazm ykon atleast mwsl el vswitch b physical port wa7ed fel server w dol mtwslen virtual da b2a el uplink 
+
+tyb dlw2t b2a ana 3wz a3ml migration mfrod physical port mn esxi 1 b physical port mn esxi2 w a7ot switch tany benhom w el khat da msln lel migration shabah ely 3mltha fel management yabasha w mmken a3mlha vSan brdo 
+
+
+Standard Switch VS Distributed Switch 
+wa7ed 3la single host Vs On Data Center ha2af 3leh w a2dr a3ml create aw import 
+
+El distributed myenf34 ye8neny 3n el standard 34an lw el vcenter w23 msh ha3rf akhosh 
+el distributed da lel 7gat el centralized 3la koo el hosts  mslnenma lw ha3ml management le esxi f a7oto 3la 
+
+
+============================================
+Vlans 
+Untag=> Acces
+Tag=> Trunk 34an ykkhrog bra bos 3la el sora w enta htefham bs vswitch byebd2 y7wlhom 
+
+
+################################################
+fel sora ezay ashof el standard w el distributed 
+haft7 el menu ely 3alshma w hakhosh 3la configure bta3et el esxi bta3te 
+w hakhtar virtual switchs 
+kol ely 3al shmal virtual w kol ely 3almen physical 
+ely 3alshmal b2a hala2y VMkernel Ports 
+w ta7teha ip da ip el esxi bta3y 
+
+feh 7ga esmha VM Network 
+VLAN ID w deh hala2yha  w metwsl 3la physical adapter wa7ed 
+kda el adapter physical da shayel el port group w shayel el management w da msh sa7 lazm ne3zlhom 
+
+
+================================================
+Creating of Virtual switgch w h create 3leha migration network 
+
+Click on Add network 
+choose VMkernel network adapter 
+gakhgtar b2a select existing wla new standard switch
+ana m3ndesh 8er  1 card network f esxi bta3y mmken a2flo w azwd mn VMware workstation f ehna hn3ml select existing b2a 
+
+
+Interview Question:
+hyeft7le el sf7a bta3e tle virtual switches w y2oly 3nde kan virtual switch 
+f ana msh bayen 3nde 8er wa7ed f kda wa7ed 
+tyb 3nde kam physical adapter aw physical switch 
+lazn akhsoh 3la el manage physical adapter w ashof kam wa7ed fady 34an a3rf agaweb 
+3al so2al da 
+w lw sa2alne mmken adef virtual tany walla la 3la 7sb lw feh physical adapter fady yb2a kda a2dr adef 
+===================================================
+
+hakhosh 3l physical adapters hashof b2a kol el 7gat zely feha w el no3 bta3o w el status 
+w feh cdp w lldp da el discovery protocol a34an el switch yshof el neighbours bto3o 
+f ana hfa3al ely ana 3wzo lw cisco bs w lw mix switches

@@ -1,0 +1,55 @@
+Mmken a3rf a2dr azwd virtual switch 7sb el available NIC ely fel ghaz w a2dr ashofha mn el physical adapter 
+w mmken a7ot aktr mn NIC fel switch el wa7ed 34an el backup 
+
+en ana a3ml loadbalance(etherchannel) ben el esxi w el switch 
+f el switch hyestakhdm protocol mn bto3o shbh el pagp lacp enam l esxi hy3ml 7ga esmha teaming 
+enma feh 7ga fel esxi esmha failover de shabh HSRP fel routers wa7ed standby w wa7ed active 
+
+el policy 34an a3dl feha ya ema 3la el port group ya ema 3la swtich kolo 
+ policy de eny a7ded b2a el inbound traffic wel outbound traffic 
+f vmk0 w akhosh 3le el setting bt3ha 
+feh 3 mode 
+Promiscuous mode
+w mac addresschanges
+forged transmit
+Search for IT 
+##########################################################
+traffic shape da shakl el traffic feh 7sabat w el peak bos 3la el saf7a bal3ab fel standard fel outbound bs 
+enma fel distributed a2dr al3b fel etnen w esmohom ingress w egress 
+#####################################################3
+saf7et el failover wel teaming 
+(LOADBALANCING)
+route based on ip hash => Load balance based on source ip 
+use explicit failover order => bel tarteb lw wa7ed w23 el tany yesht8l 
+=====================================================================
+NEtwork failture :
+Link state da for hardware bs lw 7sl moshkla yekhtshfo 
+Beacojn progbin da b2a hardware w software w kol 7ga de el a7sn 
+w a3mmlnotify 34an yb3t log 34an a3rf el moshkla fel 7ta el folanya 
+=================================================================
+STORAGE:
+SAN => Block
+NAS => File 
+vSan => Object 
+
+
+
+========================================================
+Ana w b3ml el storage ha3mlha 3la virtual switch swa2 existing aew new w Akhtar el storage w hyetlob mne ip tany 8er el ip ely bta3 el storage w da 8er el el ip bta3 el management ely b7oto 3la el browser w akhosh at7km fel esxi 
+lw ana m3ndesh nic zyada f mmken asht8l 3las virtual switch wa7ed 3ady w a2dr a3ml 3leh kaza network 
+###########################################
+Storage Device Naming conventions:
+vmhba, ip bta3 el circtuit:3260 default port of storage  => Virtual machine host bus adapter
+
+
+###########################################
+VMFS: With SAN Storage 
+======================================
+Static discovery w dynamic discovery :
+el dynamic hdelo el rakam el port bta3 storage w el ip w enta ekhtshf lw7dk rakam el LUN
+enma el static da ana hadelo kol 7ga 
+el Zoning: Eny akhale el fabric switch ye3ml allow lel storage enaha tkalm el ESXi mn el akher 34an el SAN m7taga fibric switch 
+
+Masking:34an akhale el ESxi y2dr ygeb el LUN mn afaha w y2dr y3ml beha datastore 
+########################################
+hba shabah el NIC bs lel fibre

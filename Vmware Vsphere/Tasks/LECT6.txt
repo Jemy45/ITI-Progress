@@ -1,0 +1,103 @@
+VMFS DataStores:
+Used when iam using SAN Storage 
+leh mbstakhdemsh el Vvol w yofadal eny astakhdm el VMFS
+l2enaha el High performance 
+bs feha moshkla so8yara 
+el DataStore ely a2dr a3mlha beha akherha 64TB
+
+How to create VMFS DataStore:
+ana fat7 el vsphere 
+ha2af 3la el data center w click ymen w ha3ml new datastore 
+Ha7ot el Name w hakhtar el ESXi Host w hakhtar anho LUN hastakhdmha 
+3wz b2a a3rf feh ad eh VMs mn el datastore bta3ty
+datastore => files or VMs  
+
+
+SEACH FOR WHAT IS THE MAXIMUM VALUE OF SWAPPING  same as RAM
+
+
+Extend:anot 3la lun tany wakhod mnha bel 3ard 
+expand:Eny azwd el datastore mn nafs el lun lefooo2 
+
+Maintainance mode:
+Lma aw2f astakhdm el datastore lazm adakhalha maintainance mode 
+UseCase:
+delete datastore => lazm ashel kol l vms mnha w a7otha fe maintainance w b3d kda delete
+change from vmfs5 to vmfs6 => move kol el vms mnha w adkhlha el maintenance w b3d kda upgrade 
+
+DATASTORE UNMOUNT & DELETE: fel saf7a mfhoma 
+MultiPath Algorithm: fel saf7a brdo 
+LOAD BALANCE: fel saf7ba brdooooooooooooooooooo
+How to edit LoadBalance:
+datastore=>config=>connectivity and multipath =>enzl ta7t w dos 3la edit w hatla2ihom 
+
+===============##################################+===========================
++++++++++++++++__________________________________3########################
+NFS => Uses NAS storage 
+fe feature mokhtlfa f NFS v3 w V4 
+NFS3=>Multipath ely bye3mlo manage el ESXi
+bakhosh el root 
+NFS4=> El vcenter hwa ely byenzbt el multipath
+bakhosh bel Kerberos 
+
+Mn el akher 3wz arya7 dma8y astakhdm l 4 l2en kol 7ga 3la bta3 el storage 
+
+
+=================================================
+Creating VM on ESXi
+feh kza 7aga 
+mmken a3mlha 
+Deploy from templete :
+kda el template mwgod bs 3mlt mno virtual machine 
+convert template to virtual machine:
+de bet7awel el template le virtual machine w el template asln not editable 
+f ana lw 3wz a3adel fel template w araga3ha tany template f mmken a7wlo vm w a3dl
+w b3d kda arg3o tany l template
+
+Feha kaza option tany read them 
+==================================================
+
+PCI de hatkhaleny y at3aml m3 el hardware 3latol bdl ma a3dy 3la el OS w ywslne w da mwgod fel hardware
+ya ema a7mlo w a3mlo setup f da msh hyenf3 f feh mn virtual gwa vm 3ady 34an t7es enha wasla bel VM 3latol 
+
+
+###############################################
+wna b3ml create lel machine mn template lazm a customize el hardware washel el network 34an a3ml disable l card el network w b3d kda aft7o tany w a8yar el network 
+lazm a8yar el network wel hostname take care 
+
+
+
+###################################
+From menu Policies then Vm customization specification eny azbt b2a en ay template ha3mlha mn no3 template mo3yan f y3mle kol el specs automatic 
+bdl ma ana ely a3mlo shbh eny a2af 3la el templtaet w a3ml create vm from template w a8yar manual 
+
+
+
+####################################################
+
+Content libraries:
+Local Content library: Ana bs ely shayefha 
+Shared content library: lw 3mltlha Shared hyedeny URL a2dr astakhdmo lw feh ay Vcenter tany hadelo el URL leh 
+Subscribed Content library: Lazm b2a 34an yeft7ha lazm ye3ml content library 3ndo w hayes2lo fen el Link hadelo el URL ely edetholo 
+
+lw fa3alt el authentication fel local w 3wz agebo fel subscribed lazm aft7 brdo el authentication mno 
+w a7ot nafs el username wel password brdo 
+
+Search in slides how to see synchronized between local and subscribed content library it is in Advanced Configuration 
+
+
+##############################################3
+To change something in template:
+Convert to VM
+Isolate Network 
+Make changes 
+Convert to template 
+
+To Create new version of a template b2a :
+Inside the content library only
+checkout a vm from the templatea
+make changes to the vm 
+checkin the vm to the template
+
+Tyb lw ana 3wz a3ml versioning bs msh f content library 
+lel asaf ha3mlha manually y3ne ha3ml clone w a3ml noskha tanya w b3d kda a3adelha 
