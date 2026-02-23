@@ -17,6 +17,7 @@ A comprehensive repository documenting my learning journey and progress through 
   - [Computer Networks](#computer-networks)
   - [Huawei](#huawei)
   - [Nutanix](#nutanix)
+  - [VMware vSphere](#vmware-vsphere)
 - [Certifications](#certifications)
 - [Author](#author)
 
@@ -27,6 +28,7 @@ This repository serves as a portfolio and knowledge base for my ITI training pro
 - **Networking Fundamentals**: Cisco networking technologies (CCNA & CCNP)
 - **System Administration**: Red Hat Linux system administration
 - **Cloud & Infrastructure**: Nutanix hyperconverged infrastructure
+- **Virtualization**: VMware vSphere server virtualization
 - **Vendor Certifications**: Huawei datacom technologies
 - **Hands-on Labs**: Practical exercises and real-world scenarios
 - **Projects**: Comprehensive final projects demonstrating learned skills
@@ -59,14 +61,18 @@ ITI-Progress/
 ├── Nutanix/
 │   └── Certificates/              # Nutanix certifications
 │
-└── Red Hat System Administration/
-    ├── RHSA I/                    # Red Hat System Admin Level I
-    │   ├── Certifiation/          # RHSA I certificates
-    │   └── Labs/                  # Practice labs and tasks
-    └── RHSA II/                   # Red Hat System Admin Level II
-        ├── Certificate/           # RHSA II certificate
-        ├── SummaryOnText/         # Lecture notes and summaries
-        └── Tasks/                 # Lab assignments
+├── Red Hat System Administration/
+│   ├── RHSA I/                    # Red Hat System Admin Level I
+│   │   ├── Certifiation/          # RHSA I certificates
+│   │   └── Labs/                  # Practice labs and tasks
+│   └── RHSA II/                   # Red Hat System Admin Level II
+│       ├── Certificate/           # RHSA II certificate
+│       ├── SummaryOnText/         # Lecture notes and summaries
+│       └── Tasks/                 # Lab assignments
+│
+└── Vmware Vsphere/
+    ├── Project/                   # Final project documentation (OJA.pdf)
+    └── Tasks/                     # Lecture notes (LECT1–LECT7)
 ```
 
 ## 📚 Content Description
@@ -159,6 +165,22 @@ Nutanix certification achievements:
   - [Nutanix Certified Professional - Multicloud Infrastructure 6](Nutanix/nutanix-certified-professional-multicloud-infrastructure-6.png)
   - [Nutanix Certificate Document](Nutanix/NutanixCertification20260122-30-m6bpjt.pdf)
 - Demonstrates expertise in Nutanix hyperconverged infrastructure and multicloud solutions
+
+### VMware vSphere
+
+VMware vSphere server virtualization training covering both theoretical foundations and practical implementation:
+
+- **Lecture Notes** (7 lectures): Comprehensive notes covering:
+  - Lecture 1: Hypervisor types (Type 1 & Type 2), VMware ESXi, vSphere components (ESXi + vCenter), SDDC concepts, vMotion, HA, DRS, and storage fundamentals (SAN/NAS)
+  - Lecture 2: ESXi resource allocation, VMware Tools, virtual networking (Virtual Standard Switch), file systems (VMFS/NFS/vSAN), ESXi security features, and lockdown mode
+  - Lecture 3: vCenter deployment and configuration, Single Sign-On (SSO), Enhanced Linked Mode, HOSTD/VPXD/VPXA services
+  - Lecture 4: Active Directory integration, syslog configuration, virtual networking hierarchy, Standard vs. Distributed switches, VLANs, storage (SAN/NAS/vSAN), VMFS datastores, NFS datastores
+  - Lecture 5: VM creation from templates, content libraries (local/shared/subscribed), PCI passthrough, EVC (Enhanced vMotion Compatibility), DRS (Distributed Resource Scheduler)
+  - Lecture 6: vMotion migration, Fault Tolerance, High Availability, storage migration, and advanced DRS policies
+  - Lecture 7: Advanced topics and review
+- **Final Project**: [VMware vSphere Infrastructure Design Project](Vmware%20Vsphere/Project/OJA.pdf)
+  - Comprehensive end-to-end vSphere environment design and implementation
+  - See [Project Details](Vmware%20Vsphere/Project/README.md)
 
 ## 🏆 Certifications
 
