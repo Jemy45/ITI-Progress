@@ -14,7 +14,7 @@ The goal is to:
 
 ## Step 1: Run Nginx Container in Background
 
-![Background container Nginx Alpine](images/1)BackgroundcontainerNginxAlpine.png)
+![Background container Nginx Alpine](images/1%29BackgroundcontainerNginxAlpine.png)
 
 First, we run an nginx:alpine container in the background. This demonstrates running a basic container with the `-d` (detached) flag.
 
@@ -27,7 +27,7 @@ docker run -d nginx:alpine
 
 ## Step 2: Create Apache Container with 70MB Memory Limit
 
-![Make Apache with 70M](images/2)MAkeapachiwith70M.png)
+![Make Apache with 70M](images/2%29MAkeapachiwith70M.png)
 
 We create and run an Apache container with resource constraints:
 - Memory limit: 70MB
@@ -44,7 +44,7 @@ docker run -d --name apache-container -m 70m --cpus="1" httpd
 
 ## Step 3: Inspect Container to Get ID
 
-![Inspect to get ID](images/3)InspecttogetID.png)
+![Inspect to get ID](images/3%29InspecttogetID.png)
 
 Using the `docker inspect` command to get detailed information about the container, including its ID and configuration.
 
@@ -57,7 +57,7 @@ docker inspect <container-name>
 
 ## Step 4: Verify CPU and Memory Configuration
 
-![Verify CPU is 1 and Memory is 70](images/4)VerifyCPUis1andMemoryis70.png)
+![Verify CPU is 1 and Memory is 70](images/4%29VerifyCPUis1andMemoryis70.png)
 
 This screenshot confirms that the container was created with the correct resource limits:
 - CPU: 1 core
@@ -69,7 +69,7 @@ You can verify these settings using `docker inspect` or `docker stats` commands.
 
 ## Step 5: Create Python Consumer File
 
-![Create Python consumer file](images/5)CreatePythonconsumerfile.png)
+![Create Python consumer file](images/5%29CreatePythonconsumerfile.png)
 
 We create a Python script (`consumer.py`) that gradually consumes memory. The script:
 1. Waits 15 seconds after the container starts
@@ -98,7 +98,7 @@ while True:
 
 ## Step 6: Create Dockerfile
 
-![Create Dockerfile](images/6)CreateDockerFile.png)
+![Create Dockerfile](images/6%29CreateDockerFile.png)
 
 We create a Dockerfile that:
 - Uses nginx:alpine as the base image
@@ -121,7 +121,7 @@ CMD ["python3", "/app/consumer.py"]
 
 ## Step 7: Build Image and Run with Configuration
 
-![Build the image and run with configuration](images/7)BuildTheimageandMakeRunwithConfiguration.png)
+![Build the image and run with configuration](images/7%29BuildTheimageandMakeRunwithConfiguration.png)
 
 We build the Docker image and run it with specific resource limits:
 
@@ -139,7 +139,7 @@ docker run -d --name consumer-container -m 70m --cpus="1" memory-consumer
 
 ## Step 8: First 10 Seconds - Memory is Normal
 
-![First 10 seconds the code is waiting and memory is normal](images/8)First10secondthecodeiswaitadthememoryisnormal.png)
+![First 10 seconds the code is waiting and memory is normal](images/8%29First10secondthecodeiswaitadthememoryisnormal.png)
 
 During the first 10-15 seconds, the container is running but the Python script is still in the sleep phase. Memory consumption is normal and within limits.
 
@@ -152,7 +152,7 @@ docker stats consumer-container
 
 ## Step 9: After 15 Seconds - Memory Consumption Increases
 
-![After that the consumption is 90](images/9)afterthemtheconsumptionis90.png)
+![After that the consumption is 90](images/9%29afterthemtheconsumptionis90.png)
 
 After 15 seconds, the script starts allocating memory. The consumption increases to around 90MB, which exceeds the 70MB limit we set.
 
@@ -160,7 +160,7 @@ After 15 seconds, the script starts allocating memory. The consumption increases
 
 ## Step 10: Container Killed Due to Memory Limit Exceeded
 
-![After last 5 seconds the consumption exceeds the limits so it killed](images/10)afterlast5secondtheconsumptionexceedsthelimitsoitkilled.png)
+![After last 5 seconds the consumption exceeds the limits so it killed](images/10%29afterlast5secondtheconsumptionexceedsthelimitsoitkilled.png)
 
 When the memory consumption exceeds the 70MB limit, Docker kills the container automatically. This is Docker's OOM (Out Of Memory) killer in action, protecting the host system from memory exhaustion.
 
