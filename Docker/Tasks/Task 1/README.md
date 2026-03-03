@@ -132,7 +132,7 @@ docker build -t <Dockerfile> .
 
 **Run command:**
 ```bash
-docker run -d --name <image> -m 70m --cpus="1" <Dockerfile>
+docker run -d --name <image> --memory 70m --cpus 1 <Dockerfile>
 ```
 
 ---
@@ -154,7 +154,7 @@ docker stats consumer-container
 
 ![After that the consumption is 45](images/9%29afterthemtheconsumptionis90.png)
 
-After 15 seconds, the script starts allocating memory. The consumption increases to around 45MB, which reaches about 90% of limit we set 50MB.
+After 15 seconds, the script starts allocating memory. The consumption increases to around 48MB, which reaches about 97% of limit we set 50MB.
 
 ---
 
@@ -170,7 +170,7 @@ When the memory consumption exceeds the 50MB limit and reached 60MB, Docker kill
 
 ## Key Learnings
 
-1. **Resource Limits**: Docker allows you to set CPU and memory limits using `--cpus` and `-m` flags
+1. **Resource Limits**: Docker allows you to set CPU and memory limits using `--cpus` and `--memory` flags
 2. **Memory Management**: When a container exceeds its memory limit, Docker's OOM killer terminates it
 3. **Monitoring**: Use `docker stats` to monitor real-time resource usage
 4. **Custom Images**: You can build custom images by combining base images with your application code
