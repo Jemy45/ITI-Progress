@@ -37,7 +37,7 @@ This shows how to set resource limits when starting a container.
 
 **Command:**
 ```bash
-docker run -d --name apache-container -m 70m --cpus="1" httpd
+docker run --memory 70m --cpus 1 -d httpd
 ```
 
 ---
@@ -127,21 +127,21 @@ We build the Docker image and run it with specific resource limits:
 
 **Build command:**
 ```bash
-docker build -t memory-consumer .
+docker build -t <Dockerfile> .
 ```
 
 **Run command:**
 ```bash
-docker run -d --name consumer-container -m 70m --cpus="1" memory-consumer
+docker run -d --name <image> -m 70m --cpus="1" <Dockerfile>
 ```
 
 ---
 
-## Step 8: First 10 Seconds - Memory is Normal
+## Step 8: First 15 Seconds - Memory is Normal
 
-![First 10 seconds the code is waiting and memory is normal](images/8%29First10secondthecodeiswaitadthememoryisnormal.png)
+![First 15 seconds the code is waiting and memory is normal](images/8%29First10secondthecodeiswaitadthememoryisnormal.png)
 
-During the first 10-15 seconds, the container is running but the Python script is still in the sleep phase. Memory consumption is normal and within limits.
+During the first 15 seconds, the container is running but the Python script is still in the sleep phase. Memory consumption is normal and within limits.
 
 **Monitor with:**
 ```bash
@@ -152,9 +152,9 @@ docker stats consumer-container
 
 ## Step 9: After 15 Seconds - Memory Consumption Increases
 
-![After that the consumption is 90](images/9%29afterthemtheconsumptionis90.png)
+![After that the consumption is 45](images/9%29afterthemtheconsumptionis90.png)
 
-After 15 seconds, the script starts allocating memory. The consumption increases to around 90MB, which exceeds the 70MB limit we set.
+After 15 seconds, the script starts allocating memory. The consumption increases to around 45MB, which reaches about 90% of limit we set 50MB.
 
 ---
 
@@ -162,7 +162,7 @@ After 15 seconds, the script starts allocating memory. The consumption increases
 
 ![After last 5 seconds the consumption exceeds the limits so it killed](images/10%29afterlast5secondtheconsumptionexceedsthelimitsoitkilled.png)
 
-When the memory consumption exceeds the 70MB limit, Docker kills the container automatically. This is Docker's OOM (Out Of Memory) killer in action, protecting the host system from memory exhaustion.
+When the memory consumption exceeds the 50MB limit and reached 60MB, Docker kills the container automatically. This is Docker's OOM (Out Of Memory) killer in action, protecting the host system from memory exhaustion.
 
 **Result:** Container is stopped because it exceeded memory limits.
 
