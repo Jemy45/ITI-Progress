@@ -9,6 +9,7 @@ git clone https://github.com/Jemy45/basic-flask-app
 
 # Navigate to the application directory
 cd basic-flask-app
+rm -rf ".git"
 # Create virtual environment
 echo "Creating virtual environment..."
 python3 -m venv venv
