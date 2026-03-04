@@ -9,7 +9,10 @@ git clone https://github.com/Jemy45/basic-flask-app
 
 # Navigate to the application directory
 cd basic-flask-app
+
+# Remove the .git directory to be able to commit changes
 rm -rf ".git"
+
 # Create virtual environment
 echo "Creating virtual environment..."
 python3 -m venv venv
