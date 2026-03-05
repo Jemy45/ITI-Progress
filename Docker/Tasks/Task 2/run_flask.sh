@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Navigate to the task2 directory
+# Either comment this line or not when you run Dockerfile, it wont give an error
+# You should uncomment it when you run this script on your local machine without Docker
 cd "/media/jimmy/Data/ITIContent/ITIRepo/ITI-Progress/Docker/Tasks/Task 2"
 
 # Clone the repository
