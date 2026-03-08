@@ -41,7 +41,7 @@ docker ps
 
 ### Step 2: Create the Dockerfile for Custom Nginx
 
-![Task A - Create Dockerfile for simple nginx alpine](images/2%29TaskACreateDockerfileforsimplenginxalpine.png)
+![Task A - Create Dockerfile for simple nginx alpine](images/2%29TaskA-CreateDockerfileforsimplenginxalpine.png)
 
 We create a Dockerfile that builds a custom Nginx image based on Alpine Linux. This image serves a personalized HTML page.
 
@@ -446,14 +446,14 @@ Both should return the Flask application's response, proving that:
 
 ```
                     ┌─────────────────────────────────────────────┐
-                    │            Docker Compose Network           │
-                    │                                             │
- User Request       │  ┌─────────────┐      ┌─────────────────┐  │
- ──────────────────►│  │   Nginx     │      │   Flask App     │  │
-  Port 80           │  │  (Reverse   │─────►│  (Python App)   │  │
-                    │  │   Proxy)    │ :5000 │                 │  │
-                    │  │  Port 80    │      │  Port 5000      │  │
-                    │  └─────────────┘      └─────────────────┘  │
+                    │            Docker Compose Network           |
+                    │                                             |
+ User Request       │  ┌─────────────┐      ┌─────────────────┐   │
+ ──────────────────►│  │   Nginx     │      │   Flask App     │   │
+  Port 80           │  │  (Reverse   │─────►│  (Python App)   │   │
+                    │  │   Proxy)    │ :5000 │                │   │
+                    │  │  Port 80    │      │  Port 5000      │   │
+                    │  └─────────────┘      └─────────────────┘   │
                     │                              ▲              │
                     └──────────────────────────────│──────────────┘
                                                    │
@@ -461,8 +461,8 @@ Both should return the Flask application's response, proving that:
   Port 8080
 
                     ┌──────────────────┐
-                    │  Private Registry │
-                    │  localhost:5000   │
+                    │  Private Registry│
+                    │  localhost:5000  │
                     │  (registry:2)    │
                     └──────────────────┘
 ```
