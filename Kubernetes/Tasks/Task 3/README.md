@@ -24,7 +24,7 @@ kubectl create deployment web --image=nginx --replicas=2 --namespace=iti --port=
 kubectl expose deployment web --namespace=iti --port=5000 --target-port=80 --type=NodePort
 ```
 
-> Note: For the DNS exercise, this service is exposed on port `5000`. In the Ingress exercise below, the `africa` and `europe` services are exposed on port `8888` to match the second lab requirement.
+> Note: These are two separate exercises in the same lab. The DNS exercise uses service port `5000`, while the Ingress exercise uses service port `8888`, each following its own requirement.
 
 - **Picture 1**: Verify NodePort service creation and routing.  
   ![Verify NodePort service](images/1%29VerifyNodePort.png)
@@ -99,6 +99,7 @@ Map `world.universe.mine` to your Kubernetes node IP (master or worker).
 Example:
 
 ```bash
+kubectl get nodes -o wide
 echo "<NODE_IP> world.universe.mine" | sudo tee -a /etc/hosts
 ```
 
@@ -109,6 +110,9 @@ Before creating ingress, make sure an ingress controller is installed and runnin
 ```bash
 kubectl get pods -n ingress-nginx
 ```
+
+If it is not installed, set up an ingress controller first (for example, NGINX Ingress Controller):
+https://kubernetes.github.io/ingress-nginx/deploy/
 
 ```bash
 kubectl create ingress world -n iti-46 --rule="world.universe.mine/europe/=europe:8888" --rule="world.universe.mine/africa/=africa:8888"
@@ -121,7 +125,8 @@ curl http://world.universe.mine/europe/
 curl http://world.universe.mine/africa/
 ```
 
-> Note: If you get `Bad Gateway` or `404`, check that your ingress controller is running (for example, `kubectl get pods -n ingress-nginx`) and confirm that route handling matches your app path behavior.
+> Note: If you get `Bad Gateway` or `404`, check ingress/controller and backend mapping with:
+> `kubectl get pods -n ingress-nginx`, `kubectl describe ingress world -n iti-46`, and `kubectl get endpoints -n iti-46`.
 
 ---
 
