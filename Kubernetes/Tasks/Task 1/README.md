@@ -74,7 +74,7 @@ kubectl get nodes
 If the worker has no role label, add one:
 
 ```bash
-kubectl label nodes worker node-role.kubernetes.io/worker=worker
+kubectl label nodes <worker-node-name> node-role.kubernetes.io/worker=worker
 ```
 
 - **Picture 3**: Verification that the worker is joined and ready.  
@@ -145,6 +145,12 @@ To open a shell inside an NGINX pod:
 
 ```bash
 kubectl exec -it <nginx-pod-name> -- /bin/sh
+```
+
+Alternatively, you can use:
+
+```bash
+kubectl exec -it <nginx-pod-name> -- /bin/bash
 ```
 
 ---
