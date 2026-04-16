@@ -36,6 +36,8 @@ ip a
 cat /var/lib/rancher/k3s/server/node-token
 ```
 
+> ⚠️ Keep the node token private. It is sensitive and can be used to join new nodes to your cluster.
+
 ### Join Command on the Worker
 
 ```bash
@@ -53,6 +55,8 @@ If this fails, open port **6443/tcp** in the firewall:
 ```bash
 firewall-cmd --add-port=6443/tcp
 ```
+
+This rule is temporary (until reboot).
 
 To keep it after reboot:
 
