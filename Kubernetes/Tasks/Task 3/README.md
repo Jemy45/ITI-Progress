@@ -84,7 +84,7 @@ kubectl expose deployment africa --port=8888 --target-port=80 --namespace=iti-46
 kubectl expose deployment europe --port=8888 --target-port=80 --namespace=iti-46
 ```
 
-> Note: Port `5000` is required for the first DNS task (`web` service in namespace `iti`), while port `8888` is required for the second Ingress task (`africa` and `europe` services in namespace `iti-46`).
+> Note: In this README, port `5000` is the service port used for the first DNS exercise (`web` in `iti`), while port `8888` is used for the second Ingress exercise (`africa` and `europe` in `iti-46`) to match the lab instructions.
 
 ### Step E: Verify services
 
@@ -103,6 +103,12 @@ echo "<NODE_IP> world.universe.mine" | sudo tee -a /etc/hosts
 ```
 
 ### Step G: Create ingress `world`
+
+Before creating ingress, make sure an ingress controller is installed and running (for example NGINX Ingress Controller):
+
+```bash
+kubectl get pods -n ingress-nginx
+```
 
 ```bash
 kubectl create ingress world -n iti-46 --rule="world.universe.mine/europe/=europe:8888" --rule="world.universe.mine/africa/=africa:8888"
