@@ -24,7 +24,7 @@ kubectl create deployment web --image=nginx --replicas=2 --namespace=iti --port=
 kubectl expose deployment web --namespace=iti --port=5000 --target-port=80 --type=NodePort
 ```
 
-> Note: These are two separate exercises in the same lab. The DNS exercise uses service port `5000`, while the Ingress exercise uses service port `8888`, each following its own requirement.
+> Note: These are independent exercises in the same lab and can be validated separately. The DNS part uses port `5000` for `web`, while the Ingress part uses port `8888` for `africa`/`europe`, exactly as required by each section.
 
 - **Picture 1**: Verify NodePort service creation and routing.  
   ![Verify NodePort service](images/1%29VerifyNodePort.png)
@@ -111,8 +111,7 @@ Before creating ingress, make sure an ingress controller is installed and runnin
 kubectl get pods -n ingress-nginx
 ```
 
-If it is not installed, set up an ingress controller first (for example, NGINX Ingress Controller):
-https://kubernetes.github.io/ingress-nginx/deploy/
+If it is not installed, set up an ingress controller first (for example, [NGINX Ingress Controller deployment guide](https://kubernetes.github.io/ingress-nginx/deploy/)).
 
 ```bash
 kubectl create ingress world -n iti-46 --rule="world.universe.mine/europe/=europe:8888" --rule="world.universe.mine/africa/=africa:8888"
