@@ -43,7 +43,7 @@ Add a name for the port (for example `http`).
 ### Step F: Test DNS and connectivity from another pod in `default`
 
 ```bash
-kubectl run nginx-test --image=nginx -n default
+kubectl run nginx-test --image=nginx
 kubectl exec -it nginx-test -- bash
 apt update && apt install -y dnsutils
 ```
@@ -84,6 +84,8 @@ kubectl expose deployment africa --port=8888 --target-port=80 --namespace=iti-46
 kubectl expose deployment europe --port=8888 --target-port=80 --namespace=iti-46
 ```
 
+> Note: Port `5000` is required for the first DNS task (`web` service in namespace `iti`), while port `8888` is required for the second Ingress task (`africa` and `europe` services in namespace `iti-46`).
+
 ### Step E: Verify services
 
 ```bash
@@ -93,6 +95,12 @@ kubectl get svc -n iti-46
 ### Step F: Add domain mapping in `/etc/hosts`
 
 Map `world.universe.mine` to your Kubernetes node IP (master or worker).
+
+Example:
+
+```bash
+echo "<NODE_IP> world.universe.mine" | sudo tee -a /etc/hosts
+```
 
 ### Step G: Create ingress `world`
 
@@ -107,7 +115,7 @@ curl http://world.universe.mine/europe/
 curl http://world.universe.mine/africa/
 ```
 
-> Note: If you get `Bad Gateway` or `404`, check that your ingress controller is running and that route handling matches your app path behavior.
+> Note: If you get `Bad Gateway` or `404`, check that your ingress controller is running (for example, `kubectl get pods -n ingress-nginx`) and confirm that route handling matches your app path behavior.
 
 ---
 
