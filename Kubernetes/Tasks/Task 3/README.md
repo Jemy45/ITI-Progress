@@ -24,6 +24,8 @@ kubectl create deployment web --image=nginx --replicas=2 --namespace=iti --port=
 kubectl expose deployment web --namespace=iti --port=5000 --target-port=80 --type=NodePort
 ```
 
+> Note: For the DNS exercise, this service is exposed on port `5000`. In the Ingress exercise below, the `africa` and `europe` services are exposed on port `8888` to match the second lab requirement.
+
 - **Picture 1**: Verify NodePort service creation and routing.  
   ![Verify NodePort service](images/1%29VerifyNodePort.png)
 
@@ -84,8 +86,6 @@ kubectl expose deployment africa --port=8888 --target-port=80 --namespace=iti-46
 kubectl expose deployment europe --port=8888 --target-port=80 --namespace=iti-46
 ```
 
-> Note: In this README, port `5000` is the service port used for the first DNS exercise (`web` in `iti`), while port `8888` is used for the second Ingress exercise (`africa` and `europe` in `iti-46`) to match the lab instructions.
-
 ### Step E: Verify services
 
 ```bash
@@ -127,7 +127,7 @@ curl http://world.universe.mine/africa/
 
 ## Notes
 
-### StripPrefix middleware idea
+### StripPrefix middleware idea (informational note)
 
 When you request `world.universe.mine/africa`, the app may fail because it expects `/` and not `/africa`.
 
