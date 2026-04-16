@@ -53,7 +53,7 @@ curl -vk https://<SERVER_IP>:6443
 If this fails, open port **6443/tcp** in the firewall:
 
 ```bash
-firewall-cmd --add-port=6443/tcp
+firewall-cmd --zone=public --add-port=6443/tcp
 ```
 
 This rule is temporary (until reboot).
@@ -61,7 +61,7 @@ This rule is temporary (until reboot).
 To keep it after reboot:
 
 ```bash
-firewall-cmd --permanent --add-port=6443/tcp
+firewall-cmd --zone=public --permanent --add-port=6443/tcp
 firewall-cmd --reload
 ```
 
