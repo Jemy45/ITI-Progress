@@ -1,0 +1,181 @@
+eh el far2 ben el pods el 3adya w el static pods ??
+
+pods => controlled by api 
+static pods => kubelet create it and managed it 
+
+
+eh faydet el kubeadm => beyzbt el 
+certificates => Search for certificates and how it works 
+directory /etc/Kubernetes w yzbt feh el pod manifest 
+bey2wl el kubelet w y3ml healthcheck 3la el 7gat el b2ya b2a 
+
+
+
+
+
+======================================================
+After Break 
+===========
+FLANNEL/ Calico /canal/ cilium => de 7ga bt3ml 3mlyet el networking bta3et kuberenetes kolha 
+
+==========================
+Revise on Docker there were bridge, none and host 
+==========================
+dlw2t ana 3wz a orchestrate containers 3la aktr mn makana
+
+msln lw 3nde 2 servers 
+
+1.1.1.1 => have pod with ip 10.0.0.5
+
+
+8.8.8.8 => has pod with ip 10.0.1.6
+
+Ezay el 2 pods dol ykalemo b3d b2a 3n tare2 overlay network w overlay network y3ne mn el akher akhale 2 pods yklmo b3d w kol w7da 3la host mokhtlf 
+w da ely mabne 3leh Kubernetes 
+======================================================
+
+YAML => 3bara 3n key value file bnktb beha el configuration files 
+mn el akher ana bakhod el YAML ely bktbo da w badeh lel api el api b2a hwa ely beyrag3 3la el yaml da w lw feh error beyrg3le error 
+==========================================================
+el kubectl da beyetklm m3 el api da b2a beykon feh file esmo kube.config da b2a feh kol el tafasel ely m7tagha kubectl 34an yklm el api 
+zy el network , client certificate, w yosta7sn eny config fille l kol cluserr
+
+el file da ana mmken a7oto f ay 7ga 
+lw 3nde kaza client msln yosta7sn eny a3ml l kol wa8ed kube.conf w a7ot feha kol 7ga kda el kube.conf beykon feh el certificate tamam tyb ezay b2a el server bye3rf el certificate de ely ana 3amlha create kubectl hwa ely beyetwla el amr b2a w bye3rf 3n mwdo3 da 
+tyb dlw2t b2a el certificate de el user beygbha mnen ??
+el Server aw el master el kubeadm feh mas2ol en hwa ely y generate certificates ktir w da yosama certificate authority CA eh ely bye7sl b2a b assign el user beha w beykon el server 3amel feha f lma el user beyro7 yekalm el api 3la el server y2olo ana el certificate bt3ty de f el kubectl hwa ely beyklm el api f yakhod mno el certificate w yklm beha el api f el api yt2kd mn el CA ely mwgoda fel server 3ady w yrod 3leh bel 7ga b2a 
+
+==============================================================
+Kubectl => see the config from the man command or slides 
+
+ana lw 3wz a3ml plugin 
+
+ha3ml file f ay mkan bs lazm ykon esmo kubectl- w a7ot el esm ely ana 3wzo 
+
+mmken a3mlo f / usr/local/bin brdo w dlw2t a2dr astakhdmo 
+msln lw 3mlt hello  => echo "helloworld"
+
+w dlw2t a2dr a3ml kubectl hello 
+
+==========================================================
+Kubectl get pods => lw 3wz ashof el pods ely sh8ala 
+msln hn3ml run lel pod => kubectl run nginx --image=nginx
+w ashofha b get 
+
+w lw 3wz akhosh el pod gwa mmken astakhdm kubectl exec 
+
+  w feh kubectl get pods/nginx -o json hyezher el json ba2y el commands mn man or --help 
+
+Mmmken aft7 le kubeconfig w hashof el certificate ely mwgod f dlw2t b2a ana a2dr a3mlo decoding base64 b7es enha tkon so8yara w f one line 
+============================================================
+OBJECTS:
+
+fel awl khales kan feh 7ga kda esmha GVK
+Group, version, kind 
+w awl 7ga et3mlt kan core(group) => (version)version1alpha1 then version1beta1 then version 1
+w kol w7da mn dol feha el (kind) pod, service, secret 
+
+el deployment brdo zay el pod kda => 7atoha f awl version bta3 el alpha w lma elnas ebtdt test3mha 7atoha f beta1 l7d m wasalt l version 1 w de el version el stable b3d mat2kdo en el deployment object hyostakhdm 
+
+
+el nginx ely 3mlnah fo2 da hanshof el yaml bta3o b2a 
+
+kubectl get pods -o yaml nginx 
+
+w hashof el yaml w ezay mktob w hanla2y awl satret khas bel version wel kind w b3d kda el metadata 
+
+el object 3ndna no3en gwa el metadata y ema ykono 3la le Cluster y ema ykono namespaces 
+f kol el 7gat leha name space pods, nodes, services, secrets
+el 7ga el w7eda ely mlhash namespace hya el namespace 
+===================================================
+Leh msh b2ol 3la el pod container msln l2en el pod mmken ykon mokawan mn kaza container asln
+==================================================
+b3d kda el specs b2a  w de ely beykon feha el containers ely gwa le pod wel images 
+
+spec:
+  containers:
+      -name:iticontainer1
+       -image:nginx
+	-name:iticontainer2
+	-image:scratch 
+w kda a2dr a7ot kaza container 
+=============================================================
+Lw 3wz ashof el file el yaml d byetktb mmken astkhdm el explain 
+kubectl explain pod | less 
+kubectl explain pod.metadata | less
+el command ely fo2 beygeb ley gwa el metadata bs w less 34an y2sr el kalam 
+==============================================================
+sig-apps =>replica set, deployment, daemon set, jobs 
+el replica controller etshalt w 7alyan deployment hya el asasya 
+    
+deployment options => 
+rollout => msln ana lw 3amel pods 3ady w fel deployment 8yrt el image f hye3ml roll out b2a w ybd2 y8yr el versions  
+scaling=> eny a3ml scale up aw down 3ady azwd aw a2lel pod 
+roll back>  eny arg3 l version tany 
+
+========================================================
+Practical for writing deployment and pod:
+
+POD:
+
+
+Commands: Creating the Namespace 
+Bash
+vim namespace.yaml
+kubectl apply -f namespace.yaml  => Search for what we put inside this file 
+kubectl get ns
+
+
+YAML File: iti-pod.yaml 
+YAML
+apiVersion: v1
+kind: Pod
+metadata:
+  name: itipod
+  namespace: iti
+spec:
+  containers:
+    - image: nginx:alpine
+      name: container-1
+      env:
+      - name: FOO
+        value: bar
+Commands: Applying the Pod and Verifying 
+
+kubectl apply -f iti-pod.yaml
+kubectl get pods
+kubectl get pods -n iti
+
+w a2dr akhosh 3a4an at2kd mn el env be kubectl exec 
+======================================
+de tare2a sare3a tble eel yaml w tare2t ktabto 3ady b eny a3ml pod bs virtual mn 8er myet3mlha create 
+kubectl run itipod2 --image=nginx:alpine --dry-run=client -o yaml 
+
+
+
+=============================================
+Deployment:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iti-deployment
+  namespace: iti
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+template => de y3ne shakl el pod 3aml ezay w da beykon label (Shakl el pods ely hat2om hatkon b label eh)
+selector => da b2a bye3ml eh beykhle el deployment yebos 3la ay 7ga nginx msln shabah el msal ely fo2 da bey2ol lel deployment ay pod mwgod 3la el system nginx enta mas2ol 3ano 
+f ana lw msln 3amel create lel pod wa7ed msln w 7atet replicas 10 fel deployment kda hye3ml create l 9 tyb lw ms7t el deployment hyems7 el 10 kolohom bely ana kont 3amlo f kda ma yosta7ssansh eny a3ml pod b edaya
+
+f a8lb el amr el selector beykon nafs el label w el asamy y3nee bs feh 7alat mmken yekhtlfo 3n ba3d (SEARCH FOR IT)
+ 

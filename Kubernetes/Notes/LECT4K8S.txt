@@ -1,0 +1,215 @@
+Revise on DNS:
+For example ana 3nde server sh8al webapp 3ady w feh database f lw el database w23t w 2amel el ip hyet8yr f hayconnect 3leh ezay  el dns hy7l el moshkla de b2a 
+f Kubernetes feh coredns gwah 
+
+msln el app w el db 7atethom f namespace w7da f lw 7ga w23t b2a f hte2dr twsl tany b3d m y2om 
+
+
+Revise on Ingress: It works on layer 7 
+
+i have P1 w P2 w odamhom service betkhadem 3lehom w zay m 3arfen el Fayda bta3et el service eny b2olo lw galk 3la port mo3ayan ermy 3la port tany shbh command expose ely konta bnktbo tyb lw feh path ray7lo msln /app f el 7al enena m7tagen webserver f tb3n msh hyenf3 ygebo webservers w kda lw el user 7abeb br7to f zawedo lel user 
+7tet el ingress de 34an y2dr y7ot el rules de 
+y3ne el packet bt3tk gya 3la port mo3yana w tro7 3la / path mo3yan 
+
+tyb dlw2t eh faydet el ingress controller eno b2a yakhod el rule de b2a w ymshe el packet de (READ MORE ABOUT IT)
+
+===================================================================
+kubectl run -n iti --image=leodotcloud/swiss-army-knife nettest
+Hwa 3ml pod mn image de feha kol 7aget el networks b2a w el apps bta3et el networks 
+================================================================
+
+w 3mal exec w dakhal gwah b2a 34an yshof file el /etc/resolve.conf 34an yshof el cluster ip bta3 el service ely esmha nginx ely kna 3amlenha embar7 
+==============================================================================
+Volumes:
+Kubernetes msh zay docker Kubernetes beysupport kaza environment 
+Types of Volumes: 
+hostpath: da shabah ely kan f docker -v a ashof mkan gwa el container beyshawer 3la mkan bara el container 
+
+empptydir{} da byetkhzn fel memeory 
+feh anwa3 tnya (SEARCH FOR IT)
+
+
+Practical:
+
+vim pod.yaml
+kubectl run --image=mysql -o yaml --dry-run=client mysql > mysql.yaml
+vim mysql.yaml
+
+hakhosh b2a MySQL.yaml b2a w azbt feh el volume 
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: mysql
+  name: mysql
+spec:
+ => De el 7ta ely haktbhbha b2a bara el container htet7at fen f hatkon f /data
+  volumes:
+  - name: mysql-data 
+    hostPath:
+      path: /data
+      type: DirectoryOrCreate
+  containers:
+  - image: mysql
+    name: MySQL
+Hna b2a ha7aded htetkhazen fen gwa el container w el mkan hwa /var/lib/mysql
+    volumeMounts:
+    - name: mysql-data
+      mountPath: /var/lib/mysql
+
+mn el akher de zay 
+docker run -v /data:/var/lib/MySQL
+ 
+w b3d kda a3ml apply -f 
+take care lw el type directory bs f lazm ana a3mle el Directory enma mmken akhaleha DirectoryOrCreate de 34an lw mla2osh hwa hye3mlo 
+
+===============================================================
+Presistent volume:
+
+ana msh barbot volume b pod mo3yana 
+
+msln ana lw 3nde cluster feh anwa3 mn el volumes 
+
+msln esmo PV1 w no3o hostpath w 7agmo hyeb2a 1G 
+w lw 3nde wa7ed tany PV2 w 7agmo hyeb2a 2G w no3o Hostpath 
+
+b3ml 7ga b2a esmha PVC (Persistant Volume Claim)
+da 3bara 3n talab storage 
+beyro7 el talab da le Kubernetes b2a y3ne msln lw feh PVC b 1.5G
+f Kubernetes beyshof b2a eh el volumes el fadya ely mmken t satisfy el talab da f hala2y PV2 y2dr y8ateha f el PVC da hye3ml bound lel PV2
+
+tyb eh el Fayda mn el en el mwdo3 da ykon indirect aw eh el Fayda mn de ?
+el pod btklm el pvc 34an totlob volume f hya msh hyeb2a leha Fayda enha tkon 3arfa fen el volume bta3etha tet7t fen mn el akher msh hatmanage el mwdo3 da el Kubernetes hzybt el mwdo3 da 34an n2dr n3ml reuse bel volume bra7tna lw el pod 3azet tokchrog aw 7sl moshkla feha msln 
+
+el 3laka ben el PV w el PVC 1 to 1 kol wa7ed akhro yklm wa7ed w yakhod mno storage 
+
+
+feh anwa3 access mode b2a 
+
+Read Write once de b2a mmken kaza pod mn nafs el node t bound el clain da 
+
+Read Write Many : aktr mn pod f nodes mokhtlfa 3ady mmken y3mlo bound lel claim hna 
+
+tyb b2a hal hostpath da ynf3 yb2a ReadWrite many => de btkon 3la el hst nfso f msh hyenf3 asln enma msln el EBS mmken 3ady tb2a read write many (Search more about it and search about more access modes in documentations)
+
+feh gadwl brdo 7lw beybayen el volume plugins bt3hm anho access mode shabah ely katabtha fo2 en el hostpath byed3m el readwriteonce 
+
+=============================================
+tyb dlw2t b2a lma el PVC t2t3 3laketha bel PV w khalas ana estakhdmtha w khalas khalast w shelt el pvc eh ely bye7sl feh 3 policies b2a lel reclaim 34an a3ml reuse??  ( ana lw shelt el pod el 3laka htefdal ka2ema 3ady ben el PVC w el PV lw 3awz ashel el pvc lazm ashelha b nafse )
+Reclaim policy:
+1) Retain: en el pvc da esta3ml w m7dsh tany ysta3mlha ba3den f ana k administrator ashed mno el data w ashel el pv el adem w a3ml new pv gdid 34an el users t2dr test3mlo 
+
+2)Delete: da awl m bashem el claim Kubernetes beyshel el pv automatic bs da msh kol el volume plugins bted3mo el ebs byedmlo enma el hostpath la 
+
+
+
+3)Recycle: w de khatar msh a7sn 7ga nestakhdmha fel production da b2a msh beyshel el PV la da beyshel el data kolaha ely gwa el PV 34an yenf3 nestakhdmha tany 
+
+===========================================================
+See the life cycle of the PV inside the documentation mn awl m btet3ml l7ad m tet7gz l7d m testakhdm l7ad m yet3mlha reclaim policy
+==========================================================
+hnktb pv.yaml w pvc.yaml 
+w han7otohom f nafs el namespace w hn3ml apply lel etnen  w b3d kda nshof hal hye7slha bound walla la 
+kubectl get pv,pvc -A
+hanla7z b3d el comand da en el pvc de pending leh l2eny kont 7atet el pv de read write once w el pvc read write many f pvc msh hte3rf t7gz el pv f hashelha wakhaleha readwriteonce tany 
+w nerg3 n3ml el command hanla2y en el status bound b2a 
+hn3ml create l pod b2a w n7otf eh el pvc de b2a 
+
+w lw 3mlna describe lel pod ely f namespace iti hanla2y enha f3ln 3mlt successfully mount 
+
+======================================================
+Dynamic volume provisioning:
+
+PV ==> Maps into 1==> PVC => Maps into one or more pods on the system
+da ely ehna khadnah eh b2a el dynamic PV aw el volume provisioning da b2a 
+
+ana bs ely 3lya b3ml el PVC bs w el pvc da b2a msh byedwr 3la pv bye3mlha request la2 da beyro7 y3ml create lel pv de w yestakhdmha 
+ba3ml kda ezay b2a 3an taree2 el storage class 
+
+msln 3nde storage class esmha iti w el provisioner bta3ha da ely haysha8alha msln gcp aw ebs  bto3 google aw amazon tyb kda hal lw 3mlt el pvc hyet3ml 3andy 3latol la lazm ykon feh 7ga mwgoda 3la el system 3ndy esmha msln csi  w da beykon msln zay k3d beykon local provisioner (Search about it in K3S)
+
+mn el akher el storage class da ely b7ded feh men ely hy3ml create lel pv enma ely bye3ml el 7ga f3ln hwa el local path provisioning zy el csi 
+
+Practical: haktb el pvc b2a 
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: iti-claim
+  namespace: iti
+spec:
+  storageClassName: "local-path"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+
+w b3d kda adelo wa7ed apply el pvc htefdl pending b2a l7d eh ?
+l7d m ykon feh pod yesta3ml el pvc de 
+
+aw m el pod tesht8l w testkhdm el pvc 
+law get a3ml kubectl get pv hala2y f3ln en feh pv et3mlo create gdid el local provisioner 3amalholy 34an el pod testakhdmo w tb2a running brdo 
+=================================================================
+34an tet3lm el 7ta de dawar b2a el 7ta de ezay t3ml cluster 3la aws w ezay tstkhdm eks w ezay testakhdm provisioners tanya 8er el local provisioner
+w ezay arbot behom w b ccm (cloud control manager))
+=================================================================
+
+
+dlw2t lw feh deployment msln ht3ml create l 3 pod w ana 3mlt create l pvc mo3yana dlw2t el pv ely pvc ht3mlha create de el 3 hyestakhdmoha shared tyb ezay akhale pvc t3ml 3 PV l kol pod lel asaf msh htenf3 fel deployment wla el daemonset 
+
+feh 7ga esmha statefullset  lw 3mlt feha enha t create 3 pods msln hwa hybd2 y3ml 3 pvc w yrbot kol wa7da b pv l kol pod w kda ana fasalthom 3an b3d 
+
+
+======================================================================
+Config map: de object b7ot feha shwyet m3lomat 
+
+y3ne msln b7ot a=1, b=2 
+w a3ml create lel pod w a2ol lel pod de esta3mle el config map de w awl m yesta3mlha hwa y2dr kda yesta3ml el a w el b 3ady 
+
+
+Config map:Object mwgod f el V1 w mafhosh la spec walla status 
+feh option esmo data  gwa el data de b2a ba7aded feha key w value lel 7agat ely ha3mlha gwa el config map 
+
+Kubectl create configmap test --from-literal-foo=bar
+
+kda ana 3mlt configmap esmha test w el data ely gwaha foo=bar 
+
+lw 3mlt kubectl get configmap -o yaml test 
+
+hanla2y b2a el data ely gwaha eh w el m3lomat ely gwaha eh 
+
+
+mmken ana b2a akhazen files 3aady gwa el config map de 
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test
+  namespace: default
+data:
+  config.txt: |
+    Hello world iti
+    hello sysadmin
+  foo: bar
+
+
+w b3d kda aro7 b2a astakhdmha f el pods b2a bs take care lazm ykono f nafs el namespace
+
+Secrets de b2a nafs el config map bs el 7gat btkon hashed 
+
+===================================================================
+lw 3nde pod
+name: pod1 
+Ip:10.42.0.11
+ns:iti 
+
+dlw2t wna b7ded el volumes lel pod de ha2olha estkhdm downwareapi: 
+w gwaha status: podIP 
+
+w ha3ml el volume da mount f /pod msln mn el akher b3rf shwyet m3lomat 3n tare2 el downward api 
+ 
+
+
+

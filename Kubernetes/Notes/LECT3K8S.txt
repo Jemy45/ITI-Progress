@@ -1,0 +1,281 @@
+APPS:
+
+
+1)Deployment 
+
+
+zay ma 3arfen el deployment byeb2a mtsgl feha 3adad el revision
+
+hwa bada2 b eno yrage3 el deployment w ezay y3mlha create w ezay y3dl feha w yb2a feh versions w y3ml roll out w brdo y3del feha 
+
+ay update ana b3mlo bye3ml versions gdida w ana a2dr at7km f el versions w brdo ams7 w a7ot aw arg3 lel versions ely ana 3wzha (Try it)
+
+Some commands:
+
+kubectl set image deployment/my-app-deployment my-container=my-image:v2 => lw 3mlt u[date w 3awz a update el deployment enha testkhdm el version de 
+
+kubectl rollout history deployment/my-app-deployment => List the history 
+
+kubectl rollout undo deployment/my-app-deployment --to-revision=1=>
+feh etnen update strategy 
+
+kubectl edit deployment <deployment-name> => da for edit 
+
+Types 34an lma brg3 l versions adema:
+
+roll update => da shabah ely garabo 
+recreate => hna beyshel w bye3ml gdid
+ondelete => hna ana b3ml deleate lel pod w hwa bye3ml create leha (Faydtha 34an lw 7d 3mal update mn 8er m y2sod f hwa yb2a mye7slsh update 8er lma ana ely ams7 el pods)
+ 
+=================================================================
+2) Daemonset
+De btefr2 3an el deployment en el 1 pod betkon 3la 1 server mo3yan laken el deployment kan mmken y7ot el 5 pods f nafs el server 
+w brdo feha rollout w kol ba2y el anwa3 ely mwgoda fel deployment 
+
+Use in configuration management => lw feh pod msln bt3ml backup and copy msln f mmken astkhdm el daemon set 
+
+Use in logging => eny a3ml centralliz log server a7ot feh kol el logs brdo 
+(Search more about its user)
+
+=====================================================
+3) Statefulsets
+
+mn el akher ana b3ml applications yostakhdm fel database w identities bta3ethom betkon mwgoda w sabta 7ta lw etms7t 
+(Search more about it and try its practical bs it is related with volumes)
+
+
+========================================================
+4) Jobs => de msh long lived application de yadob bt3ml 7ga mo3yana w b3d kda bt3ml exit 
+(Search for its practical)
+el state b3d m tfdl el job de w b3d m tekhls betkon completed w feh garbage collection bta3 el Kubernetes byebd2 yshelhom 
+==========================================================================
+Node Selector
+Spec:
+  nodeSelector
+   type: production 
+   gpu: 5
+
+
+de 34an Akhtar node mo3yana 3leha el label ely ana 3wzo w a7ot feha el pods bt3ty 
+w ely ms2ol 3n el 7ta de hwa el scheduler w bye3ml 7agten filter extension 
+y3ne b y filter kol el nodes w ykhtar el mazbota ely a7ot feha el pods mn el akher hya ely masmo7 eny a deploy 3leha y3ne mn el akher hy filter ay node m3ndhash el label da w yekharagha bara el 7sba wna b3ml apply lel deployment de 
+
+
+fel 3amaly hwa 3ml 10 replicas msln w kan kol el pods pending l2eno mknsh la2y node 3ndha label production 
+b3d kda 3ml kubectl label production w 8yar el label bta3 el node ley ana 3leha w  8yarlha el label w b3d kda b3d m ba2o pending b2o running 
+
+
+NodeAffinity: de bs b ekhtsar de beymatch b aktar mn 7ga y3ne pool mn el labels msln y3ne type production aw 7ga tnya aw 7gat ktir y3ne lw la2a 7ga mn el types de erme feha el pods de 
+
+de mmken tkon mofema b eh lw 3nde high optimized pods btakhod resources ktir f msh 3wzha ykono deployed ganb b3d f ha2ol lel file lw 3nde pod feha estekhdamat kaza mat7otelesh pod ganbha lw 3ndha nafs el estekhdamat 
+
+========================================================================
+
+Network 
+Inside a pod there is a 2 containter for example 
+
+f el etnen containers dol hye2dro yklmo b3d 3la lo (loopback)
+tyb ezay hyfr2o b3d msln lw feh nginx w apache f msh hyenf3 el etnen ykono port 80 f msln hkhale wa7ed 8888 w wa7ed 7777 f kda kol wa7ed y2dr yklm el tany 3la 127.0.0.1:port 
+w mmken brdo lw msh port mmken tkon socket  unix bkalmo 3la file mo3yan (Search About it)
+
+tyb meen ely byakhod ip b2a 
+el pod btakhodmn el cluster cider 
+for K3S => 10.42.0.0/16 
+for kubedm=> 10.244.0.0
+
+gammeel dlw2t lw
+Pod1 => 10.42.0.5 => vth0-1
+Pod2 => 10.42.0.6 => vth0-2 
+kda el etnen pod hye2dro yklmo b3d 3la network de lw ana f nafs el node 
+
+
+dlw2t b2a tyb lw 3wz akalm pod tanya 3la node talta 
+
+Lazm n3rf el cidr bta3 kol node 
+
+el cluster cider el asasy 10.42.0.0/16
+dlw2t kol node hatakhod sub cider 
+node-cider => 10.42.0.0/24 for node 1 
+node-cider => 10.42.1.0/24 for node 2
+
+ dlw2t ana lw 3nde pod 3la el node 2 hatakhod ip kda msln 10.42.1.10
+
+dlw2t kol 7ga 3ndha ip haykmlo b3d ezay b2a 
+
+Using Overlay network: nafs fekret el VXlan
+ex(Flannel) w feh anwa3 tanya brdo 
+
+flannel da bey2wm daemonset 3ady 
+w beykon el flannel da b2a bey2wm interface esmo flannel.1 
+w byakhod ip 10.42.0.1 msln f node 1 
+w f node 2 hyakhod 10.42.1.1
+
+dlw2t lw feh packet tal3a mn pod 1 f node 1 ray7a l pod 3 f node 2
+
+srcip:10.42.0.5
+dest:10.42.1.10 
+da el tabee3y 
+f flannel de b2a bt3ml eh ??
+
+dlw2t el packet tale3a mn el src ip hatro7 el packet de b2a btmshy tro7 lel flannel.1 ely wakhda ip 10.42.0.1 f flanneld da b2a a3ed mslny beyshof eh ely byegy l flannel.1 w awl m byegy packet b2om 3amla lel packet encapsulation 
+betkhle el src 1.1.1.1 (da ip el node 1) w el dst 2.2.2.2 (da ip node 2) w btbd2 el packet tokhrog mn el node w tro7 lel node el tnya tewsl l 2.2.2.2 f y2om flanneld 3amelha decapsulation 
+w ba3etha 3ala flannel.1 bta3 node 2 ely hwa 10.42.1.1 w b3d kda flannel.1 da b2a ywdeha le pod 3 ely kan el ip bt3ha 10.42.1.10
+
+===========================================================================
+
+KubeProxy
+
+Networking services 
+
+ana lw 3nde pod msln wakhda 10.42.0.15:5000 w da kan sh8al nodejs msln w lw wa2a3 f el ip bta3o mmken yet8yar 
+
+f dlw2t eh el 7al el networking services zy el kubeproxy w da b2a mslol eno y3ml routing lel packet lel pods 
+
+el services btkon wakhda ip mn bara msln 10.43.0.100:5000 f el packets btgelha w hwa b2a byebd2 yb3tha 3la el pods kolha lw msln 5 pods w kol wa7ed b ips mokhtlfa w port 5000 hwa hyeb3tha 3la ay pods fehom b2a bel 7az m2drsh a7dedo 
+
+Practical on it 
+
+kubectl create ns iti
+kubectl create deployment --image=nginx --replicas=3 -n iti nginx
+kubectl get pods -n iti -o wide => de b2a 34an nshof el ips ely wakhdaha el pods ely et3mlha create w mwgoda 3la anho node
+hyetl3le 
+On Node2
+p1:10.42.2.17
+p2:10.42.2.18  
+ On Node0 
+p3:10.42.0.52
+
+kubectl expose deployment nginx -n iti --port 8888 --target-port 80
+
+
+Explain the Port and Target Port 
+
+Dlw2t b2a ana 3nde 2 Nodes shbah ely fo2 w 3mlt 3 pods shabah el ips ely fo2 
+
+feh service mwgoda fo2 el node2 w node0 
+el service de hatakhod ip mn el service cidr 
+
+kubectl get services nginx -n iti -o yaml
+or kubectl get service -n iti 
+de htezhrly el file bt3ha w hashof mno el ip bta3 el service
+
+serviceip:10.43.56.11
+
+dlw2t lw feh packet gaya msln 
+hatro7 3la el 10.43.56.11:8888 f el kubeproxy b2a ms2ol eno yb3at el packet 
+le p1 aw p2 aw p3 3la port 80 w feh load balancer brdo aked 34an lw hy2sm el load 3la el pods 
+
+el kubeproxy beyklm el ip tables w bye3ml routing w brdo feh 7agat tnya f documentation el kubeproxy byestakhdmha lel routing (Search for it) 
+
+w feh anwa3 tnya 8er el kubeproxy zay cilium msln (Search for other types)
+
+kubectl get enpoints -n iti => da b2a hyezhrly el ips bta3et el pods w mwgoda fen
+
+hane3mlha delete b2a 
+kubectl delete pod -n iti ngginx-ID 
+
+w lw 3mlt 
+kubectl get pods -n iti -o wide 
+hala2y en el pod etshalet w et3ml pod tanya w wakhda ip tany khales  
+
+iptables -t nat --kist-rules | grep 10.43.56.11
+ 
+hyezhrle b2a en lw galak ay 7ga 3la el port 8888 wadeha 3la rol mo3yana kan esmo 
+KUBE-SVC-UEZCNETDFAFGD 
+
+dlw2t b2a  ana 3wz ashofo 
+iptables -t nat --list-rules | grep KUBE-SVC-UEZCNETDFAFGD 
+Hatshof b2a kol el routing lw ely hygelk hayro7 3la ip P1 and P2 and P3 at port 80 
+
+
+curl 10.43.56.11:8888 
+hyrod 3laya b nginx b wa7ed mn el pods ely mwgoda 3la el system
+
+
+======================================================================
+Types of Services:
+ehna fo2 kona sha8alen bel clusterIP(Default)
+
+feh no3 b2a esmo NodePort da mmken akhosh mn machine bara khales 3n tare2ha 
+de b2a bt3ml create nafs ely bt3lo el cluster ip bs bye3ml ip table role tany b2a lw 7ga msln gatle 3la node ip 1.1.1.1 mn bara 3la port 33566 w mmken kaza node 3ady b2a w byebd2 y3mlha forward b2a gwa el node de w tekamel lafetha shabah ely 7asasl abl kda 
+
+
+Practical:
+
+kubectl expose deployment nginx -n iti --port 5000 --target-port 80 --dryrun -o yaml w hakhargha 3la service.yaml 
+
+kubectl apply -f service.yaml 
+
+kubectl get services -n iti
+hala2y b2a el service m3mlha create 
+service2   NodePort    10.43.168.168   <none>        5000:31874/TCP
+
+
+n3mlha test b2a 
+lw 3mlt curl 192.168.1.111:5000 da ip el node msh hyewsl la 
+lazm a3ml kda 
+curl 10.43.168.168:5000 kda ana hawsl el node  
+dlw2t hanshof el iptables 
+iptables -t nat --list-rules | grep 31874 
+da b2a bey2ol en ely ygelk 3la el port de b2a wadeha 3la rule esmha msln 
+KUBE-EXT-ASDGBAFDS
+
+hane3ml grep 3la el KUBE-EXT de b2a hanla2iha betwdy 3la el service de KUBE-SVC-ASDGBAFDS
+
+w de b2a hanla2yha betroute 3la el pods ely m3mola 
+
+==============================================================
+Load Balancer : search about it depends on the controller manager of the cloud ely htestakhdmo 
+
+==============================================================
+ExternamName:Da lma bft7 el pod msln beyrod 3laya b Cname
+================================================================
+
+DNS: 
+lw msln 3nde namespace iti w service esmha nginx
+
+f feh pod 3wza tkalemha f el pod btro7 ts2al el dns 3la nginx.iti 
+tyb lw m7tetsh elname space hyes2 el namespace bt3to hwa l2eno shayefha hya de el default 
+
+feh anwa3 tnya fel slides b2a bs msh mostakhdmen awy y3ne 
+
+===============================================================
+Ingress:
+Da object mo3yan rule book y3ne fel el rules bta3et el proxy 
+y3ne msln lw 3nde service 1 3wza tedy nginx 
+btegy 3la service1 5000 tro7 3la port 80 f lw 3wz b2a ab3tha path mo3yan fel port da zay msln 
+nginx:80/app1 msln f de ely bye3mlha el ingress b2a hwa ely beyroute el 7ta de 
+mn el akher el proxy byesm3 kalam el rules ely hya esmha ingress 
+
+f b2ol lel kubeproxy msln enta lw galk ay request 3la http://__/app 1 msln wadeha 3la service 1 port 5000 
+
+ely beysa3ed 3al mwdo3 da hwa el ingress controller 
+
+Practical: 
+
+Deployment nginx feh 2 pods msln 
+
+w feh service => nginxx:5000
+
+ingress => http://___:80/ , http://___:443/
+
+Dlw2t b2a el Ingress Controller hayklm el ingress rules de w hy2dr ywsl lel pods ely mwgoda gwa el deployment 
+
+
+kubectl get pods -n kube-system
+
+hyezhrle el ingress controller esmo traefix 
+
+kubectl create ns iti
+
+kubectl create deployment --image nginx:alpine --replicas=2 nginx --namespace
+ iti
+
+
+kubectl expose deployment nginx -n iti --port 5000 --target-port 80
+
+kubectl create ingress nginx --namespace iti --rule=*/index.html=nginx:5000
+
+hwa zawed fel yaml bta3 el ingress de khala el host *.example.com hwa beukon 3wz *.ayalphanumeric lw sebtha asterisk bs hyedy error 
+
+w b3d kda 3amal apply w b3d kda curl b2a w 3mlt test 

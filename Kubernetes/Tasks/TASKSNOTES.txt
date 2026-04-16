@@ -1,0 +1,336 @@
+##################################
+KUBERNETES GUIDE THROUGH THE TASK
+##################################
+https://docs.k3s.io/quick-start
+------------------------------------
+To add the worker into the server i need to download it with thee node_token and ip of server 
+curl -sfL https://get.k3s.io | K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken sh -
+
+
+ip add => IP 
+cat/var/lib/rancher/k3s/server/node-token => token 
+
+curl -sfL https://get.k3s.io | K3S_URL=https://192.168.65.5:6443 K3S_TOKEN=K10b93d85a186114fa990dbcb5408fba94b454b2b6c8387dcebd77d8a2a17d707b5::server:c2ec95ee84b83f7f80b809ec435285ae sh -
+
+
+Try to make curl before hit the command of download 
+curl -vk https://192.168.65.5:6443 => If it failed pass this port through the firewall 
+firewall-cmd --add-ports=6443/tcp
+
+
+Done Downloading if we make 
+kubectl get nodes we will find that the worker is ready and dont have label roles so we give it a label worker using this command  => Its just only a label i can put any other name in the first worker 
+kubectl label nodes worker node-role.kubernetes.io/worker=worker
+
+
+
+Pic1=>Verifying kubectl get nodes that worker is ready 
+-----------------------------------------------------------
+Note:
+Flannel is a CNI (Container Network Interface). Think of it as a massive, invisible virtual switch that connects all your servers together so your Pods can talk to each other.
+Because we are using k3s so we dont need to handle this part if we using kubeadm as previous w need to apply it manually it opened UDP port 8472 on the firewall 
+
+If a Pod on Server A tries to talk to a Pod on Server B using that fake 10.42 IP address, your physical router will be completely confused and drop the connection, because those IPs don't exist on your real network.
+Flannel's Job:
+It intercepts the traffic from the Pod.
+It wraps that traffic up in a digital envelope (called encapsulation).
+It writes the real physical IP address of Server B on the outside of the envelope.
+It sends it across your real network.
+Flannel on Server B catches it, opens the envelope, and hands the original message to the correct Pod.
+-----------
+Difference between kubectl run and kubectl apply 
+Run:The Imperative Way
+pass all the instructions in one command 
+it only creates a single Pod.
+Kubernetes have no memory y3ne lw el pod matet Kubernetes msh hte2dr t2wmo tany 
+could be used container image or test network connection 
+
+Apply:The Declarative Way
+Create configuration file for pod and apply it 
+if the configuration file not like the pod Kubernetes edit the pod with same configuration like yaml file 
+================================================================================
+
+Lets apply the deployment as task 
+kubectl apply -f https://gist.githubusercontent.com/galal-hussein/9dc72ecada5fda0f7e0a8d0aaa595af1/raw/032e373f2b292176aa4df2d6b842983759359998/deployment.yaml
+
+We didn't specify nodeSelector in this deployment.yaml so we dont know which worker will put the pods inside it 
+
+For verifying using kubectl get pods or kubectl get pods -o wide 
+Pic2 => Verifying using kubectl get pods -o wide to see which worker contain the running pods
+#################################
+Task 1 Finished
+------------------------------------------
+Note: Nominated node when i use get pods -o wide i saw nominated node what is this used for ?
+if there is a high priority pods it can work on the worker even if its cpu and memory used how ?
+the low priority pods terminated and high priority joined into worker instead of it 
+like a restaurant that filled with people and suddenly there is a VIP man come and joined the restaurant 
+
+To join into a nginx using kubectl 
+kubectl exec <pod-name> -it -- bash
+----------------------------------------------
+kubectl [command] [TYPE] [NAME] [flags]
+----------------------------------------
+GVK=> Group Version Kind
+Group => Core like individual Pods or Secrets OR apps like Deployments or StatefulSets
+Version=> v1 > v1beta > v1alpha
+kind: pod or deployment or service or node etc
+
+apiVersion: apps/v1  # The Group (apps) and the Version (v1) combined
+kind: Deployment     # The specific Kind of object
+metadata:            # The "ID Card" for this specific object
+
+name: Must be entirely unique within its neighborhood (namespace).
+
+namespace: A virtual neighborhood inside the cluster to keep projects separated.
+
+labels: Searchable text tags (like app: frontend or tier: backend) that help you easily find and group objects later.
+
+
+The 4 Built-in Namespaces(Made automatically)
+default:if my yaml file didn't specify which namespace i need my pod to create in then it is move instantly to the default 
+
+kube-system:(The Engine Room):
+It holds the infrastructure that keep k8s alive (pods of traefik and flannel inside it created automatically)
+
+kube-node-lease:(The heartbeat monitor):Every created node inside cluster send heartbeat to tell k8s that it is still alive then these beats stored inside this namespace .If the master stops seeing heartbeats from your worker node here, it will mark the worker as "NotReady."
+
+kube-public (The Billboard):
+A specialized, rarely-used namespace designed to hold data that absolutely everyone needs to be able to read, even if they aren't authenticated with the cluster.
+
+Difference between replicaset and deployment
+The ReplicaSet is the site foreman. Their only job is to look at a clipboard that says "I need exactly 3 workers on site." If a pod quits, the foreman immediately hires a new one. If 4 pod show up, the foreman fires one.
+he Deployment is the overarching Project Manager
+
+When you ran kubectl apply -f deployment.yaml earlier, here is the exact chain of events that occurred:
+
+You told the Deployment: "I want 3 instances of Nginx v1."
+
+The Deployment created a ReplicaSet and handed it the instructions.
+
+The ReplicaSet spun up 3 Pods.
+################################################################################################
+Task 2:
+------
+1)
+a)As in previous task we created 1 worker and 1 server 
+b)now we will create namespace called iti-46
+kubectl create namespace iti-46
+c)we cant find ~/kube/config because k3s put the configuration inside /etc/rancher/k3s/k3s.yaml 
+ lets cat it we can find that the only context is default context or we can see it using kubectl config view and we can see it using kubectl config get-context
+
+Create new context 
+kubectl config set-context iti-context --cluster=default --user=default --namespace=iti-46
+
+verifying 
+Pic1=> Verify the created namespace iti-46 and also adding the new context 
+Pic2=> kubectl config view and see the context added successfuly with the new specs
+
+To make it the currect context kubectl config use-context iti-context
+------------------------------------------------------------
+note: The context 
+A Context bundles three specific pieces of information together into one convenient shortcut
+Cluster, user, namespace
+a Context is simply a saved profile that tells kubectl exactly where to send your commands and who you are when you send them
+-----------------------------------------------------------
+
+2)
+Create a file called kubectl-hostnames inside /usr/local/bin 
+vim /usr/local/bin/kubectl-hostname 
+
+and add inside it this command to see the all hostnames of nodes 
+echo $(kubectl describe nodes | grep Hostname)
+then convert this file into executable 
+chmod a+x kubectl-hostnames
+
+Pic3=> Picture that verify the plugin works successfuly and the command inside the plugin 
+
+
+
+--------------------------------------------------------------
+Notes: dry-run have 3 cases 
+--dry-run=none => this is the default, Kubernetes processes your command, talks to the master server, saves the object into the database, and actually builds the Pods.
+
+--dry-run=client => (The Local Draft) the kubectl tool on your computer generates the YAML configuration locally. It does not send any network traffic to the Kubernetes Master Node.(Best way to get draft for objects)
+
+-dry-run=server (The Pre-Flight Check)your computer actually sends the request to the Kubernetes Master Node. The master server runs all its security checks, verifies the syntax, and ensures you have enough permissions. But it stops right before saving the object to its internal database. It replies back to you saying, "This is valid and it will work when you are ready."
+
+server dry run is too powerfull to find mistakes in yaml or another things for example
+kubectl create namespace iti-46 --dry-run=server => will give me that it is already exists
+--------------------------------------------------------------
+
+3)
+Lets make dryrun to get a draft for deployment.yaml
+kubectl create deployment nginx-dep --image=nginx:alpine --dry-run=client -o yaml > nginx-deployment.yaml
+
+change inside it replicas from 1 into 3 and also add the env FOO=ITI
+
+Pic 4 => Display yaml file of the deployments with previous edits
+
+Lets Apply it 
+kubectl apply -f nginx-deployment.yaml 
+
+
+Pic5 -> Verify it is has been created using kubectl get deployments and kubectl get pods
+
+ Lets check the ENV is successfuly created 
+Join into one of the pods 
+kubectl exec nginx-dep-6cd44c7755-68dzp -it -- /bin/sh
+
+then make echo for FOO 
+
+Pic6=>Verify login into pod and echo for FOO then its print ITI
+
+###########################################################################3
+TASK 3 
+--------
+1)
+ Creating deployment called web which has 2 replicas in iti 
+
+a-kubectl create namespace iti
+Then we create the deployment web 
+b- kubectl create deployment web --image=nginx --replicas=2 --namespace=iti --port=80  
+Exposing the NodePort
+c- kubectl expose deployment web --namespace=iti --port=5000 --target-port=80 --type=NodePort
+
+Pic1=> Verify the Creation of nodeport service and routing 
+
+d&e- Lets make Kubernetes generate SRV record but the port needs a name 
+kubectl edit service -n iti web 
+
+and add name: http 
+pic2=> Edit the service web to have 
+
+Lets create another pod in default and verify the DNS and curl inside it 
+kubectl run nginx-test --image=nginx -n default 
+kubectl exec nginx-test -it -- bash
+apt update && apt install -y dnsutils => download dns utills to test it 
+
+pic3=> verify dns resolution and curl on same external pod in namespace default
+
+------------------------------------------------------
+2)Create name space called iti-46
+kubectl create namespace iti-46
+create 2 deployment Africa and Europe with 2 replicas
+kubectl create deployment europe --image=husseingalal/europe:latest --replicas=2 --namespace=iti-46
+kubectl create deployment africa --image=husseingalal/africa:latest --replicas=2 --namespace=iti-46
+
+Pic4=>VerifyDeployment and pods
+Create 2 services with target port 
+kubectl expose deployment africa --port=8888 --target-port=80 --namespace=iti-46 
+kubectl expose deployment europe --port=8888 --target-port=80 --namespace=iti-46 
+
+Pic5=> Verify the services
+
+add the ip of master node with the domain name world.universe.mine
+Pic 6 => verify adding the ip inside the file of /etc/hosts
+
+Create the yamle file of ingress named world inside namespace iti-46
+
+kubectl create ingress world -n iti-46 --rule="world.universe.mine/europe=europe:8888" --rule="world.universe.mine/africa=africa:8888" -o yaml > IngressXmidware.yaml
+
+if we tried to make apply for this ingress then test curl http://world.universe.mine/europe/
+it will give 404 not found so we need to write middleware first before apply this ingressxmidware.yaml
+ 
+then apply it 
+kubectl apply -f midware.yaml 
+
+now we need to annotate it 
+LSAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+---------------------------------------------
+notes:
+The StripPrefix Middleware Example:
+When you ask for world.universe.mine/africa, the Pod crashes because it doesn't have an /africa folder; it only understands the root path (/).
+
+The request comes in as /africa.
+
+The Middleware intercepts it.
+
+The Middleware "strips" (deletes) the word africa from the request.
+
+The Middleware hands a clean / to the Pod.
+
+The Pod understands /, finds the webpage, and sends it back to you.
+
+-----------------------------------------------------
+Notes:
+When you open your browser and go to http://world.universe.mine/africa/:
+
+Your computer uses /etc/hosts to send the traffic to your Master Node.
+
+The Ingress Controller on the Master Node catches it and hands it to the Africa Service.
+
+The Africa Service says, "I have two pods. One is right here on the Master, and one is over on the Worker."
+
+It picks one at random and forwards the traffic. If it picks the pod on the Worker, the Master node silently routes the traffic over the internal cluster network to the Worker node in milliseconds.
+So it doesn't matter if i add worker ip or master ip inside /etc/hosts
+
+Explain the line of the rule in one sentence:
+If a user visits world.universe.mine and goes to the /europe/ page, grab that traffic and hand it over to the internal service named europe on port 8888.
+------------------------------------------------------------
+
+#############################################################
+TASK 4 
+-------
+1)
+Create directory called task4 
+mkdir /root/task4
+echo "Ahmed Gamal Mohamed - SA INTAKE 46" > /root/task4
+
+creaete pv and pvc then apply them 
+Pic => verify using cat for pv and pvc files
+
+create dryrun for deployment 
+kubectl create deployment nginx-dep --image=nginx --replicas=3 --dry-run=client -o yaml > deployment.yaml
+
+open its file and edit it to have nodeSelector worker and adjust mount volume in the containers and define volume using my PVC
+
+pic 2 => cat the deployment file with these edits 
+
+Pic 3 => Verify using get pods -o wide and also get pv, pvc and curl podIP and also cat the indexfile from inside the pod 
+
+
+2)
+create pvandpvc.yaml 
+pic 1-2) cat of pv and pvc.yaml
+
+creation of deployment that have the arg of pod with mounting specs
+pic2-2) cat of deployment yaml
+
+Verification of downwardapi with get pv,pvc and also get pods and curl  and cat html inside nginx with downward api and appear the information of the pod 
+pin 3-2) verify downward api 
+
+
+
+
+3)
+create file /opt/cm.yaml and add inside it this config map 
+apiVersion: v1
+data:
+  tree: birke
+  level: "3"
+  department: park
+kind: ConfigMap
+metadata:
+  name: birke
+then apply it 
+kubectl apply -f /opt/cm.yaml
+then create config map called trauerweide with env tree=trauerweide
+kubectl create configmap trauerweide --from-literal=tree=trauerweide
+
+pic1-3=>Verify Config maps using kubectl get configmaps
+
+
+LEts create pod using dry run 
+ kubectl run pod1 --image=nginx:alpine --dry-run=client -o yaml > task4-3-pod.yaml
+
+pic2-3=>Verify using cat the yaml file of pod then apply it 
+
+pic 3-3=>Verify ls and grep the environment inside the container using exec
+
+
+
+
+
+
+
+

@@ -1,0 +1,239 @@
+1) Shara7 shwyet history 
+ 
+2) Revision on Container
+
+Container based on namespaces and cgroups 
+
+ex: 
+3nde msln Process1 w lma b3mlha fork l Process 2 
+
+de bte7sl ezay b2a 3n taree2 el system calls 
+
+el systemcalls 3bara 3n el code ely beykhleny a2dr at3aml m3 el hardware
+
+w el system calls b2a zy msln clone aw fork aw 7gat tanya => namespaces
+==========================================
+Cgroup:
+hna a2dr b2a at7km fel fel hardware br7ty b2a y3ne a7ot el process de f cgroup b2a 
+ana mt7gm fel ram bt3to msln aw ay 7ga tnya 
+
+w el Cgroup 2 versions 
+w kan version 2 da en kol el cgroups m7tota f folder wa7ed w leh heirarchy wa7ed bs mo3yan kol el cgroups mbnya beh 
+
+lma kont b3ml new cgroup kan byakhod nafs hierarchy el folders 34an a3dl 3leh 
+
+
+
+feh brdo chroot => en el container ykon m3zol el files bta3o 3n el main host
+===========================================
+
+LXC => Linux container awl nas est8lt el mwdo3 da w 3mlo beh containers 
+bs kan kol el ta7akom kolo 3lek w kant sh8ala production 
+=====================================================
+
+Shar7 7tet el nginx:
+
+el nginx da kan mktob C f ana msln lw 3wz ash8lo h3ml compile lel code bta3o 
+w b3d kda a run el binary ely hyetl3ly
+
+feh b2a no3en lel binary files 
+
+static linked w dynamic linked => wa7ed m3ah kol el libraries bta3to w el tany la (SEARCH forIT)
+
+lma b3mlha run b2a eh ely bye7sl bye3ml msln 
+folder 
+/nginx/root w ybd2 y createe b2a file lib b2a w yakhod el libraries ely hwa 3mlha w y7otha hna b3d kda y3ml chroot b7es eno y2Static Content: Nginx aslan ma3mool 3ashan ykoon wa7sh (saree3 gidan) fe enou y-serve el malafat el static (zay el HTML, CSS, JavaScript, wel swar). Howa mosemam be architecture betkhalih ye3mel da b efficiency 3alya gidan w yeshel traffic kbeer mn 8er ma ysthlk RAM kteer.
+
+Dynamic Content: Nginx mosh byfham akwad dynamic bnafsou (zay PHP, Python, Ruby). 3ashan yesha8al dynamic web pages, byshta8al ka Reverse Proxy. Ya3ny bystlem el request mn el user, yela2ih matloob fih logic dynamic, yro7 ba3to l Application Server tany wraah (zay PHP-FPM, Tomcat, aw Gunicorn) w ystana el nateega. Lamma el app server ykhlas, Nginx yakhod el response w yb3ato lel user.
+
+El Kholasa:
+Ka executable file 3al system howa Dynamic, w ka wazeefa howa by-serve el Static be nafsou, w by-delegate aw by7awel el Dynamic l sol en de el root bt3te mlesh ay 7ga bely bara w byeb2a m2fol 3la nafso 
+
+==============================================
+el BestPractice eny a3ml image optimized f mmken a3ml el base eimage bta3y SCRATCH b7es eno ykon fady wna a7ot feh el filesystem  ely ana 3wzo
+==============================================
+Docker b2a sa3det f mwdo3 el optimization da b2a l2enaha btshel 80% mn tazbet el contianer w kol ely 3lek enk bs tzb2 el image w tkhaleh 3la ad el application bta3k 
+================================================
+
+OCI Open container initiative (De standards lazm tmshy 3leha fel containers lw 3wz t3ml tool tbne feha images)
+
+runtime-spec + image-spec + distribution-spec 
+w b3d m tmshy wra el specs de w el build app bta3k et3ml 
+
+t2dr t3ml beh images 3la standards b2a 
+
+Docker 7alyan btrun el container b enha tkalem containerd w hya bt3ml el contianer 
+
+neshr7 w7da w7da b2a :
+image-spec : de el specs ely ana a2dr a3ml packaging lel container bta3y f file tar.gz
+
+distribution:da elspecs bta3et el hub bta3y shbh dockerhub aw ECR aw ACR mn el akher el mkan ely mwgod feh el images 
+
+run-time:da b2a el specs ely mfrod tmshy 3leha 34an lma twsl lel runc w t2dr t run el container shbah m mashro7 ta7t 
+
+runc => de b2a el code ely beysh8l el container mn el akher aw by3mlo run beyro7 yeshof fille conf.json w da el file ely feh kol el m3lomat el namespaces w el cgroups w eh el container ely ana 3wz ash8lo w kda w ash8lo 
+
+tyb eh el far2 ben runc w el containerd el runc m2drsh aw2fo enma containerd lya ta7akon feh 
+w t2dr tw2fo 
+
+==========================================================
+
+Docker => ( CLI and dockerd) 
+CLI => da ely ana bstkhdmo 
+dockerd => da beyro7 yklm containerd
+
+y3ne msln lw 3mlt run l nginx f containerd b2a hyro7 ykalem containerdshim f el containerdshim tero7 tklm runc w de ely t2wm el container
+
+=========================================================
+What is Interfaces:
+de el functions msln ely service 3amelha 34an yklm service tany 
+
+y3ne msln containerd de lw 3wza tsh8l runc aw ay 7ga tnya leha 3laka bnha t2wd container 
+bet2wm function esmha run_container()
+
+
+dlw2t msln ana lw 3wz a2wm container 3nde kza 7ga msln 
+runc or crun or sysbox w mmken ana a3dl fel function bta3t run_container 34an lw 3wz abd2 bely ana 3wzo 
+
+kol dol kda n2dr n2ol enohom ta7t interface wa7ed fel spec 
+===========================================================
+
+========================
+K8S Cluster Architecture
+========================
+Based on Microservices (Y3ne hya msh service w7da bs la hya kaza service 3la kza server kol 7ga bt3nl 7ga so8yara 
+
+K8S declarative language => y3ne mn el akher ana baro7 aklm el code w hwa byet3aml 
+ana 3wz 5 pods msh haro7 ana ely a2wm el pods la hwa hyetwla el dnya mn el akher fe 2 states w b7awel awdehom l ba3d 
+desired state => actual state 
+
+Takhaya kda en el kubernetes mokawan mn 2 servers awl wa7ed el master wel tany el worker w kol wa7ed feh el brameg ely m7tagha b2a bs brdo mmken ykon mokawan mn kaza worker 3ady mn lazm worker wa7ed  
+
+Master (Control Plane):
+
+controller manager 
+
+Kube-api:
+Feh no3en APIs => (GRPC and REST)
+el kube-api b2a da REST y3ne feh POST w GET w el actions de 3ady 
+ana b2a b3ml file .yaml da feh msln 
+[Name of image,image, memory,cpu]
+
+hayro7 b2a el file da yekalm el kube-API using POST 
+f el api by3ml POST request bel pod de b2a w beykhazn el kalam da 3ndo f database de esmha eh b2a (etcd)
+
+tyb dlw2t hal el pod 2amet la lsa w ha3ml GET bel pod de lel api 34an a3rf el status hy2ole f3ln ana 3nde el pod de bs lsa ma2ametsh 
+
+
+
+etcd:database => Key value store bs y3ne msln 3al example ely fo2 
+el key bta3y msln nginx w el value kol el ma3lomat ely fle file da
+
+scheduler:(Loop sh8ala 3latol)
+da beyro7 yklm el api kol moda mo3yana w y2ol lel api hal enta 3ndk pod 3wza tesht8l 3la server mn el cluster bto3y w hwa ely beykarar htesht8l 3la anho worker w yshof el specs bta3et el pod ely hyakhodha mn el api w ye7aded anho worker aw node hy7otha feh 
+w by3ml update lel jsonfile bta3 el pod bs w yezawed esm el worker ely hyesth8l 3leeha msln worker2 w yerg3 yraga3ha lel api tany 
+
+ana a2dr a7ot el node name mn nafsy f kda el scheduler msh hy2om 3leha l2eny ana hkon m7dedlo el node
+
+el scheduler da b2a msh bey2wm 7ga da bs beyklm el api w y7ddlha el worker aw el node el api yakhodha mno tany w yrg3 y7ot fle etcd 
+
+control manager:(Loop sh8ala 3latol)
+
+da beyro7 yklm el api hal enta 3ndk deployment object mwgoda y2oly ah 
+y2om ray7 yshof el deployment 
+de yla2y feha el rpelicas 3dadha ad eh yela2y msln 5 
+y2om ray7 yes2l el API tany hal enta 3ndk 5 pods asln 2aymen 
+y2oly la2 
+f y2om hwa b2a y3mle create json files  lel 5 pods de w yerg3 lel api y2olo khod y basha w el scheduler b2a yerg3 yshed mno w el lafa tlf tany l7d m el pods t2om 
+
+Eh ely beykon fle deployment object b2a 
+deployment object=> 
+name: nginx
+image: nginex:alpine
+replicas: 5
+==============
+example tany
+tyb msln lw ana kont 7atet fel deployment file 4 w lafet lafetha 
+w 3ml creaete lehom b3d kda khalet el rakam fel deployment da 5 
+f hye3ml creeate lel zyada w ylef lafeto mn el akher hwa hyakhod 3adad el pods mn el api hyla2ihom 4 f hayzwd w7da 
+==============
+example talet
+lw b2a feh 3adad pods aktr mn el repelicas b2a f eh ely bye7sl y3ne msln lw 3ndee 5 pods aymen w 3 replicas f zy m3arfen le controler manager beyklm api y2olo matwreny el deployment eely 3ndk f beyla2iha 3 msh 5 f beyes2lo enta 3ndk kam pod taba3 el deeployment de f yla2y 5 f y2om mase7 el 2 el zyada hal kda hma etms7o mn 3la el worker asln ? la lazm el kubelet hwa da ely beyro7 yems7ha mn hnak b2a mn el akher haykalm api hye3rf elpods ely mfrod t2om f hye3rf en feh etnen fel server 3nde msh sh8alen f y2om memawethom w mase7hom fel worker bta3o 
+===============
+
+
+
+
+
+
+================
+Worker contains of 3 components=> dol el applications ley ms2ola enha t2wm el container)
+=================
+Kubelet : da b2a mas2oleto eno yero7 yes2al el api hal 3ndk pod feha node name worker bta3y ely hwa kan shbh el mesal ely fo2 worker2 
+lw la2a pod kda f bey2ol lel api ana mas2ol b2a 3nha sebhaly f beyro7 yzbt el specs bta3et el pod dee 34an t3rf teekalm el containerd 
+w b3d kda beyro7 yklm containerd 34an y2wmha b2a 
+mn el akher el kubelet shbah lma kont b3ml docker run 
+bs msh beysebha b2a la da byefdl ytabe3 el containerd l7ad m y2wmha 
+b3d kda yero7 ye3dl fle jsonfile yekhale el status run w yerg3 lel api yedelo el updates de b2a w el api yeraga3ha lel etcd 
+
+
+
+K-Proxy:
+de mas2ola 3an 7ga tanya esmha services (Hnetklm 3leha b3den) 
+
+Container engine (containerd):
+da b2a bysm3 mn le kubelet w beyro7 y2wm el pod b2a shabah m kan mashro7 fo2 b2a l7d el m yklm el crun w y2wm el container 
+=========================================
+Note: el etcd mn fawaydo eno feh resource versioning 
+mn el akher kol t3deel bye7sl 3la json file da fel lafa bt3to aw lw ana 3delt 3leh bye3ml versions w lazm ay ta3del y7sl ykon 3la akher version lw esht8lt 3la version adeem beyrg3 error w y2olk esht8l 3la akher version mwgoda 34an myenslsh conflict ben el lafa ely bt7sl de 
+=========================================
+Installers vs Distros
+installers=> zay kubeadm(default) aw KOPS aw Kubspray
+distros => da brdo bey7ml el kubernetes bs b flavor mokhtlf 
+zay msln K3S w da ely hnesht8l beh 
+da b2a 7at kol el components bta3et el master msln f bin wa7da bs w betsh9lha 3latol 
+minikube: da k2no bey2wm virtual machine w bey7ot 3leha el kubernetes
+Kind => da kubernetes in docker 
+
+==========================================
+Installing the kubernetes in hardway 
+
+https://github.com/kelseyhightower/kubernetes-the-hard-way
+
+mohem agarab el hardway 34an a3rf el dnya w kol 7ga 
+===========================================
+Installing Kubeadm and Kubernetes and Kubectl
+
+el khatawat ktir bs kol ley ana 3wzo eny mansash a3del el version from 1.31 into  1.34 w adrab el script 3la ubuntu w zay el fol 
+
+w el a7sn brdo search for each command what is it doing.
+
+w brdop f el cluster configuration lazm akhale el versio 1.34.6 da ely sh8alen 3leh w azbt el ip brdo bta3et el server 
+==================================================
+LAB
+Installing kubernetes (10 points)
+a. Create 2 virtual machines
+b. On the first server install kubernetes v1.34.6 using kubeadm
+c. The first server should be the controlplane server
+d. Run the pod networking CNI (flannel)
+e. Join the second server as a worker node using kubeadm
+
+Using kubectl run the following deployment on the cluster (10 points)
+
+(bonus) using k3s redo the whole lab to install one server and one agent node and make sure that nodes are up and running (5 points)
+
+=====================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
