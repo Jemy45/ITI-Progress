@@ -51,7 +51,14 @@ curl -vk https://<SERVER_IP>:6443
 If this fails, open port **6443/tcp** in the firewall:
 
 ```bash
-firewall-cmd --add-ports=6443/tcp
+firewall-cmd --add-port=6443/tcp
+```
+
+To keep it after reboot:
+
+```bash
+firewall-cmd --permanent --add-port=6443/tcp
+firewall-cmd --reload
 ```
 
 After joining, verify nodes:
