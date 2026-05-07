@@ -1,0 +1,165 @@
+grep: 
+-i => ignore 
+-w => --word-regexp => same as the whole word 
+-v => invert 
+-n => line number 
+-A => tgeb el 7ga w kam satr b3do 7asab el raka -A3 or -A2
+-B => el satr ely b3do 
+-R => recursively
+-F => Fixed String
+Search for rest 
+
+In man grep 
+Basic vs Extended Regular Expressions
+In basic regular expressions the meta-characters ?, +, {, |, (, and ) lose their special meaning; instead use the backslashed versions ?, +, {, |, $, and $.
+
+y3ne fel basic regular expression el 7gat ely fo2 de mlhash m3na f lazm astakhdm -E 34an yesama3o 
+
+el regular expression used 34an t manipulate ay text document(text processing):
+^ => match line ely btbd2 bel klma ely katbha
+$ => match line ely byenthy bel word ely ana 7atetha 
+. => match any one character ls file* | grep -w file.. 
+[] => match range arkam b2a  ls file* | grep -w file[2-7] or [2379]
+      from 2 to 7 or 2,3,7,9
+[^]=> [^123] => y3ne hygeb kol el files ely mfhash 1 wla 2 wla 3   
+[-]=> range
+?=>  match letter or zero letters y3ne feh 7arf aw mfesh 7ga 
+   ls fil* | grep -w file"?" => el command da kda msh hyesht8l leh 34an el ? de extended regular expression f lazm astkhdm -E => ls fil* | grep -w -E file"?" 
+
+ls fil* | grep -w -E file"(ee)?"  => de kda hatgeb y ema feha ee y ema mfish f output kda => filee w file
+
+ls fil*  |grep -w -E file"[1-9]{5,7} hna hygeb ay rakam mn 1 into 9 feh mno 5 ela 7 mrat y3ne file42157 
+
+| => alternation y3ne ya ema de y ema de 
+   ls fil* | grep -w -E file"([3-5]|[8-9])"
+
+far2 ben el * w el + 
+* => zero or more hy3ne y ema mfesh y ema more laken msh beygeb one => fil,filee,fileee
++ => one or more y3ne de msln hatgeb file, filee, fileeee
+\ 34an y3ml skill le special character msln kda 
+ls fil* | grep -w -E file"\.[a-c]
+de 34an el . my7sbhash special character w y match ay 7arf mkanha f beyfwtha 
+ls fil* | grep -F file"." de hatala3le nafs ely fo2 ana kda b2olo el . de fixed string mtbosesh 3leha 3la enaha regular expression 
+
+================================================
+So2al el grades a7elo bel case w bel if 
+==================================
+Example on Select and Case 
+#!/bin/bash
+PS3="mysql:>?"
+select choice in Install Update Delete  Exit
+do
+
+case $choice in
+Install )  echo  "installing in prog"  ;;
+Update)    echo  "updating in prog";;
+Delete)    echo  "Deleting in prog";;
+Exit)      echo  'thank you :)' ; exit   ;;
+*)         echo  "$REPLY isnot valid choice , please enter valid choice numbers[1-4]";;
+
+esac
+
+done
+===============================================
+Example on  Continue=> beywft el lafa ely hwa feh w beykml el loop
+ break=> yekharagne bara el loop
+exit => beykharagne bara el script 
+#!/bin/bash
+
+for i in {1..20}
+do
+
+if [ $i -eq 4 ] || [ $i -eq 6 ]; then continue  ;fi
+
+echo welcome $i
+
+if [ $i -eq 12 ] ; then break  ;fi
+
+done
+
+echo  after loop
+exit
+echo after exit
+
+====================================================
+Search about what is the difference between Globbing and Regex inside Regular Expressions
+=======================================================
+Search more about shift 
+================================================
+function add
+{
+Commands
+} 
+
+Or 
+add() 
+{
+Commands
+}
+
+
+Example
+#!/bin/bash
+
+add ()
+{
+  let sum=$1+$2
+  echo $sum
+}
+
+function sub
+{
+let diff=$1-$2
+echo $diff
+
+}
+export -f add
+export -f sub
+Dol 34an yetshafo lma baft7 subshell 
+
+
+Inside Main 
+source ./funcs
+A=$1
+B=$2
+
+echo sum of $A and $B is=$(add $A $B)
+
+echo -n  diff of $A and $B is =
+sub $A $B
+
+mmken brdo b2a a3ml source fel .bashrc f kda hatetshaf 3ady b2a lma astakhdmha kda 
+add 
+
+=========================================================
+Variable definitions inside the Fucntions 
+
+#!/bin/bash
+
+var1='A'
+var2='B'
+
+my_function ()
+{
+  local var1='C'
+  var2='D'
+  var3='E'
+  local var4='F'
+  echo "Inside function: var1: $var1, var2: $var2  var3: $var3, var4: $var4"
+}
+
+echo "Before executing function: var1: $var1, var2: $var2  var3: $var3, var4: $var4"
+
+my_function
+
+echo "After executing function: var1: $var1, var2: $var2  var3: $var3, var4: $var4"
+
+
+Output:
+Before executing function: var1: A, var2: B  var3:  , var4:
+Inside function: var1: C, var2: D  var3: E, var4: F
+After executing function: var1: A, var2: D  var3: E, var4:
+bayen en after exec en var 3 ana 3rfo global bs gwa el function f 34an kda b2a el value bta3y E
+
+=======================================================================
+Search for returning values b2a 34an tb3t 

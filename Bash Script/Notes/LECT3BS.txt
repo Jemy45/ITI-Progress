@@ -1,0 +1,294 @@
+SED Explanation:
+
+sed " command " 
+
+command is divided into 2 parts 
+address: pattern, line number, range, regex
+action: Search & replace(Substitute) (s), Print(p), Delete(d), Append(a), Insert(i), Replace line(c), Numbering lines (count)(=)
+
+sed -option " command "
+
+-i    Edit the file in-place (overwrite)
+-n    Suppress automatic printing of lines.
+-e    Allows multiple commands.
+-f    Reads sed commands from a file.
+-r    Use extended regular expressions.
+
+eg::
+Hna msh bey3dl 3la el file hna bs bye2ra w yetba3 el ta8yer 
+sed 's/unix/windows' file.txt => kda hwa hymshy 3la kol satr hy8r awl unix bs b windows 
+
+c => replace all unix with windows
+
+sed 's/unix/windows/2' file.txt => estabdel el tanya bs 
+
+sed 's/unix/windows/2g' file.txt
+
+34an el ta3del ysm3 fe file b2a 
+1) using redirect sed 's/unix/windows' file.txt > file2.txt
+2) use option -i to overwrite  sed -i 's/unix/windows' file.txt
+
+To ignore case: add option /i if you used /ig then ignore and replace all occurrence of unix
+sed 's/unix/windows/i' file.txt
+
+To choose specific lines 
+
+sed '1,3    s/unix/windows' file.txt => kda mn el satr el awl lel talet bs ely ybos fehom 
+
+sed '/iti/   s/unix/windows' file.txt  => 3adel f ay satr feh klmet iti 
+
+sed '/^iti/   s/unix/windows' file.txt  => 3adel f ay satr byebd2 b iti 
+
+sed '/iti$/   s/unix/windows' file.txt  => 3adel f ay satr byentehy b iti 
+
+Example on regex with sed:
+
+When i use extended regular expression i should use -r if it is basic no need to use -r 
+[romany@mypc dl]$ ls fil* |grep -w fil"e*"  |sed  -r  '/file{4}/      s/fil/tessssssst/g'
+fil
+file
+file.1
+file.2
+file.a
+file.b
+file.c
+filee
+fileee
+tesssssssteeee
+tesssssssteeeee
+tesssssssteeeeee
+tesssssssteeeeeee
+tesssssssteeeeeeee
+
+
+Printing:
+sed 's/unix/windows/p' file.txt => hyetb3 kol el sotor w hteb3 el sotor ely 7sl feha ta8yer f kda hye7sl duplication 
+
+sed -n 's/unix/windows/p' file.txt => option n msh hykhaleh yetb3 f kda ely hyetba3 belzbt hma el lines ely 3mlt fehom ta3del bs 
+
+
+Delete:
+sed '/iti/ d' file.txt => hams7 el sotor ely feha iti w mmken brdo ^iti, iti$ 34an ashel el sotor ely btbd2 w ely btnthy b iti 
+sed '1,$ d ' file.txt => hna ana hams7 msln mn el satr el awl lel satr el akher 
+
+multiple commands:
+sed -e '1 d' -e '$ s/unix/winnnn' -e '3 /unix/tesst' file.txt
+hyems7 awl satr w hayshel unix mn akher satr w y7ot winnnn w y8ar unix b test fel satr el talet 
+
+
+Use action file 
+action file content:
+1	d
+$	s/unix/winnnn
+3	/unix/test
+
+sed -f actionfile file.txt 
+
+Append:
+sed '$ a test' file.txt
+
+hna hye3ml append => a => hy7ot satr b3d akher satr w hyektb feh test 
+Insert:
+sed '$ i test' file.txt  => hy7ot abl el satr el akher satr feh test 
+
+replace 
+sed '$ c test' file.txt => replace el satr el akher b satr feh test bs
+
+Numbering:
+
+sed '$ =' file.txt => hyetb3le rakam el satr el akher w ba2y el lines lw msh 3wz atb3 kol el sotor astakhdm -n 
+
+sed -n '/^L/ {=;p}' file.txt =>hyetb3 el satr ely byebd2 b 7arf el L w hygeb rakamo 
+
+B3d kda 3mal 2 examples 3la el sed f bashscript
+
+=================================================================
+AWK => Programming language 3ndha lo8a khasa beha w a2dr a manipulate beha el reports w el texts 
+awk 'BEGIN { i=0 } { i++ } END{ print i}' file.txt
+
+ezay sh8ala b2a  
+beyro7 3nd el begin w ybd2 yenafz el commands w b3d kda yewsl lel end w yekhalas 
+tyb dlw2t kol 3 parameterers(Begin,Command,End) de optional mmken aktbha aw asbha fadya 
+
+el line ely fo2 da by3ml eh bey3ml calculate lel total lines f file.txt
+
+
+RS(record separator)='\n'=>bye2ra el file line by line w bye3tbr kol line f dol record  
+dlw2t lw el file bta3y msln kda 
+LINE1
+
+LINE2
+
+w hakaza ben kol satr feh satr fady f ana lazm kda a3dl el RS eno ykon \n\n w hakaza b2a 
+
+ORS="\n" da output record separator bta3 el teba3a w a2dr a8yr f el value bta3to 34an a2dr at7km f shakl el report ely ana 3wz atala3o  
+
+-F or FS = space or tab 
+ba2asem el lines or records l kza fields 3la 7sb el space aw el tab 
+
+F1 F2	F3 F4 => da kda msln record 1 w feh 4 fields 
+
+OFS => da output field separator w a2dr a8yro br7ty 34an el tba3a 
+
+$0 => da el content bta3 el record ely ana wa2ef 3ndo 
+$1, $2, $3 => da feh content el fields 7asab el rakam b2a el field el awl wla el tany w hakaza
+NR => da rakam el current record 
+NF => number of fields per record 
+
+===================================================================
+Example 
+
+awk  '{print $0}'    /etc/passwd => da kda hye2ra el mlf l2eno hy3de 3la record record w y3mlo print  
+
+awk  '{print NR,$0}'    /etc/passwd => da kda hyetb3le el record mtrkm b2a 
+
+awk '{print NR,NF}' /etc/passwd => da hyetb3 kda arkam el record w el number of fields f kol record w hanla7z en el fields =1 l2en el default FS= space f shafo field wa7ed 
+
+awk -F:  '{print $1,$3}' /etc/passwd => hna b2a ana 8yrt el FS le : w hyetb3 el field el awl w el field el talt bs 
+
+awk 'BEGIN {FS=":"} {print $1,$3}' /etc/passwd => da shbah ely fo2 bs 3rft el variable fel begin w lw ha3raf kaza 7ga ha7ot bemho semi colon 
+
+awk ' BEGIN{ORS="\n\n"} {print NR,$0} ' /etc/passwd => da kda hye2ra el file kolo w hyrakamo w hay7ot ben kol record wel tany satr ziada f hala2y en 3adad el sotor etda3ef 
+
+lw khadt el output da 3la file msln f2 
+
+w 3wz a2rah 3dad el sotor el asasya msh el de3f h3dl fel RS b2a l2en da el input record separator 
+
+awk 'BEGIN {RS="\n\n"} {print NR, $0} ' /etc/passwd 
+
+tyb msln lw 3mlt kda 
+awk 'BEGIN {RS="\n\n";ORS="----"} {print NR, $0} ' /etc/passwd
+
+kda w hwa bye2ra hyera ezay hye2rah shbh ely fo2 y3ne hyefks mn el line el fady w el ORS da b2a fel tba3a hyetb3 ezay h7ot ben kol record wel tany ------ w hyetb3ha 
+
+ 
+awk 'BEGIN {FS=":";OFS="***"} {print $1,$2,$3} ' /etc/passwd
+kda hye2rah w hy2sm el field 7sb el colon w hyetb3o ben kol feild w el tany mn ely hyetb3hom hy7ot ***
+
+
+awk 'BEGIN {FS=":"} {print $1"--"$2"\n"$3} ' /etc/passwd => hna b2a ana ha3mlha khaltabeta b2a ben el field el awl w el tany h7ot -- w ben el field el tany wel talet ha7ot satr zyada 
+
+===================================================================================
+
+Example using Condition inside the awk 
+awk  'BEGIN {FS=":";max=0;line=""}    {if ($3>max) {max=$3 ; line=$0} }  END{print max,line}' /etc/passwd
+da hna hy3ml print lel user ely 3ndo maximum id w el line bta3o 
+
+awk  'BEGIN {FS=":"}    {if ($3==1000 || $3==1035) print $0 } ' /etc/passwd
+hna hyetb3 el satr ely el id bta3o 1000 aw 1035 
+
+=======================================================================================
+Da example 3la for loop
+[romany@mypc ~]$ awk  'BEGIN {FS=":"}    {if ($3==1000 || $3==1035) {for ( i=1 ; i<=NF; i++)print $i ; print "*******************"} } ' /etc/passwd
+romany
+x
+1000
+1001
+romany nageh
+/home/romany
+/bin/bash
+*******************
+ahmed
+x
+1035
+1036
+
+/home/ahmed
+/bin/bash
+*******************
+
+mn el akher el loop btl8bt leh l2en ana bamshy f loop gwa loop y3ne awk asln byemshy loop 3la el file 34an y3de 3lakol record 
+kol record da b2a ana ha3ml 3leh condition  ely ana 3amelha ely hwa hal el id beysawy 1000 aw beysawy 1035
+lw ah y3ml 3la el record de for loop b2a ymshy 3leha 3adad Number of fields w f kol mra yetb3 el field da w b3d ma ykhalas el for loop yetba3 ********** w b3d kda yro7 lel record ely ba3deh w hakaza b2a  
+==============================================================
+
+For passing variables 
+extvar=5
+awk  -v uid=$extvar  'BEGIN {FS=":"}    {if ($3==uid) { print $0} } ' /etc/passwd
+
+####################################################################################################
+####################################################################################################
+ARRAYS
+Two types:
+Indexed array => mtrkma 3ady w el index bey3ed mn 0 zay ay array 
+Declaration: declare -a my_array 
+Define: my_arrau[0]=foo , my_array[1]=bar
+Printing: echo ${my_array[*]}  => da hyetb3 kol 7ga 
+~~~~~~~~~~~~~~~~~FULL CODE ON IT~~~~~~~~~~~~~
+#!/bin/bash
+
+declare -a my_array
+#my_array=(foo bar)
+
+my_array[0]=foo
+my_array[1]=bar
+echo elems of array = ${my_array[@]}
+
+for elem in "${my_array[@]}"; do echo "$elem"; done
+
+my_array[5]=SA
+my_array[6]=Alex
+my_array[4]=46
+
+echo used keys=  ${!my_array[@]} => de hatgeb el indexes ely mstakhdama 0 1 4 5 6
+
+for index in "${!my_array[@]}"  => hna b2a h loop 3lehom  w hatb3 kol index feh eh 3ady 
+do
+echo  elem at index $index is = ${my_arr[$index]}
+done
+echo "the array contains ${#my_array[@]} elements" => 34an ageb el size 
+
+my_array+=(baz) => de ht3ml append 3la el array f htenzl f index rakam 7 
+my_array[0]=(test) => hye3ml overwrite 3la ely mwgod
+my_array+=(foo bar test sss) => da kda hydef 3dad elements fel array br7ty w hyenzlo wra b3d 
+unset my_array[1]  => de hatshel el index de w htms7o 
+---
+El index ely mfhash values msh hatala3 null wla ay 7ga 7ta lw taba3tha 
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+associative array => de b2a betkon key w value y3ne msln intake:46, name:ahmed kda y3ne 
+Declaration: declare -A my_Array
+nafs kol khatawat ely fo2 belzbt bs btfr2 fel ta3ref hna b2a m3ndesh index 3ndo key 
+
+f lma a3ml initialize msln lazm a7ot el key 
+my_array[job]='system engineer'
+unset my_array[job] => de htms7 el key da bel value ely feha 
+
+
+---------------------------------------------------------------
+Debugging: betkhaleny eny ashof el command abl m y3mlo execute w bt3ml substitute b ay variable 34an ykon zaher osady bel arkam 
+lw kateb code w feh moshkla logical msh syntax f ana msh hakhod baly mnha f balga2 lel debug b2a 
+y3ne msln lw 3wz a3ml debug lel line mo3yan 
+Inside Bash Script 
+set -x
+specific line
+set +x 
+
+w lw 3wz a debug 3la el script kolo a3molo run kda 
+bash -x ./script aw a7ot set -x f awl el script 
+
+A single + means the command is executing normally in your main script.
+A double ++ (or more) means the command is running inside a nested subshell, such as a command substitution ($()) , adding an extra + for every level of depth..
+
+============================================================================
+whiptail: de b2a 3bara 3n GUI box byezhrle b2a 3ady shabah el nmtui (nmtui constructed using newt)
+y3ne ana m7tag a7ot buttons aw text box aw radio box kda y3ne w astakhdmha w mmken a3ml beha menu shabah m kona 3mlnaha bel select 
+(SEARCH ABOUT ITS SYNTAX)
+*********************************
+TASK: Make this using SELECT or whiptail (Dead Line yom 25)
+Add User          Add a user to the system.
+Modify User       Modify an existing user.
+Delete User       Delete an existing user.
+List Users        List all users on the system.
+Add Group         Add a user group to the system.
+Modify Group      Modify a group and its list of members.
+Delete Group      Delete an existing group.
+List Groups       List all groups on the system.
+Disable User      Lock the user account.
+Enable User       Unlock the user account.
+Change Password   Change Password of a user.
+About             Information about this program.
+********************************************
+
+

@@ -1,0 +1,320 @@
+Bash script is interpreter run line by line not a compiler
+
+
+Steps for Creating the script ?
+1) Create empty file 
+#!/bin/bash  or #!/bin/python3  3ala 7sab ana hasht8l eh 
+ay satr tany feh hash hyeb2a comment 
+2)Make the file executable
+chmod u+x => for me 
+chmod a+x for all 
+
+3)Run the script 
+
+Manual => using path => abs or relative using bash or source or . w de hya alias lel source asln 
+automated=> using crontab if it is repeated, at if it one time job 
+
+===============================================================
+Example for Variables
+
+x=5 
+./sc1=> echo $x =>hna ya tara hal sc1 hykon shayf el x ? 
+la 
+
+leh l2en ana lma b run el script kda byeft7 shell gdida w smh byeshof variable x da 
+
+--------------------------------------------------
+1)Source
+x=5
+y=7
+
+source ./sc2 =>echo $ x   => el tare2a de ka2eno msh hft7 subshell tnya f de tare2a l7al el moshkla ely fatet w hyetb3 kda el x 
+
+2)script args (Predefining variables)
+
+x=5
+y=7
+
+./sc2 $x $y => tyb gwa el script hastakhdmhom ezay ??
+
+inside sc2 => $1 da beykon shayf value el x w $2 da beykon shayef y w hakaza 
+
+3)export (bey7wl el variable mn local variable into environment variable)
+x=5 
+x=7 
+export x
+export y
+./sc2  
+faydet export enha t3ml inherit lel parent 3la el subshells w ay subshell hyet3ml hykon feh nafs el variables ely 3nd el parents
+
+===================================================================
+bash btft7 subterminals gdida 
+
+w 34an a3rf 3dad el terminals msln 
+pstree | grep bash => hala2y kol bash mfto7 mnha kan subbash w lma b3ml exit by2l el 3adad 
+
+pgrep bash => da b2a beygble id lel bashes kolha ely fate7ha 7ta lw f new terminal 
+
+===============================================================
+katab example lely fo2 b2a 
+sc1
+--- 
+#!/bin/bash 
+x=5
+y=7
+./sc2
+----
+sc2
+---
+#!/bin/bash
+echo value of var x is = $x 
+
+w bada2 ygrb el 3 methods b2a 
+=================================================================
+
+Arth OPS 
+1) Let
+x=5
+y=7
+let z=$x+$y
+
+
+2)typeset
+typeset -i z=$x+$y
+
+3) ((   ))
+((z=$x+$y))
+
+ana kda lw 3malt echo lel z hyeb2a arth ops w hyetb3 12
+
+==================================================
+command substitution:
+echo today date is $(date)  el date elp tanya de command 
+or use this `date`
+
+Variable substitution:
+state=cal
+echo ${state}lifornia => hyetb3 California 
+
+===================================================
+ENVIRONMENT VARIABLES:
+initialized in startup files w feh startup files btetnfz f login shell w el non login shell 
+
+Login shell VS non login shell VS nologin shell 
+
+nologin shell => hna mye2drsh yeft7 interactive shell mmken msln a3mlha k apachi user msln l2eny msh m7tag feh interactive shell 
+
+
+Startup files :
+
+User Specific: bashrc, bash_profile
+
+Global: /etc/profile, /etc/bashrc => Search for difference between them 
+
+shara7 el difference between bash_history, bash_logout, bashrc, bash_profile
+el bash_profile => da beykon feh if contiditon bey3ml run lel bashrc w byetnfz el malaf da awl m baft7 shell lel user da w a2dr a7ot feh environments variable ely ana 3wzha aw paths scripts b2a 
+
+Bash_logout: byetnfz w2t m b3ml logout mn elshell bta3et el user de 
+
+bashrc=> bye3ml check lw mwgod el /etc/bashrc w ysha8alo w beyzbt el environment PATH (Search more about it)
+
+
+non login shell =>when i login using gnome (GUI), su, run script
+lma bft7 el non login shell beyrun el files de beltarteb 
+1)~/.bashrc
+2)/etc/bashrc
+
+login shell => when i login through ssh or console (tty1) or su - or su -L
+lma bft7 login shell beynafz el files de betarteb 
+1) /etc/profile
+2)~/.bash_profile
+3)~/.bashrc
+4)/etc/bashrc
+
+
+el far2 ben su - w su 
+su - => bey7rkne 3al home bta3 el user ely ray7lo w bye3ml clear lel environment variable w ybd2 y run el files tany w y3ml initialize tany 
+
+su => beyefdl wa2f fel makan ely hwa wa2ef feh w bye3ml run lel files 3ady bs msh bye3ml clear lel environment ely adema la beyzwd 3leha elgida ely fel files ely be2wmhmha 
+
+===============================================
+echo $PATH
+
+PATH da environment variable feh kol el paths bta3et el bin files /usr/sbin w el /bin w 8erhom b2a 
+
+lw 3wz el scripts bt3te yt3mlha run ka command mmken a7otha f ay folder fel PATH y ema a3ml folder w adefo fel path 
+
+================================================
+username@hostname:... 
+
+echo $PS1 => \u@\h \W
+da ely byezhr 3nde 3al shmal fel terminal shbh ely fo2 
+f mmken a3dl feh 3ady b2a br7ty lw 3wz shakl mokhtlf w lw 3wzha sabta b2a 
+a7otha fel bashrc
+====================================================================
+LS_COLORS => el alwan ely btezhrle fel ls w a2dr al3b feha 
+====================================================================
+Tutorial you can read from it 
+https://ryanstutorials.net/bash-scripting-tutorial/
+=====================================================================
+If Condition:
+
+IF [  ] Then;
+here is the code 
+
+FI
+
+IF [  ] 
+Then
+here is the code 
+
+FI
+
+IF test command 
+Then
+here is the code 
+
+FI
+
+IF [  ] 
+Then
+here is the code 
+
+else or elife 
+
+FI
+
+feh b2a el operations search for it inside the if (de el ekhtyarat ely b7otha gwa el f y3ne msln check 3la file msln existance b3ml -f w 7agat ktir b2a )
+=======================================================================
+
+Assigning Values to Variables: 
+
+Explicit VAR=Value 
+read VAR 
+
+read -p 'please enter your name' name 
+w a7ot el esm w hyetkhazen el esm da f name 
+
+command substitution VAR=`date`
+=======================================================================
+Quoting: 
+single forward quotation: bt3ml ignore l ay 7ga gwaha lw feh metacharacters gwaha 
+
+double quotation: feh 7gat msh byet3mlha ignore zay el $ ' \ 
+
+\: used to skip the character after it 
+cost=50
+echo total=\$$cost
+
+========================================================================
+lw 3wz at3aml m3 el arkam el float ana hab3t leha el operation w hwa hye3ml el operation 
+
+echo $a+b$ | bc w hya hayrg3le el summation bta3 el rakamen el float 
+
+=======================================================================
+typeset leha b2a option ktir dawar feha 34an ezay a declare el variables beha 
+=======================================================================
+Predefined Variables:
+
+
+#!/bin/bash
+echo The name of the script $0
+echo The first argument $1
+echo The second argument $2
+echo the number of arguments $#
+echo the list of arguments $* or $@  => eh el far2 ben '' w el "" lma bstakhdmhom m3 de 
+echo last arg  "${@: -1}"
+
+$?  de btrun akher command w betrg3 return code 0 y3ne succeded ay rakam tane l7d 255 y3ne failed w l asab mo3yana 
+
+mkkkkkdir /rooot/xyz
+echo "return code of last cmd" $?
+
+de msln hatrg3 127 f y3ne failed w lw permission denied aw el directory msh mwgod f hatrg3 1 
+
+=====================================================================
+Search for Cut command to use it in the task 
+grep -v sbin /etc/passwd |cut -d : -fl
+root
+romany
+ali
+=======================================================================
+0-write addusers script ./addusers suffix count outfile.txt(username ,password)
+1-write addusers script ./addusers suffix start End outfile.txt
+
+2-write addusers script ./addusersfromfile data.csv outfile.txt (username ,password ,email)
+3-write grade script
+4-sendmail.sh script ./sendmail outfile.txt logfile
+
+==============================================================
+Answer of first Question:
+#!/bin/bash
+# this script to do ..1-write addusers script ./addusers suffix start End outfile.txt
+suffix=$1
+start=$2
+end=$3
+outfile=$4
+
+username=$(echo ${suffix}${i})
+########check if user exist############
+id $username &>/dev/null
+while [ $? -eq 0 ]
+do
+username=${suffix}${RANDOME}
+id $username &>/dev/nulls
+
+done
+#######################################
+for i in $(seq $start $end)
+do
+username=$(echo ${suffix}${i})
+useradd $username
+pass=123  => Search for random generating password 
+echo $pass |passwd --stdin $username > /dev/null
+chage -d 0 $username ==> de betforce en el user y3ml change lel password b3d awl login 
+echo $username,$pass >>$outfile
+
+done
+
+ lw hakhod el 7gat mn csv lma a2raha k notepad aw ay 7ga f hala2y ely fare2 behom comma 
+
+
+#!/bin/bash
+outfile=$2
+inputfile=$1
+while read myline
+do
+  fname=$(echo "$myline" |cut -d"," -f1)
+  email=$(echo "$myline" |cut -d"," -f3)
+
+  username=$fname
+########check if user exist############
+id  $username  &>/dev/null
+while [ $? -eq 0 ]
+do
+username=$fname$RANDOM
+id  $username  &>/dev/null
+
+done
+#######################################
+useradd -c "$email" $username => -c y3ne hadef command fel khana rakam 5 f /etc/passwd w ha7ot feha el email 
+pass=$(openssl rand -base64 10)
+echo $pass  |passwd --stdin  $username  >/dev/null
+chage -d 0  $username
+echo $username,$pass, $email >>$outfile
+
+
+so2al el grades b2a mn 50 le 70 w mn 70 l 85 w kda 
+w feh lab tany etrf3 
+==============================================================
+
+
+
+
+
+
+
+
+
+
+
